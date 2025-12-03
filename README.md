@@ -103,17 +103,55 @@ npm start
 
 ## 📸 **UI Preview**
 
+### 🏠 **Home Page **
 ![Home Page](./screenshots/homepage1.png)
 ![Home Page](./screenshots/homepage2.png)
-```
+
+---
+
+### 🌟 **Services (5 Screenshots)**
+
+![Fashion Suggestion](./screenshots/service1.png)
+
+![Health Tips](./screenshots/service2.png)
+![Health Tips](./screenshots/service2.1.png)
+
+![Daily Routine](./screenshots/service3.png)
+
+![Skin & Hair Care](./screenshots/service4.png)
+
+---
+
+### 🤖 **Service Content (2 Screenshots)**
+
+#### 8. AI Chatbot Screen
+
+![Chatbot](./screenshots/service-chatbot.png)
+
+#### 9. Quiz Interface
+
+![Quiz](./screenshots/service-quiz.png)
+
+---
+
+### 💖 **Favorites & Contact Pages (2 Screenshots)**
+
+#### 10. Favorites Page
+
+![Favorites Page](./screenshots/fav.png)
+
+#### 11. Contact Page
+
+![Contact Page](./screenshots/contacs.png)
+
+---
 
 ---
 
 ## 📬 **Contact**
 
 For queries or feedback, contact:
-📧 **your email**
-📱 **your phone (if you want)**
+📧 **vedikavakhare@gmail.com**
 
 ---
 
