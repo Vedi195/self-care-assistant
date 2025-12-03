@@ -103,13 +103,13 @@ npm start
 
 ## 📸 **UI Preview**
 
-### 🏠 **Home Page **
+### 🏠 **Home Page**
 ![Home Page](./screenshots/homepage1.png)
 ![Home Page](./screenshots/homepage2.png)
 
 ---
 
-### 🌟 **Services **
+### 🌟 **Services**
 
 ![Fashion Suggestion](./screenshots/service1.png)
 
@@ -124,11 +124,11 @@ npm start
 
 ### 🤖 **Service Content**
 
-#### 8. AI Chatbot Screen
+#### AI Chatbot Screen
 
 ![Chatbot](./screenshots/service-chatbot.png)
 
-#### 9. Quiz Interface
+#### Quiz Interface
 
 ![Quiz](./screenshots/service-quiz.png)
 
@@ -136,11 +136,11 @@ npm start
 
 ### 💖 **Favorites & Contact Pages**
 
-#### 10. Favorites Page
+####  Favorites Page
 
 ![Favorites Page](./screenshots/fav.png)
 
-#### 11. Contact Page
+####  Contact Page
 
 ![Contact Page](./screenshots/contacs.png)
 
