@@ -109,7 +109,7 @@ npm start
 
 ---
 
-### 🌟 **Services (5 Screenshots)**
+### 🌟 **Services **
 
 ![Fashion Suggestion](./screenshots/service1.png)
 
@@ -122,7 +122,7 @@ npm start
 
 ---
 
-### 🤖 **Service Content (2 Screenshots)**
+### 🤖 **Service Content**
 
 #### 8. AI Chatbot Screen
 
@@ -134,7 +134,7 @@ npm start
 
 ---
 
-### 💖 **Favorites & Contact Pages (2 Screenshots)**
+### 💖 **Favorites & Contact Pages**
 
 #### 10. Favorites Page
 
