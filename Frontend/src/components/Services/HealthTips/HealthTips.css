@@ -1,27 +1,28 @@
-.health-tips {
+/* Scoped for HealthTips component */
+.health-tips-service {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   min-height: 70vh;
 }
 
-.health-header {
+.health-tips-service .health-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.health-header h1 {
+.health-tips-service .health-header h1 {
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 10px;
 }
 
-.health-header p {
+.health-tips-service .health-header p {
   font-size: 1.2rem;
   color: #666;
 }
 
-.health-nav {
+.health-tips-service .health-nav {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -29,7 +30,7 @@
   flex-wrap: wrap;
 }
 
-.health-nav button {
+.health-tips-service .health-nav button {
   padding: 12px 24px;
   border: 2px solid #28a745;
   background: white;
@@ -41,26 +42,26 @@
   font-size: 1rem;
 }
 
-.health-nav button.active,
-.health-nav button:hover {
+.health-tips-service .health-nav button.active,
+.health-tips-service .health-nav button:hover {
   background: #28a745;
   color: white;
 }
 
 /* Main View */
-.main-view {
+.health-tips-service .main-view {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-.feature-cards {
+.health-tips-service .feature-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }
 
-.feature-card {
+.health-tips-service .feature-card {
   background: white;
   padding: 40px 30px;
   border-radius: 20px;
@@ -71,50 +72,51 @@
   border: 1px solid #f0f0f0;
 }
 
-.feature-card:hover {
+.health-tips-service .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.feature-icon {
+.health-tips-service .feature-icon {
   font-size: 3rem;
   margin-bottom: 20px;
 }
 
-.feature-card h3 {
+.health-tips-service .feature-card h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.feature-card p {
+.health-tips-service .feature-card p {
   font-size: 1.1rem;
   color: #666;
   line-height: 1.6;
 }
 
-.daily-tips {
+/* Daily Tips */
+.health-tips-service .daily-tips {
   background: white;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.daily-tips h3 {
+.health-tips-service .daily-tips h3 {
   font-size: 1.8rem;
   color: #333;
   margin-bottom: 25px;
   text-align: center;
 }
 
-.tips-grid {
+.health-tips-service .tips-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
-.tip-card {
+.health-tips-service .tip-card {
   background: #f8f9fa;
   padding: 25px;
   border-radius: 15px;
@@ -123,30 +125,30 @@
   transition: transform 0.2s ease;
 }
 
-.tip-card:hover {
+.health-tips-service .tip-card:hover {
   transform: translateY(-3px);
 }
 
-.tip-icon {
+.health-tips-service .tip-icon {
   font-size: 2.5rem;
   margin-bottom: 15px;
 }
 
-.tip-card h4 {
+.health-tips-service .tip-card h4 {
   font-size: 1.2rem;
   color: #333;
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.tip-card p {
+.health-tips-service .tip-card p {
   font-size: 0.95rem;
   color: #666;
   line-height: 1.6;
   margin-bottom: 15px;
 }
 
-.tip-card button {
+.health-tips-service .tip-card button {
   background: #28a745;
   color: white;
   border: none;
@@ -158,29 +160,29 @@
   transition: background-color 0.3s ease;
 }
 
-.tip-card button:hover {
+.health-tips-service .tip-card button:hover {
   background: #218838;
 }
 
 /* Quiz View */
-.quiz-view {
+.health-tips-service .quiz-view {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.quiz-container {
+.health-tips-service .quiz-container {
   background: white;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.quiz-progress {
+.health-tips-service .quiz-progress {
   margin-bottom: 30px;
   text-align: center;
 }
 
-.progress-bar {
+.health-tips-service .progress-bar {
   width: 100%;
   height: 8px;
   background: #e9ecef;
@@ -189,36 +191,36 @@
   overflow: hidden;
 }
 
-.progress-fill {
+.health-tips-service .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #28a745, #20c997);
   transition: width 0.3s ease;
 }
 
-.quiz-progress span {
+.health-tips-service .quiz-progress span {
   font-size: 1rem;
   color: #666;
   font-weight: 600;
 }
 
-.question-card {
+.health-tips-service .question-card {
   text-align: center;
 }
 
-.question-card h3 {
+.health-tips-service .question-card h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 30px;
   line-height: 1.4;
 }
 
-.options {
+.health-tips-service .options {
   display: grid;
   grid-template-columns: 1fr;
   gap: 15px;
 }
 
-.option-btn {
+.health-tips-service .option-btn {
   padding: 20px;
   border: 2px solid #e9ecef;
   background: white;
@@ -229,13 +231,13 @@
   text-align: left;
 }
 
-.option-btn:hover {
+.health-tips-service .option-btn:hover {
   border-color: #28a745;
   background: #f8fff9;
   transform: translateY(-2px);
 }
 
-.text-input {
+.health-tips-service .text-input {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -243,7 +245,7 @@
   margin: 0 auto;
 }
 
-.text-input input {
+.health-tips-service .text-input input {
   padding: 15px;
   border: 2px solid #e9ecef;
   border-radius: 10px;
@@ -251,11 +253,11 @@
   outline: none;
 }
 
-.text-input input:focus {
+.health-tips-service .text-input input:focus {
   border-color: #28a745;
 }
 
-.text-input button {
+.health-tips-service .text-input button {
   background: #28a745;
   color: white;
   border: none;
@@ -267,43 +269,43 @@
   transition: background-color 0.3s ease;
 }
 
-.text-input button:hover {
+.health-tips-service .text-input button:hover {
   background: #218838;
 }
 
 /* Results View */
-.results-container {
+.health-tips-service .results-container {
   background: white;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.results-header {
+.health-tips-service .results-header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.results-header h2 {
+.health-tips-service .results-header h2 {
   font-size: 2.2rem;
   color: #333;
   margin-bottom: 15px;
 }
 
-.results-header p {
+.health-tips-service .results-header p {
   font-size: 1.2rem;
   color: #666;
   line-height: 1.6;
 }
 
-.recommendations-grid {
+.health-tips-service .recommendations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   margin-bottom: 30px;
 }
 
-.recommendation-card {
+.health-tips-service .recommendation-card {
   background: #f8f9fa;
   padding: 25px;
   border-radius: 15px;
@@ -313,20 +315,20 @@
   transition: transform 0.2s ease;
 }
 
-.recommendation-card:hover {
+.health-tips-service .recommendation-card:hover {
   transform: translateY(-3px);
 }
 
-.rec-icon {
+.health-tips-service .rec-icon {
   font-size: 2.5rem;
   flex-shrink: 0;
 }
 
-.rec-content {
+.health-tips-service .rec-content {
   flex-grow: 1;
 }
 
-.rec-category {
+.health-tips-service .rec-category {
   background: #28a745;
   color: white;
   padding: 4px 12px;
@@ -336,21 +338,21 @@
   text-transform: uppercase;
 }
 
-.rec-content h4 {
+.health-tips-service .rec-content h4 {
   font-size: 1.2rem;
   color: #333;
   margin: 10px 0 8px 0;
   font-weight: 600;
 }
 
-.rec-content p {
+.health-tips-service .rec-content p {
   font-size: 1rem;
   color: #666;
   line-height: 1.6;
   margin-bottom: 15px;
 }
 
-.rec-content button {
+.health-tips-service .rec-content button {
   background: #28a745;
   color: white;
   border: none;
@@ -362,11 +364,11 @@
   transition: background-color 0.3s ease;
 }
 
-.rec-content button:hover {
+.health-tips-service .rec-content button:hover {
   background: #218838;
 }
 
-.retry-btn {
+.health-tips-service .retry-btn {
   display: block;
   margin: 0 auto;
   background: #28a745;
@@ -380,45 +382,45 @@
   transition: background-color 0.3s ease;
 }
 
-.retry-btn:hover {
+.health-tips-service .retry-btn:hover {
   background: #218838;
 }
 
 /* Yoga View */
-.yoga-view {
+.health-tips-service .yoga-view {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-.yoga-section {
+.health-tips-service .yoga-section {
   background: white;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.yoga-section h2 {
+.health-tips-service .yoga-section h2 {
   font-size: 1.8rem;
   color: #333;
   margin-bottom: 10px;
   text-align: center;
 }
 
-.yoga-section > p {
+.health-tips-service .yoga-section > p {
   text-align: center;
   color: #666;
   margin-bottom: 30px;
   font-size: 1.1rem;
 }
 
-.poses-grid {
+.health-tips-service .poses-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
 }
 
-.pose-card {
+.health-tips-service .pose-card {
   background: #f8f9fa;
   padding: 25px;
   border-radius: 15px;
@@ -426,32 +428,32 @@
   transition: transform 0.2s ease;
 }
 
-.pose-card:hover {
+.health-tips-service .pose-card:hover {
   transform: translateY(-3px);
 }
 
-.pose-card h4 {
+.health-tips-service .pose-card h4 {
   font-size: 1.3rem;
   color: #333;
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.pose-description {
+.health-tips-service .pose-description {
   font-size: 1rem;
   color: #666;
   margin-bottom: 15px;
   line-height: 1.6;
 }
 
-.pose-benefits,
-.pose-duration {
+.health-tips-service .pose-benefits,
+.health-tips-service .pose-duration {
   font-size: 0.9rem;
   margin-bottom: 10px;
   color: #555;
 }
 
-.pose-card button {
+.health-tips-service .pose-card button {
   background: #28a745;
   color: white;
   border: none;
@@ -464,17 +466,17 @@
   margin-top: 10px;
 }
 
-.pose-card button:hover {
+.health-tips-service .pose-card button:hover {
   background: #218838;
 }
 
 /* Profile View */
-.profile-view {
+.health-tips-service .profile-view {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.profile-container {
+.health-tips-service .profile-container {
   background: white;
   padding: 40px;
   border-radius: 20px;
@@ -482,13 +484,13 @@
   text-align: center;
 }
 
-.profile-container h2 {
+.health-tips-service .profile-container h2 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 30px;
 }
 
-.profile-grid {
+.health-tips-service .profile-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
@@ -496,20 +498,20 @@
   text-align: left;
 }
 
-.profile-item {
+.health-tips-service .profile-item {
   background: #f8f9fa;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #e9ecef;
 }
 
-.profile-item strong {
+.health-tips-service .profile-item strong {
   color: #333;
   display: block;
   margin-bottom: 5px;
 }
 
-.update-btn {
+.health-tips-service .update-btn {
   background: #28a745;
   color: white;
   border: none;
@@ -521,51 +523,52 @@
   transition: background-color 0.3s ease;
 }
 
-.update-btn:hover {
+.health-tips-service .update-btn:hover {
   background: #218838;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-  .health-tips {
+  .health-tips-service {
     padding: 15px;
   }
 
-  .health-header h1 {
+  .health-tips-service .health-header h1 {
     font-size: 2rem;
   }
 
-  .health-nav {
+  .health-tips-service .health-nav {
     flex-direction: column;
     align-items: center;
   }
 
-  .feature-cards {
+  .health-tips-service .feature-cards {
     grid-template-columns: 1fr;
   }
 
-  .tips-grid {
+  .health-tips-service .tips-grid {
     grid-template-columns: 1fr;
   }
 
-  .quiz-container,
-  .results-container,
-  .profile-container,
-  .yoga-section {
+  .health-tips-service .quiz-container,
+  .health-tips-service .results-container,
+  .health-tips-service .profile-container,
+  .health-tips-service .yoga-section {
     padding: 25px;
   }
 
-  .recommendations-grid,
-  .poses-grid,
-  .profile-grid {
+  .health-tips-service .recommendations-grid,
+  .health-tips-service .poses-grid,
+  .health-tips-service .profile-grid {
     grid-template-columns: 1fr;
   }
 
-  .recommendation-card {
+  .health-tips-service .recommendation-card {
     flex-direction: column;
     text-align: center;
   }
 
-  .text-input {
+  .health-tips-service .text-input {
     max-width: 100%;
   }
 }

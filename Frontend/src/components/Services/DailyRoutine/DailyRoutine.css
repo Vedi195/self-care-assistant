@@ -1,27 +1,31 @@
-.daily-routine {
+/* DailyRoutine.css - fully scoped under .daily-routine-service */
+
+.daily-routine-service {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   min-height: 70vh;
 }
 
-.routine-header {
+/* Header */
+.daily-routine-service .routine-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.routine-header h1 {
+.daily-routine-service .routine-header h1 {
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 10px;
 }
 
-.routine-header p {
+.daily-routine-service .routine-header p {
   font-size: 1.2rem;
   color: #666;
 }
 
-.routine-nav {
+/* Navigation */
+.daily-routine-service .routine-nav {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -29,7 +33,7 @@
   flex-wrap: wrap;
 }
 
-.routine-nav button {
+.daily-routine-service .routine-nav button {
   padding: 12px 24px;
   border: 2px solid #17a2b8;
   background: white;
@@ -41,26 +45,26 @@
   font-size: 1rem;
 }
 
-.routine-nav button.active,
-.routine-nav button:hover {
+.daily-routine-service .routine-nav button.active,
+.daily-routine-service .routine-nav button:hover {
   background: #17a2b8;
   color: white;
 }
 
 /* Main View */
-.main-view {
+.daily-routine-service .main-view {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-.feature-cards {
+.daily-routine-service .feature-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }
 
-.feature-card {
+.daily-routine-service .feature-card {
   background: white;
   padding: 40px 30px;
   border-radius: 20px;
@@ -71,50 +75,51 @@
   border: 1px solid #f0f0f0;
 }
 
-.feature-card:hover {
+.daily-routine-service .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.feature-icon {
+.daily-routine-service .feature-icon {
   font-size: 3rem;
   margin-bottom: 20px;
 }
 
-.feature-card h3 {
+.daily-routine-service .feature-card h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.feature-card p {
+.daily-routine-service .feature-card p {
   font-size: 1.1rem;
   color: #666;
   line-height: 1.6;
 }
 
-.daily-tips {
+/* Daily Tips */
+.daily-routine-service .daily-tips {
   background: white;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.daily-tips h3 {
+.daily-routine-service .daily-tips h3 {
   font-size: 1.8rem;
   color: #333;
   margin-bottom: 25px;
   text-align: center;
 }
 
-.tips-grid {
+.daily-routine-service .tips-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
-.tip-card {
+.daily-routine-service .tip-card {
   background: #f8f9fa;
   padding: 25px;
   border-radius: 15px;
@@ -123,30 +128,30 @@
   transition: transform 0.2s ease;
 }
 
-.tip-card:hover {
+.daily-routine-service .tip-card:hover {
   transform: translateY(-3px);
 }
 
-.tip-icon {
+.daily-routine-service .tip-icon {
   font-size: 2.5rem;
   margin-bottom: 15px;
 }
 
-.tip-card h4 {
+.daily-routine-service .tip-card h4 {
   font-size: 1.2rem;
   color: #333;
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.tip-card p {
+.daily-routine-service .tip-card p {
   font-size: 0.95rem;
   color: #666;
   line-height: 1.6;
   margin-bottom: 15px;
 }
 
-.tip-card button {
+.daily-routine-service .tip-card button {
   background: #17a2b8;
   color: white;
   border: none;
@@ -158,39 +163,39 @@
   transition: background-color 0.3s ease;
 }
 
-.tip-card button:hover {
+.daily-routine-service .tip-card button:hover {
   background: #138496;
 }
 
 /* Templates View */
-.templates-view {
+.daily-routine-service .templates-view {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.templates-header {
+.daily-routine-service .templates-header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.templates-header h2 {
+.daily-routine-service .templates-header h2 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 15px;
 }
 
-.templates-header p {
+.daily-routine-service .templates-header p {
   font-size: 1.2rem;
   color: #666;
 }
 
-.templates-grid {
+.daily-routine-service .templates-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
 }
 
-.template-card {
+.daily-routine-service .template-card {
   background: white;
   border-radius: 20px;
   padding: 30px;
@@ -199,40 +204,40 @@
   transition: transform 0.2s ease;
 }
 
-.template-card:hover {
+.daily-routine-service .template-card:hover {
   transform: translateY(-3px);
 }
 
-.template-header {
+.daily-routine-service .template-header {
   text-align: center;
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 2px solid #17a2b8;
 }
 
-.template-icon {
+.daily-routine-service .template-icon {
   font-size: 3rem;
   margin-bottom: 15px;
 }
 
-.template-header h3 {
+.daily-routine-service .template-header h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.template-header p {
+.daily-routine-service .template-header p {
   color: #666;
   font-size: 1rem;
   line-height: 1.5;
 }
 
-.template-tasks {
+.daily-routine-service .template-tasks {
   margin-bottom: 25px;
 }
 
-.template-task {
+.daily-routine-service .template-task {
   display: flex;
   gap: 15px;
   margin-bottom: 12px;
@@ -242,7 +247,7 @@
   align-items: center;
 }
 
-.task-time {
+.daily-routine-service .task-time {
   background: #17a2b8;
   color: white;
   padding: 4px 12px;
@@ -254,14 +259,14 @@
   text-align: center;
 }
 
-.task-description {
+.daily-routine-service .task-description {
   flex-grow: 1;
   color: #333;
   font-size: 0.95rem;
   line-height: 1.4;
 }
 
-.use-template-btn {
+.daily-routine-service .use-template-btn {
   width: 100%;
   background: #17a2b8;
   color: white;
@@ -274,33 +279,33 @@
   transition: background-color 0.3s ease;
 }
 
-.use-template-btn:hover {
+.daily-routine-service .use-template-btn:hover {
   background: #138496;
 }
 
 /* Notes View */
-.notes-view {
+.daily-routine-service .notes-view {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.notes-header {
+.daily-routine-service .notes-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.notes-header h2 {
+.daily-routine-service .notes-header h2 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 15px;
 }
 
-.notes-header p {
+.daily-routine-service .notes-header p {
   font-size: 1.2rem;
   color: #666;
 }
 
-.add-note-section {
+.daily-routine-service .add-note-section {
   background: white;
   padding: 30px;
   border-radius: 20px;
@@ -308,12 +313,12 @@
   margin-bottom: 30px;
 }
 
-.add-note-form {
+.daily-routine-service .add-note-form {
   display: flex;
   gap: 15px;
 }
 
-.add-note-form input {
+.daily-routine-service .add-note-form input {
   flex-grow: 1;
   padding: 15px;
   border: 2px solid #e9ecef;
@@ -322,11 +327,11 @@
   outline: none;
 }
 
-.add-note-form input:focus {
+.daily-routine-service .add-note-form input:focus {
   border-color: #17a2b8;
 }
 
-.add-note-form button {
+.daily-routine-service .add-note-form button {
   background: #17a2b8;
   color: white;
   border: none;
@@ -339,39 +344,39 @@
   white-space: nowrap;
 }
 
-.add-note-form button:hover {
+.daily-routine-service .add-note-form button:hover {
   background: #138496;
 }
 
-.notes-list {
+.daily-routine-service .notes-list {
   background: white;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.no-notes {
+.daily-routine-service .no-notes {
   text-align: center;
   padding: 60px 20px;
 }
 
-.no-notes-icon {
+.daily-routine-service .no-notes-icon {
   font-size: 4rem;
   margin-bottom: 20px;
 }
 
-.no-notes h3 {
+.daily-routine-service .no-notes h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 15px;
 }
 
-.no-notes p {
+.daily-routine-service .no-notes p {
   color: #666;
   font-size: 1.1rem;
 }
 
-.note-item {
+.daily-routine-service .note-item {
   padding: 20px 25px;
   border-bottom: 1px solid #e9ecef;
   display: flex;
@@ -380,23 +385,23 @@
   transition: background-color 0.2s ease;
 }
 
-.note-item:hover {
+.daily-routine-service .note-item:hover {
   background: #f8f9fa;
 }
 
-.note-item:last-child {
+.daily-routine-service .note-item:last-child {
   border-bottom: none;
 }
 
-.note-item.completed {
+.daily-routine-service .note-item.completed {
   opacity: 0.7;
 }
 
-.note-item.completed .note-text {
+.daily-routine-service .note-item.completed .note-text {
   text-decoration: line-through;
 }
 
-.complete-btn {
+.daily-routine-service .complete-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -406,25 +411,25 @@
   transition: background-color 0.2s ease;
 }
 
-.complete-btn:hover {
+.daily-routine-service .complete-btn:hover {
   background: rgba(23, 162, 184, 0.1);
 }
 
-.note-content {
+.daily-routine-service .note-content {
   flex-grow: 1;
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.note-text {
+.daily-routine-service .note-text {
   flex-grow: 1;
   font-size: 1rem;
   color: #333;
   line-height: 1.5;
 }
 
-.note-content input {
+.daily-routine-service .note-content input {
   flex-grow: 1;
   padding: 8px 12px;
   border: 2px solid #17a2b8;
@@ -433,19 +438,19 @@
   outline: none;
 }
 
-.note-date {
+.daily-routine-service .note-date {
   font-size: 0.8rem;
   color: #999;
   white-space: nowrap;
 }
 
-.note-actions {
+.daily-routine-service .note-actions {
   display: flex;
   gap: 8px;
 }
 
-.edit-btn,
-.delete-btn {
+.daily-routine-service .edit-btn,
+.daily-routine-service .delete-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -455,40 +460,38 @@
   transition: background-color 0.2s ease;
 }
 
-.edit-btn:hover {
+.daily-routine-service .edit-btn:hover {
   background: rgba(40, 167, 69, 0.1);
 }
 
-.delete-btn:hover {
+.daily-routine-service .delete-btn:hover {
   background: rgba(220, 53, 69, 0.1);
 }
 
 /* Chat View */
-
-.message-actions {
+.daily-routine-service .message-actions {
   display: inline-flex;
   gap: 0.5rem;
   margin-left: 1rem;
   font-size: 0.9rem;
 }
 
-.message-actions button {
+.daily-routine-service .message-actions button {
   background: none;
   border: none;
   cursor: pointer;
 }
 
-.message-actions button:hover {
+.daily-routine-service .message-actions button:hover {
   transform: scale(1.2);
 }
 
-
-.chat-view {
+.daily-routine-service .chat-view {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.chat-container {
+.daily-routine-service .chat-container {
   background: white;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -498,7 +501,7 @@
   flex-direction: column;
 }
 
-.chat-messages {
+.daily-routine-service .chat-messages {
   flex-grow: 1;
   padding: 20px;
   overflow-y: auto;
@@ -507,20 +510,20 @@
   gap: 15px;
 }
 
-.message {
+.daily-routine-service .message {
   display: flex;
   max-width: 80%;
 }
 
-.message.user {
+.daily-routine-service .message.user {
   align-self: flex-end;
 }
 
-.message.bot {
+.daily-routine-service .message.bot {
   align-self: flex-start;
 }
 
-.message-content {
+.daily-routine-service .message-content {
   background: #f8f9fa;
   padding: 15px 20px;
   border-radius: 20px;
@@ -528,22 +531,22 @@
   line-height: 1.5;
 }
 
-.message.user .message-content {
+.daily-routine-service .message.user .message-content {
   background: #17a2b8;
   color: white;
 }
 
-.message.bot .message-content {
+.daily-routine-service .message.bot .message-content {
   background: #e9ecef;
   color: #333;
 }
 
-.loading .typing-indicator {
+.daily-routine-service .loading .typing-indicator {
   display: flex;
   gap: 4px;
 }
 
-.typing-indicator span {
+.daily-routine-service .typing-indicator span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -551,11 +554,11 @@
   animation: typing 1.4s infinite;
 }
 
-.typing-indicator span:nth-child(2) {
+.daily-routine-service .typing-indicator span:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-.typing-indicator span:nth-child(3) {
+.daily-routine-service .typing-indicator span:nth-child(3) {
   animation-delay: 0.4s;
 }
 
@@ -570,14 +573,15 @@
   }
 }
 
-.chat-input-form {
+/* Chat Input Form */
+.daily-routine-service .chat-input-form {
   padding: 20px;
   border-top: 1px solid #e9ecef;
   display: flex;
   gap: 10px;
 }
 
-.chat-input-form input {
+.daily-routine-service .chat-input-form input {
   flex-grow: 1;
   padding: 12px 20px;
   border: 1px solid #e9ecef;
@@ -586,11 +590,11 @@
   outline: none;
 }
 
-.chat-input-form input:focus {
+.daily-routine-service .chat-input-form input:focus {
   border-color: #17a2b8;
 }
 
-.chat-input-form button {
+.daily-routine-service .chat-input-form button {
   background: #17a2b8;
   color: white;
   border: none;
@@ -601,79 +605,80 @@
   transition: background-color 0.3s ease;
 }
 
-.chat-input-form button:hover:not(:disabled) {
+.daily-routine-service .chat-input-form button:hover:not(:disabled) {
   background: #138496;
 }
 
-.chat-input-form button:disabled {
+.daily-routine-service .chat-input-form button:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-  .daily-routine {
+  .daily-routine-service {
     padding: 15px;
   }
 
-  .routine-header h1 {
+  .daily-routine-service .routine-header h1 {
     font-size: 2rem;
   }
 
-  .routine-nav {
+  .daily-routine-service .routine-nav {
     flex-direction: column;
     align-items: center;
   }
 
-  .feature-cards {
+  .daily-routine-service .feature-cards {
     grid-template-columns: 1fr;
   }
 
-  .tips-grid {
+  .daily-routine-service .tips-grid {
     grid-template-columns: 1fr;
   }
 
-  .templates-grid {
+  .daily-routine-service .templates-grid {
     grid-template-columns: 1fr;
   }
 
-  .template-card {
+  .daily-routine-service .template-card {
     padding: 25px;
   }
 
-  .add-note-form {
+  .daily-routine-service .add-note-form {
     flex-direction: column;
   }
 
-  .template-task {
+  .daily-routine-service .template-task {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
 
-  .task-time {
+  .daily-routine-service .task-time {
     align-self: flex-start;
   }
 
-  .note-item {
+  .daily-routine-service .note-item {
     padding: 15px 20px;
   }
 
-  .note-content {
+  .daily-routine-service .note-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
 
-  .note-date {
+  .daily-routine-service .note-date {
     order: -1;
     align-self: flex-end;
   }
 
-  .message {
+  .daily-routine-service .message {
     max-width: 90%;
   }
 
-  .chat-container {
+  .daily-routine-service .chat-container {
     height: 500px;
   }
 }

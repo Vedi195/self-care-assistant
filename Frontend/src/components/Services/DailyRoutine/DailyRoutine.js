@@ -170,272 +170,274 @@ const DailyRoutine = () => {
   };
 
   return (
-    <div className="daily-routine">
-      <div className="routine-header">
-        <h1>📅 Daily Routine</h1>
-        <p>Plan your perfect day and build productive habits</p>
-      </div>
-
-      <div className="routine-nav">
-        <button 
-          className={currentView === 'main' ? 'active' : ''}
-          onClick={() => setCurrentView('main')}
-        >
-          🏠 Overview
-        </button>
-        <button 
-          className={currentView === 'templates' ? 'active' : ''}
-          onClick={() => setCurrentView('templates')}
-        >
-          📋 Templates
-        </button>
-        <button 
-          className={currentView === 'notes' ? 'active' : ''}
-          onClick={() => setCurrentView('notes')}
-        >
-          📝 My Notes
-        </button>
-        <button 
-          className={currentView === 'chat' ? 'active' : ''}
-          onClick={() => setCurrentView('chat')}
-        >
-          💬 AI Assistant
-        </button>
-      </div>
-
-      {currentView === 'main' && (
-        <div className="main-view">
-          <div className="feature-cards">
-            <div className="feature-card" onClick={() => setCurrentView('templates')}>
-              <div className="feature-icon">📋</div>
-              <h3>Routine Templates</h3>
-              <p>Explore pre-made routines for different parts of your day</p>
-            </div>
-            
-            <div className="feature-card" onClick={() => setCurrentView('notes')}>
-              <div className="feature-icon">📝</div>
-              <h3>Personal Notes</h3>
-              <p>Create and manage your custom routine tasks and notes</p>
-            </div>
-
-            <div className="feature-card" onClick={() => setCurrentView('chat')}>
-              <div className="feature-icon">🤖</div>
-              <h3>AI Routine Coach</h3>
-              <p>Get personalized advice for building better daily habits</p>
-            </div>
-          </div>
-
-          <div className="daily-tips">
-            <h3>💡 Today's Routine Tips</h3>
-            <div className="tips-grid">
-              <div className="tip-card">
-                <div className="tip-icon">⏰</div>
-                <h4>Time Blocking</h4>
-                <p>Schedule specific time slots for different activities to stay focused and organized.</p>
-                <button onClick={() => saveTipToFavorites("Schedule specific time slots for different activities to stay focused and organized.")}>
-                  ❤️ Save
-                </button>
-              </div>
-              
-              <div className="tip-card">
-                <div className="tip-icon">🎯</div>
-                <h4>Priority First</h4>
-                <p>Tackle your most important task when your energy levels are highest.</p>
-                <button onClick={() => saveTipToFavorites("Tackle your most important task when your energy levels are highest.")}>
-                  ❤️ Save
-                </button>
-              </div>
-              
-              <div className="tip-card">
-                <div className="tip-icon">🔄</div>
-                <h4>Consistent Sleep</h4>
-                <p>Go to bed and wake up at the same time every day to regulate your body clock.</p>
-                <button onClick={() => saveTipToFavorites("Go to bed and wake up at the same time every day to regulate your body clock.")}>
-                  ❤️ Save
-                </button>
-              </div>
-            </div>
-          </div>
+    <div className="daily-routine-service">
+      <div className="daily-routine">
+        <div className="routine-header">
+          <h1>📅 Daily Routine</h1>
+          <p>Plan your perfect day and build productive habits</p>
         </div>
-      )}
 
-      {currentView === 'templates' && (
-        <div className="templates-view">
-          <div className="templates-header">
-            <h2>📋 Routine Templates</h2>
-            <p>Choose from these proven routine templates to get started</p>
-          </div>
+        <div className="routine-nav">
+          <button 
+            className={currentView === 'main' ? 'active' : ''}
+            onClick={() => setCurrentView('main')}
+          >
+            🏠 Overview
+          </button>
+          <button 
+            className={currentView === 'templates' ? 'active' : ''}
+            onClick={() => setCurrentView('templates')}
+          >
+            📋 Templates
+          </button>
+          <button 
+            className={currentView === 'notes' ? 'active' : ''}
+            onClick={() => setCurrentView('notes')}
+          >
+            📝 My Notes
+          </button>
+          <button 
+            className={currentView === 'chat' ? 'active' : ''}
+            onClick={() => setCurrentView('chat')}
+          >
+            💬 AI Assistant
+          </button>
+        </div>
 
-          <div className="templates-grid">
-            {routineTemplates.map((template, index) => (
-              <div key={index} className="template-card">
-                <div className="template-header">
-                  <div className="template-icon">{template.icon}</div>
-                  <h3>{template.name}</h3>
-                  <p>{template.description}</p>
+        {currentView === 'main' && (
+          <div className="main-view">
+            <div className="feature-cards">
+              <div className="feature-card" onClick={() => setCurrentView('templates')}>
+                <div className="feature-icon">📋</div>
+                <h3>Routine Templates</h3>
+                <p>Explore pre-made routines for different parts of your day</p>
+              </div>
+              
+              <div className="feature-card" onClick={() => setCurrentView('notes')}>
+                <div className="feature-icon">📝</div>
+                <h3>Personal Notes</h3>
+                <p>Create and manage your custom routine tasks and notes</p>
+              </div>
+
+              <div className="feature-card" onClick={() => setCurrentView('chat')}>
+                <div className="feature-icon">🤖</div>
+                <h3>AI Routine Coach</h3>
+                <p>Get personalized advice for building better daily habits</p>
+              </div>
+            </div>
+
+            <div className="daily-tips">
+              <h3>💡 Today's Routine Tips</h3>
+              <div className="tips-grid">
+                <div className="tip-card">
+                  <div className="tip-icon">⏰</div>
+                  <h4>Time Blocking</h4>
+                  <p>Schedule specific time slots for different activities to stay focused and organized.</p>
+                  <button onClick={() => saveTipToFavorites("Schedule specific time slots for different activities to stay focused and organized.")}>
+                    ❤️ Save
+                  </button>
                 </div>
                 
-                <div className="template-tasks">
-                  {template.tasks.map((task, taskIndex) => (
-                    <div key={taskIndex} className="template-task">
-                      <span className="task-time">{task.time}</span>
-                      <span className="task-description">{task.task}</span>
+                <div className="tip-card">
+                  <div className="tip-icon">🎯</div>
+                  <h4>Priority First</h4>
+                  <p>Tackle your most important task when your energy levels are highest.</p>
+                  <button onClick={() => saveTipToFavorites("Tackle your most important task when your energy levels are highest.")}>
+                    ❤️ Save
+                  </button>
+                </div>
+                
+                <div className="tip-card">
+                  <div className="tip-icon">🔄</div>
+                  <h4>Consistent Sleep</h4>
+                  <p>Go to bed and wake up at the same time every day to regulate your body clock.</p>
+                  <button onClick={() => saveTipToFavorites("Go to bed and wake up at the same time every day to regulate your body clock.")}>
+                    ❤️ Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentView === 'templates' && (
+          <div className="templates-view">
+            <div className="templates-header">
+              <h2>📋 Routine Templates</h2>
+              <p>Choose from these proven routine templates to get started</p>
+            </div>
+
+            <div className="templates-grid">
+              {routineTemplates.map((template, index) => (
+                <div key={index} className="template-card">
+                  <div className="template-header">
+                    <div className="template-icon">{template.icon}</div>
+                    <h3>{template.name}</h3>
+                    <p>{template.description}</p>
+                  </div>
+                  
+                  <div className="template-tasks">
+                    {template.tasks.map((task, taskIndex) => (
+                      <div key={taskIndex} className="template-task">
+                        <span className="task-time">{task.time}</span>
+                        <span className="task-description">{task.task}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <button 
+                    className="use-template-btn"
+                    onClick={() => saveTipToFavorites(`${template.name} Template: ${template.description}`)}
+                  >
+                    ❤️ Save Template
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {currentView === 'notes' && (
+          <div className="notes-view">
+            <div className="notes-header">
+              <h2>📝 My Routine Notes</h2>
+              <p>Create and manage your personal routine tasks and reminders</p>
+            </div>
+
+            <div className="add-note-section">
+              <div className="add-note-form">
+                <input
+                  type="text"
+                  value={newNote}
+                  onChange={(e) => setNewNote(e.target.value)}
+                  placeholder="Add a new routine task or note..."
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddNote()}
+                />
+                <button onClick={handleAddNote}>Add Note</button>
+              </div>
+            </div>
+
+            <div className="notes-list">
+              {routineNotes.length === 0 ? (
+                <div className="no-notes">
+                  <div className="no-notes-icon">📝</div>
+                  <h3>No notes yet!</h3>
+                  <p>Start by adding your first routine task or note above.</p>
+                </div>
+              ) : (
+                routineNotes.map((note) => (
+                  <div key={note.id} className={`note-item ${note.completed ? 'completed' : ''}`}>
+                    <div className="note-content">
+                      <button
+                        className="complete-btn"
+                        onClick={() => handleToggleComplete(note.id)}
+                      >
+                        {note.completed ? '✅' : '⭕'}
+                      </button>
+                      
+                      {editingNote === note.id ? (
+                        <input
+                          type="text"
+                          value={editText}
+                          onChange={(e) => setEditText(e.target.value)}
+                          onBlur={() => handleEditNote(note.id, editText)}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              handleEditNote(note.id, editText);
+                            }
+                          }}
+                          autoFocus
+                        />
+                      ) : (
+                        <span
+                          className="note-text"
+                          onDoubleClick={() => {
+                            setEditingNote(note.id);
+                            setEditText(note.text);
+                          }}
+                        >
+                          {note.text}
+                        </span>
+                      )}
+                      
+                      <span className="note-date">{note.createdAt}</span>
                     </div>
-                  ))}
-                </div>
-                
-                <button 
-                  className="use-template-btn"
-                  onClick={() => saveTipToFavorites(`${template.name} Template: ${template.description}`)}
-                >
-                  ❤️ Save Template
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {currentView === 'notes' && (
-        <div className="notes-view">
-          <div className="notes-header">
-            <h2>📝 My Routine Notes</h2>
-            <p>Create and manage your personal routine tasks and reminders</p>
-          </div>
-
-          <div className="add-note-section">
-            <div className="add-note-form">
-              <input
-                type="text"
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
-                placeholder="Add a new routine task or note..."
-                onKeyPress={(e) => e.key === 'Enter' && handleAddNote()}
-              />
-              <button onClick={handleAddNote}>Add Note</button>
-            </div>
-          </div>
-
-          <div className="notes-list">
-            {routineNotes.length === 0 ? (
-              <div className="no-notes">
-                <div className="no-notes-icon">📝</div>
-                <h3>No notes yet!</h3>
-                <p>Start by adding your first routine task or note above.</p>
-              </div>
-            ) : (
-              routineNotes.map((note) => (
-                <div key={note.id} className={`note-item ${note.completed ? 'completed' : ''}`}>
-                  <div className="note-content">
-                    <button
-                      className="complete-btn"
-                      onClick={() => handleToggleComplete(note.id)}
-                    >
-                      {note.completed ? '✅' : '⭕'}
-                    </button>
                     
-                    {editingNote === note.id ? (
-                      <input
-                        type="text"
-                        value={editText}
-                        onChange={(e) => setEditText(e.target.value)}
-                        onBlur={() => handleEditNote(note.id, editText)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
-                            handleEditNote(note.id, editText);
-                          }
-                        }}
-                        autoFocus
-                      />
-                    ) : (
-                      <span
-                        className="note-text"
-                        onDoubleClick={() => {
+                    <div className="note-actions">
+                      <button
+                        className="edit-btn"
+                        onClick={() => {
                           setEditingNote(note.id);
                           setEditText(note.text);
                         }}
                       >
-                        {note.text}
-                      </span>
-                    )}
-                    
-                    <span className="note-date">{note.createdAt}</span>
-                  </div>
-                  
-                  <div className="note-actions">
-                    <button
-                      className="edit-btn"
-                      onClick={() => {
-                        setEditingNote(note.id);
-                        setEditText(note.text);
-                      }}
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDeleteNote(note.id)}
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      )}
-
-      {currentView === 'chat' && (
-        <div className="chat-view">
-          <div className="chat-container">
-            <div className="chat-messages">
-              {chatMessages.map((msg, index) => (
-                <div key={index} className={`message ${msg.type}`}>
-                  <div className="message-content">
-                    <ReactMarkdown>{msg.message}</ReactMarkdown>
-                    <div className="message-actions">
-                      {msg.type === 'bot' && (
-                        <button
-                          className="copy-btn"
-                          onClick={() => navigator.clipboard.writeText(msg.message)}
-                        >
-                          <FaRegCopy /> 
-                        </button>
-                      )}
+                        ✏️
+                      </button>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteNote(note.id)}
+                      >
+                        🗑️
+                      </button>
                     </div>
                   </div>
-                </div>
-              ))}
-              {isLoading && (
-                <div className="message bot">
-                  <div className="message-content loading">
-                    <div className="typing-indicator">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
-                </div>
+                ))
               )}
             </div>
-
-            <form className="chat-input-form" onSubmit={handleChatSubmit}>
-              <input
-                type="text"
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Ask about routines, habits, time management..."
-                disabled={isLoading}
-              />
-              <button type="submit" disabled={isLoading || !chatInput.trim()}>
-                ➤
-              </button>
-            </form>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+
+        {currentView === 'chat' && (
+          <div className="chat-view">
+            <div className="chat-container">
+              <div className="chat-messages">
+                {chatMessages.map((msg, index) => (
+                  <div key={index} className={`message ${msg.type}`}>
+                    <div className="message-content">
+                      <ReactMarkdown>{msg.message}</ReactMarkdown>
+                      <div className="message-actions">
+                        {msg.type === 'bot' && (
+                          <button
+                            className="copy-btn"
+                            onClick={() => navigator.clipboard.writeText(msg.message)}
+                          >
+                            <FaRegCopy /> 
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="message bot">
+                    <div className="message-content loading">
+                      <div className="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <form className="chat-input-form" onSubmit={handleChatSubmit}>
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Ask about routines, habits, time management..."
+                  disabled={isLoading}
+                />
+                <button type="submit" disabled={isLoading || !chatInput.trim()}>
+                  ➤
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>  
   );
 };
 

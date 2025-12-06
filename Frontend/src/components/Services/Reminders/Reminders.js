@@ -13,7 +13,6 @@ const Reminders = () => {
     repeat: 'none'
   });
   const [filter, setFilter] = useState('all');
-  const [editingId, setEditingId] = useState(null);
 
   const categories = [
     { value: 'general', label: 'General', icon: '📝', color: '#6c757d' },
@@ -32,49 +31,54 @@ const Reminders = () => {
     { value: 'monthly', label: 'Monthly' }
   ];
 
+  // Load saved reminders + check due reminders
   useEffect(() => {
-    // Load reminders from localStorage
-    const savedReminders = JSON.parse(localStorage.getItem('reminders') || '[]');
-    setReminders(savedReminders);
+    const saved = JSON.parse(localStorage.getItem('reminders') || '[]');
+    setReminders(saved);
 
-    // Check for due reminders every minute
     const interval = setInterval(checkDueReminders, 60000);
-    checkDueReminders(); // Check immediately
+    checkDueReminders();
 
     return () => clearInterval(interval);
+
+    // eslint-disable-next-line
   }, []);
 
-  const saveRemindersToStorage = (remindersList) => {
-    localStorage.setItem('reminders', JSON.stringify(remindersList));
+  const saveRemindersToStorage = (list) => {
+    localStorage.setItem('reminders', JSON.stringify(list));
   };
 
   const checkDueReminders = () => {
     const now = new Date();
-    const currentTime = now.toTimeString().slice(0, 5); // HH:MM format
-    const currentDate = now.toISOString().slice(0, 10); // YYYY-MM-DD format
+    const currentTime = now.toTimeString().slice(0, 5);
+    const currentDate = now.toISOString().slice(0, 10);
 
     reminders.forEach(reminder => {
-      if (reminder.date === currentDate && reminder.time === currentTime && !reminder.notified) {
+      if (
+        reminder.date === currentDate &&
+        reminder.time === currentTime &&
+        !reminder.notified
+      ) {
         showNotification(reminder);
-        // Mark as notified
-        const updatedReminders = reminders.map(r => 
+
+        const updated = reminders.map(r =>
           r.id === reminder.id ? { ...r, notified: true } : r
         );
-        setReminders(updatedReminders);
-        saveRemindersToStorage(updatedReminders);
+
+        setReminders(updated);
+        saveRemindersToStorage(updated);
       }
     });
   };
 
   const showNotification = (reminder) => {
-    // Browser notification
     if (Notification.permission === 'granted') {
       new Notification(`Reminder: ${reminder.title}`, {
         body: reminder.description,
         icon: '⏰'
       });
     } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then(permission => {
+      Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
           new Notification(`Reminder: ${reminder.title}`, {
             body: reminder.description,
@@ -96,12 +100,11 @@ const Reminders = () => {
         notified: false,
         completed: false
       };
-      
-      const updatedReminders = [...reminders, reminder];
-      setReminders(updatedReminders);
-      saveRemindersToStorage(updatedReminders);
-      
-      // Reset form
+
+      const updated = [...reminders, reminder];
+      setReminders(updated);
+      saveRemindersToStorage(updated);
+
       setNewReminder({
         title: '',
         description: '',
@@ -110,76 +113,60 @@ const Reminders = () => {
         category: 'general',
         repeat: 'none'
       });
+
       setShowAddForm(false);
     }
   };
 
   const deleteReminder = (id) => {
-    const updatedReminders = reminders.filter(reminder => reminder.id !== id);
-    setReminders(updatedReminders);
-    saveRemindersToStorage(updatedReminders);
+    const updated = reminders.filter(r => r.id !== id);
+    setReminders(updated);
+    saveRemindersToStorage(updated);
   };
 
   const toggleComplete = (id) => {
-    const updatedReminders = reminders.map(reminder =>
-      reminder.id === id 
-        ? { ...reminder, completed: !reminder.completed }
-        : reminder
+    const updated = reminders.map(r =>
+      r.id === id ? { ...r, completed: !r.completed } : r
     );
-    setReminders(updatedReminders);
-    saveRemindersToStorage(updatedReminders);
+    setReminders(updated);
+    saveRemindersToStorage(updated);
   };
 
-  const updateReminder = (id, updatedData) => {
-    const updatedReminders = reminders.map(reminder =>
-      reminder.id === id ? { ...reminder, ...updatedData } : reminder
-    );
-    setReminders(updatedReminders);
-    saveRemindersToStorage(updatedReminders);
-    setEditingId(null);
-  };
-
-  const filteredReminders = reminders.filter(reminder => {
+  const filteredReminders = reminders.filter((reminder) => {
     const now = new Date();
-    const reminderDateTime = new Date(`${reminder.date}T${reminder.time}`);
-    
+    const reminderTime = new Date(`${reminder.date}T${reminder.time}`);
+
     switch (filter) {
       case 'today':
         return reminder.date === now.toISOString().slice(0, 10);
+
       case 'upcoming':
-        return reminderDateTime > now && !reminder.completed;
+        return reminderTime > now && !reminder.completed;
+
       case 'completed':
         return reminder.completed;
+
       case 'overdue':
-        return reminderDateTime < now && !reminder.completed;
+        return reminderTime < now && !reminder.completed;
+
       default:
         return true;
     }
   });
 
-  const getCategoryInfo = (categoryValue) => {
-    return categories.find(cat => cat.value === categoryValue) || categories[0];
+  const getCategoryInfo = (value) => {
+    return categories.find(cat => cat.value === value) || categories[0];
   };
 
   const formatDateTime = (date, time) => {
-    const dateObj = new Date(`${date}T${time}`);
-    const now = new Date();
-    const diffInDays = Math.ceil((dateObj - now) / (1000 * 60 * 60 * 24));
-    
-    let dateText = dateObj.toLocaleDateString();
-    if (diffInDays === 0) dateText = 'Today';
-    else if (diffInDays === 1) dateText = 'Tomorrow';
-    else if (diffInDays === -1) dateText = 'Yesterday';
-    
-    return `${dateText} at ${dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    const dt = new Date(`${date}T${time}`);
+    return `${dt.toLocaleDateString()} at ${dt.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    })}`;
   };
 
-  const getMinDateTime = () => {
-    const now = new Date();
-    return now.toISOString().slice(0, 16); // YYYY-MM-DDTHH:MM format
-  };
-
-  // Request notification permission on component mount
+  // Request notification permission on mount
   useEffect(() => {
     if (Notification.permission === 'default') {
       Notification.requestPermission();
@@ -188,10 +175,12 @@ const Reminders = () => {
 
   const stats = {
     total: reminders.length,
-    today: reminders.filter(r => r.date === new Date().toISOString().slice(0, 10)).length,
+    today: reminders.filter(r =>
+      r.date === new Date().toISOString().slice(0, 10)
+    ).length,
     upcoming: reminders.filter(r => {
-      const reminderDate = new Date(`${r.date}T${r.time}`);
-      return reminderDate > new Date() && !r.completed;
+      const d = new Date(`${r.date}T${r.time}`);
+      return d > new Date() && !r.completed;
     }).length,
     completed: reminders.filter(r => r.completed).length
   };
@@ -205,38 +194,24 @@ const Reminders = () => {
 
       {/* Stats */}
       <div className="reminders-stats">
-        <div className="stat-card">
-          <div className="stat-number">{stats.total}</div>
-          <div className="stat-label">Total</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{stats.today}</div>
-          <div className="stat-label">Today</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{stats.upcoming}</div>
-          <div className="stat-label">Upcoming</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{stats.completed}</div>
-          <div className="stat-label">Completed</div>
-        </div>
+        <div className="stat-card"><div className="stat-number">{stats.total}</div><div className="stat-label">Total</div></div>
+        <div className="stat-card"><div className="stat-number">{stats.today}</div><div className="stat-label">Today</div></div>
+        <div className="stat-card"><div className="stat-number">{stats.upcoming}</div><div className="stat-label">Upcoming</div></div>
+        <div className="stat-card"><div className="stat-number">{stats.completed}</div><div className="stat-label">Completed</div></div>
       </div>
 
-      {/* Add Reminder Button */}
+      {/* Add Button */}
       <div className="add-reminder-section">
-        <button 
-          className="add-reminder-btn"
-          onClick={() => setShowAddForm(!showAddForm)}
-        >
+        <button className="add-reminder-btn" onClick={() => setShowAddForm(!showAddForm)}>
           {showAddForm ? '❌ Cancel' : '➕ Add New Reminder'}
         </button>
       </div>
 
-      {/* Add Reminder Form */}
+      {/* Add Form */}
       {showAddForm && (
         <div className="add-form">
           <div className="form-grid">
+
             <div className="form-group">
               <label>Title *</label>
               <input
@@ -246,7 +221,7 @@ const Reminders = () => {
                 placeholder="Reminder title..."
               />
             </div>
-            
+
             <div className="form-group">
               <label>Category</label>
               <select
@@ -260,7 +235,7 @@ const Reminders = () => {
                 ))}
               </select>
             </div>
-            
+
             <div className="form-group">
               <label>Date *</label>
               <input
@@ -270,7 +245,7 @@ const Reminders = () => {
                 min={new Date().toISOString().slice(0, 10)}
               />
             </div>
-            
+
             <div className="form-group">
               <label>Time *</label>
               <input
@@ -279,22 +254,26 @@ const Reminders = () => {
                 onChange={(e) => setNewReminder({ ...newReminder, time: e.target.value })}
               />
             </div>
-            
+
             <div className="form-group full-width">
               <label>Description</label>
               <textarea
                 value={newReminder.description}
-                onChange={(e) => setNewReminder({ ...newReminder, description: e.target.value })}
+                onChange={(e) =>
+                  setNewReminder({ ...newReminder, description: e.target.value })
+                }
                 placeholder="Additional details..."
                 rows="3"
               />
             </div>
-            
+
             <div className="form-group">
               <label>Repeat</label>
               <select
                 value={newReminder.repeat}
-                onChange={(e) => setNewReminder({ ...newReminder, repeat: e.target.value })}
+                onChange={(e) =>
+                  setNewReminder({ ...newReminder, repeat: e.target.value })
+                }
               >
                 {repeatOptions.map(option => (
                   <option key={option.value} value={option.value}>
@@ -303,15 +282,12 @@ const Reminders = () => {
                 ))}
               </select>
             </div>
+
           </div>
-          
+
           <div className="form-actions">
-            <button onClick={addReminder} className="save-btn">
-              ✅ Save Reminder
-            </button>
-            <button onClick={() => setShowAddForm(false)} className="cancel-btn">
-              ❌ Cancel
-            </button>
+            <button onClick={addReminder} className="save-btn">✅ Save Reminder</button>
+            <button onClick={() => setShowAddForm(false)} className="cancel-btn">❌ Cancel</button>
           </div>
         </div>
       )}
@@ -319,34 +295,19 @@ const Reminders = () => {
       {/* Filters */}
       <div className="filters-section">
         <div className="filter-buttons">
-          <button 
-            className={filter === 'all' ? 'active' : ''}
-            onClick={() => setFilter('all')}
-          >
+          <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>
             All ({stats.total})
           </button>
-          <button 
-            className={filter === 'today' ? 'active' : ''}
-            onClick={() => setFilter('today')}
-          >
+          <button className={filter === 'today' ? 'active' : ''} onClick={() => setFilter('today')}>
             Today ({stats.today})
           </button>
-          <button 
-            className={filter === 'upcoming' ? 'active' : ''}
-            onClick={() => setFilter('upcoming')}
-          >
+          <button className={filter === 'upcoming' ? 'active' : ''} onClick={() => setFilter('upcoming')}>
             Upcoming ({stats.upcoming})
           </button>
-          <button 
-            className={filter === 'overdue' ? 'active' : ''}
-            onClick={() => setFilter('overdue')}
-          >
+          <button className={filter === 'overdue' ? 'active' : ''} onClick={() => setFilter('overdue')}>
             Overdue
           </button>
-          <button 
-            className={filter === 'completed' ? 'active' : ''}
-            onClick={() => setFilter('completed')}
-          >
+          <button className={filter === 'completed' ? 'active' : ''} onClick={() => setFilter('completed')}>
             Completed ({stats.completed})
           </button>
         </div>
@@ -359,10 +320,9 @@ const Reminders = () => {
             <div className="empty-icon">⏰</div>
             <h3>No reminders found</h3>
             <p>
-              {filter === 'all' 
+              {filter === 'all'
                 ? 'Create your first reminder to get started!'
-                : `No ${filter} reminders at the moment.`
-              }
+                : `No ${filter} reminders right now.`}
             </p>
           </div>
         ) : (
@@ -370,12 +330,16 @@ const Reminders = () => {
             .sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`))
             .map(reminder => {
               const categoryInfo = getCategoryInfo(reminder.category);
-              const isOverdue = new Date(`${reminder.date}T${reminder.time}`) < new Date() && !reminder.completed;
-              
+              const isOverdue =
+                new Date(`${reminder.date}T${reminder.time}`) < new Date() &&
+                !reminder.completed;
+
               return (
-                <div 
-                  key={reminder.id} 
-                  className={`reminder-item ${reminder.completed ? 'completed' : ''} ${isOverdue ? 'overdue' : ''}`}
+                <div
+                  key={reminder.id}
+                  className={`reminder-item ${reminder.completed ? 'completed' : ''} ${
+                    isOverdue ? 'overdue' : ''
+                  }`}
                 >
                   <div className="reminder-content">
                     <div className="reminder-header">
@@ -386,20 +350,18 @@ const Reminders = () => {
                         {formatDateTime(reminder.date, reminder.time)}
                       </div>
                     </div>
-                    
+
                     <h4 className="reminder-title">{reminder.title}</h4>
-                    
+
                     {reminder.description && (
                       <p className="reminder-description">{reminder.description}</p>
                     )}
-                    
+
                     {reminder.repeat !== 'none' && (
-                      <div className="repeat-info">
-                        🔄 Repeats {reminder.repeat}
-                      </div>
+                      <div className="repeat-info">🔄 Repeats {reminder.repeat}</div>
                     )}
                   </div>
-                  
+
                   <div className="reminder-actions">
                     <button
                       onClick={() => toggleComplete(reminder.id)}
@@ -407,6 +369,7 @@ const Reminders = () => {
                     >
                       {reminder.completed ? '✅' : '⭕'}
                     </button>
+
                     <button
                       onClick={() => deleteReminder(reminder.id)}
                       className="delete-btn"

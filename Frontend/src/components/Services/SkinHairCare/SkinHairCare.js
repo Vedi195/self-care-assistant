@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './SkinHairCare.css';
 
+import Confetti from "react-confetti";
 import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from "react-markdown";
 
@@ -449,6 +450,7 @@ const SkinHairCare = () => {
             </div>
           ) : (
             <div className="results-container">
+              <Confetti numberOfPieces={180} gravity={0.25} recycle={false} />
               <h2>✨ Your Personalized Beauty Profile</h2>
               <div className="profile-summary">
                 <div className="profile-item">

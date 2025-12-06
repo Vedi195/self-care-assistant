@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './FashionSuggestion.css';
 
+import Confetti from "react-confetti";
 import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from "react-markdown";
 
@@ -15,62 +16,85 @@ const FashionSuggestion = () => {
 
   const quizQuestions = [
     {
-      question: "What's your preferred style?",
-      options: ["Casual & Comfortable", "Formal & Professional", "Trendy & Fashion-forward", "Classic & Timeless"]
+      question: "What best describes your overall fashion vibe?",
+      options: [
+        "Comfort-first — I love easy, breathable outfits",
+        "Elegant & classy — neat, polished looks",
+        "Trendy girl — I love experimenting with fashion",
+        "Minimal and timeless — simple but stylish"
+      ]
     },
     {
-      question: "What colors do you gravitate towards?",
-      options: ["Neutral (Black, White, Gray)", "Earth Tones (Brown, Beige)", "Bold & Bright", "Pastels & Soft Colors"]
+      question: "Which color palette do you naturally gravitate towards?",
+      options: [
+        "Neutrals — black, white, beige, grey",
+        "Soft pastels — lavender, mint, baby pink",
+        "Bold pops — red, cobalt blue, hot pink",
+        "Earthy tones — brown, olive, rust, mustard"
+      ]
     },
     {
-      question: "What's your lifestyle like?",
-      options: ["Work from Home", "Office Professional", "Active & Outdoorsy", "Social & Event-oriented"]
+      question: "How would you describe your daily lifestyle?",
+      options: [
+        "College / Student — casual, comfortable, quick outfits",
+        "Professional — formal or semi-formal every day",
+        "Active & Outdoorsy — functional, sporty looks",
+        "Social Butterfly — outings, café dates, events"
+      ]
     },
     {
-      question: "What's your budget preference?",
-      options: ["Budget-friendly", "Mid-range", "High-end", "Mix of all"]
+      question: "What’s your shopping preference?",
+      options: [
+        "Affordable basics — I love budget-friendly finds",
+        "Mid-range — good quality at reasonable price",
+        "High-end pieces — I prefer premium items",
+        "A mix — I buy whatever I fall in love with"
+      ]
     }
   ];
 
   const styleTypes = {
-    "Casual & Comfortable": {
-      name: "Comfort Chic",
-      description: "You love looking put-together while feeling comfortable. Perfect for everyday wear!",
+    "Comfort-first — I love easy, breathable outfits": {
+      name: "Soft Girl Comfort",
+      description: "You love cozy, breathable, cute outfits that make you feel relaxed and pretty.",
       tips: [
-        "Invest in high-quality basics like well-fitted jeans and soft t-shirts",
-        "Layer with cardigans or light jackets for versatility",
-        "Choose comfortable shoes like white sneakers or loafers",
-        "Accessorize with simple jewelry and a structured bag"
+        "Choose flowy tops, oversized tees, and soft fabrics",
+        "Wear mom jeans, straight pants, or leggings",
+        "Style with sneakers, flats, and pastel bags",
+        "Use soft-girl accessories like scrunchies and dainty necklaces"
       ]
     },
-    "Formal & Professional": {
-      name: "Professional Power",
-      description: "You command respect with polished, sophisticated looks that mean business.",
+
+    "Elegant & classy — neat, polished looks": {
+      name: "Classy Chic",
+      description: "You prefer polished, elegant outfits with clean silhouettes.",
       tips: [
-        "Build a capsule wardrobe with blazers, tailored pants, and button-down shirts",
-        "Invest in quality dress shoes and a professional handbag",
-        "Stick to neutral colors that mix and match easily",
-        "Add subtle accessories like watches and pearl earrings"
+        "Invest in blazers, trousers, satin blouses, and midi dresses",
+        "Choose neutral or monotone outfits",
+        "Wear structured handbags & pointed heels",
+        "Keep accessories minimal and elegant"
       ]
     },
-    "Trendy & Fashion-forward": {
-      name: "Trend Setter",
-      description: "You're always ahead of the curve, embracing new styles with confidence.",
+
+    "Trendy girl — I love experimenting with fashion": {
+      name: "Fashionista Edge",
+      description: "You love bold patterns, new trends, and expressive outfits.",
       tips: [
-        "Follow fashion influencers and magazines for latest trends",
-        "Mix high-street finds with statement pieces",
-        "Experiment with bold patterns and unique silhouettes",
-        "Don't be afraid to try new color combinations"
+        "Try statement jackets and printed tops",
+        "Mix bold colors and modern accessories",
+        "Wear trending shoes like chunky sneakers or block heels",
+        "Experiment with layers and silhouettes"
       ]
     },
-    "Classic & Timeless": {
-      name: "Timeless Elegance",
-      description: "You appreciate quality pieces that never go out of style.",
+
+    "Minimal and timeless — simple but stylish": {
+      name: "Timeless Minimalist",
+      description: "You love clean, simple, timeless outfits that always stay stylish.",
       tips: [
-        "Invest in timeless pieces like a little black dress and trench coat",
-        "Choose quality over quantity - build a curated wardrobe",
-        "Stick to classic patterns like stripes, polka dots, and plaids",
-        "Focus on fit and tailoring for a polished look"
+        "Stick to monochrome or two-tone outfits",
+        "Choose basics like white shirts and tailored pants",
+        "Wear neutral handbags & clean shoes",
+        "Keep accessories minimal and premium-looking"
       ]
     }
   };
@@ -92,11 +116,12 @@ const FashionSuggestion = () => {
     if (quizStep < quizQuestions.length - 1) {
       setQuizStep(quizStep + 1);
     } else {
-      // Quiz completed, determine style
-      const primaryStyle = answer; // Use the last answer as primary style
+      // USE ANSWER OF QUESTION 1 (STYLE QUESTION)
+      const primaryStyle = newAnswers[0];
       setStyleResult(styleTypes[primaryStyle]);
     }
   };
+
 
   const resetQuiz = () => {
     setQuizAnswers({});
@@ -167,185 +192,187 @@ const FashionSuggestion = () => {
   };
 
   return (
-    <div className="fashion-suggestion">
-      <div className="fashion-header">
-        <h1>👗 Fashion Suggestion</h1>
-        <p>Discover your personal style and get fashion advice</p>
-      </div>
-
-      <div className="fashion-nav">
-        <button 
-          className={currentView === 'main' ? 'active' : ''}
-          onClick={() => setCurrentView('main')}
-        >
-          🏠 Overview
-        </button>
-        <button 
-          className={currentView === 'quiz' ? 'active' : ''}
-          onClick={() => setCurrentView('quiz')}
-        >
-          📋 Style Quiz
-        </button>
-        <button 
-          className={currentView === 'chat' ? 'active' : ''}
-          onClick={() => setCurrentView('chat')}
-        >
-          💬 Fashion Chat
-        </button>
-      </div>
-
-      {currentView === 'main' && (
-        <div className="main-view">
-          <div className="feature-cards">
-            <div className="feature-card" onClick={() => setCurrentView('quiz')}>
-              <div className="feature-icon">🎯</div>
-              <h3>Discover Your Style</h3>
-              <p>Take our quiz to find your perfect fashion personality</p>
-            </div>
-            
-            <div className="feature-card" onClick={() => setCurrentView('chat')}>
-              <div className="feature-icon">🤖</div>
-              <h3>AI Fashion Assistant</h3>
-              <p>Chat with our AI for personalized outfit recommendations</p>
-            </div>
-          </div>
-
-          <div className="daily-tips">
-            <h3>💡 Today's Fashion Tips</h3>
-            <div className="tips-grid">
-              <div className="tip-card">
-                <p>"Mix textures for visual interest - try pairing a silk blouse with denim or leather."</p>
-                <button onClick={() => saveTipToFavorites("Mix textures for visual interest - try pairing a silk blouse with denim or leather.")}>
-                  ❤️ Save
-                </button>
-              </div>
-              <div className="tip-card">
-                <p>"The rule of three: stick to maximum 3 colors in one outfit for a cohesive look."</p>
-                <button onClick={() => saveTipToFavorites("The rule of three: stick to maximum 3 colors in one outfit for a cohesive look.")}>
-                  ❤️ Save
-                </button>
-              </div>
-              <div className="tip-card">
-                <p>"When in doubt, add a belt - it defines your waist and elevates any outfit."</p>
-                <button onClick={() => saveTipToFavorites("When in doubt, add a belt - it defines your waist and elevates any outfit.")}>
-                  ❤️ Save
-                </button>
-              </div>
-            </div>
-          </div>
+    <div className="fashion-service">
+      <div className="fashion-suggestion">
+        <div className="fashion-header">
+          <h1>👗 Fashion Suggestion</h1>
+          <p>Discover your personal style and get fashion advice</p>
         </div>
-      )}
 
-      {currentView === 'quiz' && (
-        <div className="quiz-view">
-          {!styleResult ? (
-            <div className="quiz-container">
-              <div className="quiz-progress">
-                <div className="progress-bar">
-                  <div 
-                    className="progress-fill"
-                    style={{ width: `${((quizStep + 1) / quizQuestions.length) * 100}%` }}
-                  ></div>
-                </div>
-                <span>Question {quizStep + 1} of {quizQuestions.length}</span>
+        <div className="fashion-nav">
+          <button
+            className={currentView === 'main' ? 'active' : ''}
+            onClick={() => setCurrentView('main')}
+          >
+            🏠 Overview
+          </button>
+          <button
+            className={currentView === 'quiz' ? 'active' : ''}
+            onClick={() => setCurrentView('quiz')}
+          >
+            📋 Style Quiz
+          </button>
+          <button
+            className={currentView === 'chat' ? 'active' : ''}
+            onClick={() => setCurrentView('chat')}
+          >
+            💬 Fashion Chat
+          </button>
+        </div>
+
+        {currentView === 'main' && (
+          <div className="main-view">
+            <div className="feature-cards">
+              <div className="feature-card" onClick={() => setCurrentView('quiz')}>
+                <div className="feature-icon">🎯</div>
+                <h3>Discover Your Style</h3>
+                <p>Take our quiz to find your perfect fashion personality</p>
               </div>
 
-              <div className="question-card">
-                <h3>{quizQuestions[quizStep].question}</h3>
-                <div className="options">
-                  {quizQuestions[quizStep].options.map((option, index) => (
-                    <button 
-                      key={index}
-                      className="option-btn"
-                      onClick={() => handleQuizAnswer(option)}
-                    >
-                      {option}
-                    </button>
-                  ))}
+              <div className="feature-card" onClick={() => setCurrentView('chat')}>
+                <div className="feature-icon">🤖</div>
+                <h3>AI Fashion Assistant</h3>
+                <p>Chat with our AI for personalized outfit recommendations</p>
+              </div>
+            </div>
+
+            <div className="daily-tips">
+              <h3>💡 Today's Fashion Tips</h3>
+              <div className="tips-grid">
+                <div className="tip-card">
+                  <p>"Mix textures for visual interest - try pairing a silk blouse with denim or leather."</p>
+                  <button onClick={() => saveTipToFavorites("Mix textures for visual interest - try pairing a silk blouse with denim or leather.")}>
+                    ❤️ Save
+                  </button>
+                </div>
+                <div className="tip-card">
+                  <p>"The rule of three: stick to maximum 3 colors in one outfit for a cohesive look."</p>
+                  <button onClick={() => saveTipToFavorites("The rule of three: stick to maximum 3 colors in one outfit for a cohesive look.")}>
+                    ❤️ Save
+                  </button>
+                </div>
+                <div className="tip-card">
+                  <p>"When in doubt, add a belt - it defines your waist and elevates any outfit."</p>
+                  <button onClick={() => saveTipToFavorites("When in doubt, add a belt - it defines your waist and elevates any outfit.")}>
+                    ❤️ Save
+                  </button>
                 </div>
               </div>
             </div>
-          ) : (
-            <div className="result-container">
-              <div className="result-header">
-                <h2>🎉 Your Style Type: {styleResult.name}</h2>
-                <p>{styleResult.description}</p>
-              </div>
+          </div>
+        )}
 
-              <div className="style-tips">
-                <h3>✨ Your Personal Style Tips</h3>
-                <div className="tips-list">
-                  {styleResult.tips.map((tip, index) => (
-                    <div key={index} className="tip-item">
-                      <p>{tip}</p>
-                      <button onClick={() => saveTipToFavorites(tip)}>
-                        ❤️ Save
+        {currentView === 'quiz' && (
+          <div className="quiz-view">
+            {!styleResult ? (
+              <div className="quiz-container">
+                <div className="quiz-progress">
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill"
+                      style={{ width: `${((quizStep + 1) / quizQuestions.length) * 100}%` }}
+                    ></div>
+                  </div>
+                  <span>Question {quizStep + 1} of {quizQuestions.length}</span>
+                </div>
+
+                <div className="question-card">
+                  <h3>{quizQuestions[quizStep].question}</h3>
+                  <div className="options">
+                    {quizQuestions[quizStep].options.map((option, index) => (
+                      <button
+                        key={index}
+                        className="option-btn"
+                        onClick={() => handleQuizAnswer(option)}
+                      >
+                        {option}
                       </button>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
+            ) : (
+              <div className="result-container">
+                <Confetti numberOfPieces={180} gravity={0.25} recycle={false} />
+                <div className="result-header">
+                  <h2>🎉 Your Style Type: {styleResult.name}</h2>
+                  <p>{styleResult.description}</p>
+                </div>
 
-              <button className="retry-btn" onClick={resetQuiz}>
-                🔄 Take Quiz Again
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {currentView === 'chat' && (
-        <div className="chat-view">
-          <div className="chat-container">
-            <div className="chat-messages">
-              {chatMessages.map((msg, index) => (
-                <div key={index} className={`message ${msg.type}`}>
-                  <div className="message-content">
-                    <ReactMarkdown>{msg.message}</ReactMarkdown>
-                    <div className="message-actions">
-                      {msg.type === 'bot' && (
-                        <button
-                          className="copy-btn"
-                          onClick={() => navigator.clipboard.writeText(msg.message)}
-                        >
-                          <FaRegCopy /> 
+                <div className="style-tips">
+                  <h3>✨ Your Personal Style Tips</h3>
+                  <div className="tips-list">
+                    {styleResult.tips.map((tip, index) => (
+                      <div key={index} className="tip-item">
+                        <p>{tip}</p>
+                        <button onClick={() => saveTipToFavorites(tip)}>
+                          ❤️ Save
                         </button>
-                      )}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-              {isLoading && (
-                <div className="message bot">
-                  <div className="message-content loading">
-                    <div className="typing-indicator">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
 
-            <form className="chat-input-form" onSubmit={handleChatSubmit}>
-              <input
-                type="text"
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Ask me about fashion, outfits, or style tips..."
-                disabled={isLoading}
-              />
-              <button type="submit" disabled={isLoading || !chatInput.trim()}>
-                ➤
-              </button>
-            </form>
+                <button className="retry-btn" onClick={resetQuiz}>
+                  🔄 Take Quiz Again
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-      )}
+        )}
+
+        {currentView === 'chat' && (
+          <div className="chat-view">
+            <div className="chat-container">
+              <div className="chat-messages">
+                {chatMessages.map((msg, index) => (
+                  <div key={index} className={`message ${msg.type}`}>
+                    <div className="message-content">
+                      <ReactMarkdown>{msg.message}</ReactMarkdown>
+                      <div className="message-actions">
+                        {msg.type === 'bot' && (
+                          <button
+                            className="copy-btn"
+                            onClick={() => navigator.clipboard.writeText(msg.message)}
+                          >
+                            <FaRegCopy />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="message bot">
+                    <div className="message-content loading">
+                      <div className="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <form className="chat-input-form" onSubmit={handleChatSubmit}>
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Ask me about fashion, outfits, or style tips..."
+                  disabled={isLoading}
+                />
+                <button type="submit" disabled={isLoading || !chatInput.trim()}>
+                  ➤
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 export default FashionSuggestion;
-    
