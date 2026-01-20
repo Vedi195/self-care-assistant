@@ -17,6 +17,11 @@ router.post('/', async (req, res) => {
     const newFeedback = new Feedback({ name, email, message });
     await newFeedback.save();
 
+
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.ADMIN_EMAIL) {
+      throw new Error("Email environment variables missing");
+    }
+
     // 2️⃣ Setup Nodemailer transporter (Gmail)
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -24,7 +29,6 @@ router.post('/', async (req, res) => {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
       },
-      tls: { rejectUnauthorized: false }  // 👈 allow self-signed certificates
     });
 
     // 3️⃣ Send mail to Admin
@@ -44,9 +48,14 @@ router.post('/', async (req, res) => {
     });
 
     res.status(200).json({ success: true, message: '✅ Feedback saved and emails sent successfully.' });
-  } catch (err) {
-    console.error('❌ Error while sending feedback:', err);
-    res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+  } 
+  catch (err) {
+    console.error("❌ FULL ERROR:", err.message);
+
+    return res.status(500).json({
+      success: false,
+      error: err.message   // 👈 expose real error
+    });
   }
 });
 
