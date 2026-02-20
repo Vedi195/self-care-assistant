@@ -11,6 +11,7 @@ import Header from './components/Header/Header';
 import ContactPage from './components/Header/Contact/ContactPage';
 import FavoritesPage from './components/Header/Favorites/FavoritesPage';
 import AboutPage from './components/Header/About/AboutPage';
+import ProfilePage from './components/Header/ProfilePage/ProfilePage';
 
 import Hero from './components/Hero/Hero';
 import ServiceCards from './components/ServiceCards/ServiceCards';
@@ -70,6 +71,7 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/admin/feedback" element={<FeedbackTable />} />
               
               {/* Service Routes */}
