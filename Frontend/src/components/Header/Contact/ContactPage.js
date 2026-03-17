@@ -2,45 +2,34 @@ import React, { useState } from "react";
 import { FiEdit3, FiUser, FiLink } from "react-icons/fi";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import "./ContactPage.css";
-
 import { motion } from "framer-motion";
 
 const Contact = () => {
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
   const [status, setStatus] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
     setStatus("Sending...");
 
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
+      // Replace YOUR_FORMSPREE_ID with the ID from your Formspree dashboard
+      const response = await fetch("https://formspree.io/f/maqplwzk", {
         method: "POST",
+        body: data,
         headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
+          'Accept': 'application/json'
+        }
       });
 
-      const data = await res.json();
-
-      if (data.success) {
+      if (response.ok) {
         setStatus("✅ Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
+        form.reset();
       } else {
-        setStatus("❌ Failed to send message. Try again.");
+        setStatus("❌ Failed to send message. Please try again.");
       }
     } catch (error) {
       console.error(error);
@@ -66,7 +55,6 @@ const Contact = () => {
         transition={{ duration: 0.6 }}
       >
         <div className="contact-cards">
-          {/* Card 1 - Get in Touch */}
           <div className="contact-card">
             <div className="card-icon">
               <FiEdit3 size={32} />
@@ -74,116 +62,49 @@ const Contact = () => {
             <h2>Get in Touch</h2>
             <p>Fill out the form with your name, email, and message to connect!</p>
             {!showForm ? (
-              <button
-                className="contact-link"
-                onClick={() => setShowForm(true)}
-              >
+              <button className="contact-link" onClick={() => setShowForm(true)}>
                 <b>Show contact form</b>
               </button>
             ) : (
               <>
                 <form className="contact-form" onSubmit={handleSubmit}>
                   <label>Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
+                  <input type="text" name="name" required />
 
                   <label>Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
+                  <input type="email" name="email" required />
 
                   <label>Message</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  ></textarea>
+                  <textarea name="message" required></textarea>
 
-                  <button type="submit" className="send-btn">
-                    Send Message
-                  </button>
+                  <button type="submit" className="send-btn">Send Message</button>
                 </form>
                 {status && <p className="status-msg">{status}</p>}
-                <button
-                  className="contact-link"
-                  onClick={() => setShowForm(false)}
-                >
+                <button className="contact-link" onClick={() => setShowForm(false)}>
                   <b>Hide contact form</b>
                 </button>
               </>
             )}
           </div>
 
-          {/* Card 2 - Direct Contact */}
           <div className="contact-card">
             <div className="card-icon">
               <FiUser size={32} />
             </div>
             <h2>Direct Contact</h2>
-            <p>
-              Email:{" "}
-              <a
-                href="mailto:vedikavakhare@gmail.com"
-                className="direct-link"
-              >
-                vedikavakhare@gmail.com
-              </a>
-            </p>
-            <p>
-              Phone:{" "}
-              <a href="tel:+19016505424" className="direct-link">
-                (901) 650-5424
-              </a>
-            </p>
+            <p>Email: <a href="mailto:vedikavakhare@gmail.com" className="direct-link">vedikavakhare@gmail.com</a></p>
+            <p>Phone: <a href="tel:+19016505424" className="direct-link">(901) 650-5424</a></p>
           </div>
 
-          {/* Card 3 - Follow Me */}
           <div className="contact-card">
             <div className="card-icon">
               <FiLink size={32} />
             </div>
             <h2>Follow Me</h2>
             <ul className="social-icons">
-              <li>
-                <a
-                  href="https://www.facebook.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sociallink"
-                >
-                  <FaFacebook size={24} /> Facebook
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sociallink"
-                >
-                  <FaTwitter size={24} /> Twitter
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sociallink"
-                >
-                  <FaInstagram size={24} /> Instagram
-                </a>
-              </li>
+              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="sociallink"><FaFacebook size={24} /> Facebook</a></li>
+              <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="sociallink"><FaTwitter size={24} /> Twitter</a></li>
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="sociallink"><FaInstagram size={24} /> Instagram</a></li>
             </ul>
           </div>
         </div>
