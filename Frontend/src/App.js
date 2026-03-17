@@ -31,6 +31,8 @@ import DailyRoutine from './components/Services/DailyRoutine/DailyRoutine';
 import SkinHairCare from './components/Services/SkinHairCare/SkinHairCare';
 import TodoList from './components/Services/TodoList/TodoList';
 import Reminders from './components/Services/Reminders/Reminders';
+import PremiumPage from './components/Services/PremiumPage';
+
 
 function App() {
   return (
@@ -81,6 +83,7 @@ function App() {
               <Route path="/skin-hair-care" element={<SkinHairCare />} />
               <Route path="/todo-list" element={<TodoList />} />
               <Route path="/reminders" element={<Reminders />} />
+              <Route path="/premium" element={<PremiumPage />} />
 
               {/* Footer Pages */}
               <Route path="/privacy" element={<Privacy />} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';import './Header.css';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 import { motion } from "framer-motion";
@@ -49,13 +50,13 @@ const Header = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="header-container">
-          <div className="logo">
+          <Link to="/" className="logo">
             <div className="logo-icon">
               <div className="heart">🧡</div>
               <div className="leaves">🌿</div>
             </div>
             <span className="logo-text">Self-Care Assistant</span>
-          </div>
+          </Link>
 
           {/* Hamburger for mobile */}
           <button
@@ -161,13 +162,19 @@ const Header = () => {
                       <button
                         className="dropdown-item logout-item"
                         onClick={() => {
-                          localStorage.removeItem('userProfile');
-                          setProfileData(null);
-                          setDropdownOpen(false);
-                          navigate('/');
+                          const confirmed = window.confirm(
+                            '⚠️ This will permanently delete ALL your data and reset the app:\n\n' +
+                            '• Profile • Reminders • Favorites • Meals & Water\n' +
+                            '• Period tracking • Contact chats • To-do list\n\n' +
+                            'Are you sure? This cannot be undone.'
+                          );
+                          if (!confirmed) return;
+
+                          localStorage.clear();       // wipe everything
+                          window.location.reload();   // full page reset
                         }}
                       >
-                        <span className="dropdown-item-icon">🚪</span> Clear Profile
+                        <span className="dropdown-item-icon">🗑️</span> Clear All Data
                       </button>
                     </div>
                   )}

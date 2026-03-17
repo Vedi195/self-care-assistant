@@ -458,7 +458,25 @@
   }
 }
 
-/* Animation for new reminders */
+/* ── Priority Badge (NEW) ──────────────────────────────────── */
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.priority-badge.high {
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f5c6cb;
+}
+
+/* ── Animation for new reminders ──────────────────────────── */
 @keyframes slideIn {
   from {
     opacity: 0;

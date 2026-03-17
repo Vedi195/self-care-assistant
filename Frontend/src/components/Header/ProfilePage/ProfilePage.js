@@ -51,6 +51,60 @@ const ProfilePage = () => {
     alert('Profile saved successfully! 🎉');
   };
 
+  // ── Clear ALL user data — full app reset ────────────────────────────────
+  const clearAllData = () => {
+    const confirmed = window.confirm(
+      '⚠️ This will permanently delete ALL your data and reset the entire app:\n\n' +
+      '• Profile\n• Reminders\n• Contact chats\n• Favorites\n• Meal & Water logs\n• Period tracking\n• To-do list\n• All settings\n\n' +
+      'Are you sure? This cannot be undone.'
+    );
+    if (!confirmed) return;
+
+    // Step 1 — Remove every known key used anywhere in this app
+    [
+      'userProfile',
+      'reminders',
+      'fashionFavorites',
+      'healthFavorites',
+      'skinCareFavorites',
+      'dailyRoutineFavorites',
+      'favorites',
+      'healthProfile',
+      'healthRecommendations',
+      'skinHairProfile',
+      'todoList',
+      'todos',
+      'dailyRoutine',
+      'contactChats',
+      'chatHistory',
+      'waterLog',
+      'mealLog',
+      'waterTracker',
+      'periodData',
+      'periodTracking',
+      'settings',
+      'userSettings',
+    ].forEach(key => localStorage.removeItem(key));
+
+    // Step 2 — Full wipe (catches any unlisted keys)
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Step 3 — Clear sessionStorage too
+    try { sessionStorage.clear(); } catch (_) {}
+
+    // Step 4 — Reset this component's state immediately
+    setProfile({
+      name: '', age: '', gender: '', skinType: '', hairType: '',
+      fashionStyle: '', fitnessLevel: '', healthGoals: '', profileImage: null,
+    });
+    setSuggestions([]);
+    setIsEditing(true);
+
+    // Step 5 — Hard navigate instead of reload() to bypass cache
+    window.location.href = "/";
+  };
+
   const generateSuggestions = (profileData) => {
     const suggestions = [];
 
@@ -213,9 +267,19 @@ const ProfilePage = () => {
                 {profile.gender}
               </p>
               {!isEditing && (
-                <button className="edit-profile-btn" onClick={() => setIsEditing(true)}>
-                  ✏️ Edit Profile
-                </button>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <button className="edit-profile-btn" onClick={() => setIsEditing(true)}>
+                    ✏️ Edit Profile
+                  </button>
+                  {/* ── NEW: Clear All Data button ───────────────────────── */}
+                  <button
+                    className="edit-profile-btn"
+                    style={{ background: 'linear-gradient(135deg, #dc3545, #c82333)' }}
+                    onClick={clearAllData}
+                  >
+                    🗑️ Clear All Data
+                  </button>
+                </div>
               )}
             </div>
           </div>

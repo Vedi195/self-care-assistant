@@ -12,7 +12,12 @@ const Reminders = () => {
     date: '',
     time: '',
     category: 'general',
-    repeat: 'none'
+    repeat: 'none',
+    repeatIntervalHours: 1,   // user-chosen hour interval for recurring reminders
+    // ── priority fields ─────────────────────────────
+    priority: 'low',          // 'low' | 'high'
+    intervalType: 'default',  // 'default' | 'custom'  (high priority only)
+    customIntervalHours: 2    // used when intervalType === 'custom'
   });
   const [filter, setFilter] = useState('all');
 
@@ -27,10 +32,11 @@ const Reminders = () => {
   ];
 
   const repeatOptions = [
-    { value: 'none', label: 'No Repeat' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'monthly', label: 'Monthly' }
+    { value: 'none',      label: 'No Repeat' },
+    { value: 'recurring', label: '🔁 Every X Hours (set below)' },
+    { value: 'daily',     label: 'Daily' },
+    { value: 'weekly',    label: 'Weekly' },
+    { value: 'monthly',   label: 'Monthly' }
   ];
 
   // Load saved reminders + check due reminders
@@ -91,6 +97,59 @@ const Reminders = () => {
     }
   };
 
+  // ── NEW: Schedule 3 advance notifications for High Priority reminders ───────
+  const scheduleHighPriorityNotifications = (reminder) => {
+    const dueTime = new Date(`${reminder.date}T${reminder.time}`);
+    const now = new Date();
+
+    // Interval in minutes (default = 60 min, custom = user-specified hours × 60)
+    const intervalMin =
+      reminder.intervalType === 'custom'
+        ? Number(reminder.customIntervalHours) * 60
+        : 60;
+
+    // Notify 3×, 2×, and 1× the interval BEFORE due time
+    [3, 2, 1].forEach((multiplier) => {
+      const notifyAt = new Date(dueTime.getTime() - multiplier * intervalMin * 60000);
+      const delay = notifyAt.getTime() - now.getTime();
+      if (delay > 0) {
+        setTimeout(() => {
+          showNotification({
+            ...reminder,
+            title: `⚠️ [${4 - multiplier}/3] ${reminder.title}`,
+          });
+        }, delay);
+      }
+    });
+  };
+
+  // Schedule recurring notifications at the user-chosen interval for the whole day
+  const scheduleRecurringReminder = (reminder) => {
+    const startTime = new Date(`${reminder.date}T${reminder.time}`);
+    const endOfDay  = new Date(`${reminder.date}T23:59`);
+    const now       = new Date();
+    const hours     = Number(reminder.repeatIntervalHours) || 1;
+    const INTERVAL  = hours * 60 * 60 * 1000;
+
+    let fireAt = new Date(startTime.getTime());
+    let count  = 1;
+
+    while (fireAt <= endOfDay) {
+      const delay = fireAt.getTime() - now.getTime();
+      if (delay > 0) {
+        const label = count === 1 ? '' : ` (×${count})`;
+        setTimeout(() => {
+          showNotification({
+            ...reminder,
+            title: `${reminder.title}${label}`,
+          });
+        }, delay);
+      }
+      fireAt = new Date(fireAt.getTime() + INTERVAL);
+      count++;
+    }
+  };
+
   const addReminder = () => {
     if (newReminder.title.trim() && newReminder.date && newReminder.time) {
       const reminder = {
@@ -107,13 +166,27 @@ const Reminders = () => {
       setReminders(updated);
       saveRemindersToStorage(updated);
 
+      // ── auto-schedule high-priority advance notifications ────────────
+      if (reminder.priority === 'high') {
+        scheduleHighPriorityNotifications(reminder);
+      }
+
+      // ── auto-schedule recurring interval notifications ────────────────
+      if (reminder.repeat === 'recurring') {
+        scheduleRecurringReminder(reminder);
+      }
+
       setNewReminder({
         title: '',
         description: '',
         date: '',
         time: '',
         category: 'general',
-        repeat: 'none'
+        repeat: 'none',
+        repeatIntervalHours: 1,
+        priority: 'low',
+        intervalType: 'default',
+        customIntervalHours: 2
       });
 
       setShowAddForm(false);
@@ -310,7 +383,67 @@ const Reminders = () => {
               </select>
             </div>
 
-          </div>
+            {/* ── Interval hours picker – only shown when Recurring is selected ── */}
+            {newReminder.repeat === 'recurring' && (
+              <div className="form-group">
+                <label>🕐 Repeat every how many hours?</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="23"
+                  value={newReminder.repeatIntervalHours}
+                  onChange={(e) =>
+                    setNewReminder({
+                      ...newReminder,
+                      repeatIntervalHours: Math.max(1, Math.min(23, Number(e.target.value)))
+                    })
+                  }
+                  placeholder="e.g. 2 for every 2 hours"
+                />
+                <small style={{ color: '#888', marginTop: 4 }}>
+                  Will repeat from your set time until end of day (every {newReminder.repeatIntervalHours}h)
+                </small>
+              </div>
+            )}
+
+            {/* ── NEW: Priority Selection ──────────────────────────────────── */}
+            <div className="form-group">
+              <label>Priority</label>
+              <select
+                value={newReminder.priority}
+                onChange={(e) => setNewReminder({ ...newReminder, priority: e.target.value })}
+              >
+                <option value="low">🟢 Low Priority (notify once)</option>
+                <option value="high">🔴 High Priority (notify 3× before due)</option>
+              </select>
+            </div>
+
+            {newReminder.priority === 'high' && (
+              <div className="form-group">
+                <label>Notification Interval</label>
+                <select
+                  value={newReminder.intervalType}
+                  onChange={(e) => setNewReminder({ ...newReminder, intervalType: e.target.value })}
+                >
+                  <option value="default">Default – every 1 hour before due</option>
+                  <option value="custom">Custom interval</option>
+                </select>
+              </div>
+            )}
+
+            {newReminder.priority === 'high' && newReminder.intervalType === 'custom' && (
+              <div className="form-group">
+                <label>Interval between notifications (hours)</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="24"
+                  value={newReminder.customIntervalHours}
+                  onChange={(e) => setNewReminder({ ...newReminder, customIntervalHours: e.target.value })}
+                />
+              </div>
+            )}
+            {/* ─────────────────────────────────────────────────────────────── */}
 
           <div className="form-actions">
             <motion.button 
@@ -329,6 +462,7 @@ const Reminders = () => {
             >
               ❌ Cancel
             </motion.button>
+          </div>
           </div>
         </div>
       )}
@@ -417,6 +551,16 @@ const Reminders = () => {
                       </div>
                     </div>
 
+                    {/* ── NEW: Priority badge ─────────────────────────────── */}
+                    {reminder.priority === 'high' && (
+                      <div className="priority-badge high">
+                        🔴 High Priority
+                        {reminder.intervalType === 'custom'
+                          ? ` · Every ${reminder.customIntervalHours}h`
+                          : ' · Every 1h'}
+                      </div>
+                    )}
+
                     <h4 className="reminder-title">{reminder.title}</h4>
 
                     {reminder.description && (
@@ -424,7 +568,12 @@ const Reminders = () => {
                     )}
 
                     {reminder.repeat !== 'none' && (
-                      <div className="repeat-info">🔄 Repeats {reminder.repeat}</div>
+                      <div className="repeat-info">
+                        🔄 Repeats{' '}
+                        {reminder.repeat === 'recurring'
+                          ? `every ${reminder.repeatIntervalHours || 1} hour${Number(reminder.repeatIntervalHours) === 1 ? '' : 's'}`
+                          : reminder.repeat}
+                      </div>
                     )}
                   </div>
 

@@ -3,6 +3,7 @@ import './HealthTips.css';
 import Confetti from "react-confetti";
 
 import { motion } from "framer-motion";
+import ExpertTalkWidget from '../ExpertTalkWidget';
 
 const HealthTips = () => {
   const [currentView, setCurrentView] = useState('main');
@@ -633,7 +634,9 @@ const HealthTips = () => {
             </div>
           </motion.div>
         )}
-      </div>  
+      </div>
+      {/* ── NEW: Expert Talk floating widget ─────────────────────────────── */}
+      <ExpertTalkWidget service="health" isPremium={false} />
     </div>
   );
 };

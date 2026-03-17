@@ -31,7 +31,7 @@ function QuoteBox() {
       transition={{ duration: 0.5 }}
     >
       <div className="quote-container">
-        <h2>Daily Motivation</h2>
+        <h2>💬 Daily Motivation</h2>
         <p className="quote-text">{quote}</p>
       </div>
     </motion.div>

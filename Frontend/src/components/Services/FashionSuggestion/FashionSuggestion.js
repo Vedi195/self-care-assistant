@@ -5,6 +5,7 @@ import Confetti from "react-confetti";
 import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
+import ExpertTalkWidget from '../ExpertTalkWidget';
 
 const FashionSuggestion = () => {
   const [currentView, setCurrentView] = useState('main');
@@ -452,6 +453,8 @@ const FashionSuggestion = () => {
           </div>
         )}
       </div>
+      {/* ── NEW: Expert Talk floating widget ─────────────────────────────── */}
+      <ExpertTalkWidget service="fashion" isPremium={false} />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Confetti from "react-confetti";
 import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
+import ExpertTalkWidget from '../ExpertTalkWidget';
 
 const quizQuestionsMaster = [
   // skin questions
@@ -1338,6 +1339,8 @@ const SkinHairCare = () => {
           </div>
         </div>
       )}
+      {/* ── NEW: Expert Talk floating widget ─────────────────────────────── */}
+      <ExpertTalkWidget service="skincare" isPremium={false} />
     </div>
   );
 };
