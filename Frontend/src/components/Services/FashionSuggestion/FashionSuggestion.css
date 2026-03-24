@@ -525,3 +525,70 @@
     height: 500px;
   }
 }
+
+
+
+
+
+
+
+/* ── APPEND THIS TO YOUR EXISTING FashionSuggestion.css ── */
+.fashion-service .products-view,.fashion-service .bodytype-view,.fashion-service .colors-view{max-width:1100px;margin:0 auto}
+.fashion-service .products-header{text-align:center;margin-bottom:28px}
+.fashion-service .products-header h2{font-size:2rem;color:#333;margin-bottom:8px}
+.fashion-service .products-header p{color:#666;font-size:1.05rem}
+.fashion-service .product-category-tabs{display:flex;justify-content:center;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+.fashion-service .category-tab{padding:10px 24px;border:2px solid #e9ecef;background:white;color:#555;border-radius:25px;cursor:pointer;font-weight:600;font-size:.95rem;transition:all .3s ease}
+.fashion-service .category-tab.active,.fashion-service .category-tab:hover{border-color:#ff6b35;background:#ff6b35;color:white}
+.fashion-service .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px}
+.fashion-service .product-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.08);border:1px solid #f0f0f0;transition:box-shadow .3s ease}
+.fashion-service .product-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.14)}
+.fashion-service .product-img-wrap{position:relative;height:200px;overflow:hidden;background:#f8f9fa}
+.fashion-service .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.fashion-service .product-card:hover .product-img-wrap img{transform:scale(1.06)}
+.fashion-service .product-tag{position:absolute;top:10px;left:10px;background:#ff6b35;color:white;padding:4px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
+.fashion-service .product-info{padding:16px}
+.fashion-service .product-info h4{font-size:1.05rem;color:#333;margin-bottom:6px;font-weight:600}
+.fashion-service .product-desc{font-size:.9rem;color:#666;line-height:1.5;margin-bottom:8px}
+.fashion-service .product-colors{font-size:.82rem;color:#888;margin-bottom:12px}
+.fashion-service .colors-label{font-weight:600;color:#555}
+.fashion-service .product-footer{display:flex;justify-content:space-between;align-items:center}
+.fashion-service .product-price{font-weight:700;color:#ff6b35;font-size:.95rem}
+.fashion-service .shop-btn{background:#ff6b35;color:white;text-decoration:none;padding:6px 14px;border-radius:16px;font-size:.85rem;font-weight:600;transition:background .3s}
+.fashion-service .shop-btn:hover{background:#e55a2b}
+.fashion-service .bodytype-selector{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-bottom:32px}
+.fashion-service .bodytype-chip{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 24px;background:white;border:2px solid #e9ecef;border-radius:16px;cursor:pointer;font-weight:600;color:#555;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .3s ease;min-width:100px;text-align:center}
+.fashion-service .bodytype-chip.selected,.fashion-service .bodytype-chip:hover{border-color:#ff6b35;background:#fff5f2;color:#ff6b35}
+.fashion-service .bt-icon{font-size:2rem}
+.fashion-service .bodytype-detail{background:white;border-radius:20px;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.fashion-service .bt-detail-header{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+.fashion-service .bt-big-icon{font-size:3.5rem}
+.fashion-service .bt-detail-header h3{font-size:1.6rem;color:#333;margin-bottom:6px}
+.fashion-service .bt-detail-header p{color:#666;font-size:1rem}
+.fashion-service .bt-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.fashion-service .bt-section{background:#f8f9fa;border-radius:14px;padding:22px}
+.fashion-service .bt-section h4{font-size:1.1rem;margin-bottom:14px;color:#333}
+.fashion-service .bt-section ul{padding-left:18px}
+.fashion-service .bt-section li{font-size:.95rem;color:#555;line-height:1.7}
+.fashion-service .bt-section.do{border-left:4px solid #28a745}
+.fashion-service .bt-section.avoid{border-left:4px solid #dc3545}
+.fashion-service .bt-colors-tip{margin-bottom:24px}
+.fashion-service .bt-colors-tip h4{font-size:1.1rem;color:#333;margin-bottom:12px}
+.fashion-service .bt-color-list{display:flex;flex-wrap:wrap;gap:10px}
+.fashion-service .bt-color-tag{background:#fff5f2;border:1px solid #ff6b35;color:#ff6b35;padding:6px 14px;border-radius:20px;font-size:.88rem;font-weight:600}
+.fashion-service .save-tip-btn{background:#ff6b35;color:white;border:none;padding:12px 28px;border-radius:25px;cursor:pointer;font-size:1rem;font-weight:600;transition:background .3s}
+.fashion-service .save-tip-btn:hover{background:#e55a2b}
+.fashion-service .combos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.fashion-service .combo-card{background:white;border-radius:16px;padding:22px;box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer;border:2px solid transparent;transition:border-color .3s,box-shadow .3s}
+.fashion-service .combo-card.expanded,.fashion-service .combo-card:hover{border-color:#ff6b35;box-shadow:0 8px 24px rgba(255,107,53,.12)}
+.fashion-service .combo-swatches{display:flex;gap:6px;margin-bottom:14px}
+.fashion-service .swatch{flex:1;height:40px;border-radius:8px;box-shadow:inset 0 1px 3px rgba(0,0,0,.1)}
+.fashion-service .combo-card h4{font-size:1.05rem;color:#333;margin-bottom:6px;font-weight:600}
+.fashion-service .combo-vibe{font-size:.85rem;color:#888;margin-bottom:0}
+.fashion-service .combo-detail{margin-top:16px;padding-top:16px;border-top:1px solid #f0f0f0}
+.fashion-service .swatch-labels{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.fashion-service .swatch-label{display:flex;align-items:center;gap:6px;font-size:.82rem;color:#555}
+.fashion-service .swatch-dot{width:14px;height:14px;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2);flex-shrink:0}
+.fashion-service .combo-outfit{font-size:.92rem;color:#444;line-height:1.6;margin-bottom:14px;background:#f8f9fa;padding:12px;border-radius:10px}
+@media(max-width:768px){.fashion-service .products-grid{grid-template-columns:1fr 1fr}.fashion-service .bt-detail-grid{grid-template-columns:1fr}.fashion-service .combos-grid{grid-template-columns:1fr 1fr}.fashion-service .bodytype-detail{padding:20px}}
+@media(max-width:480px){.fashion-service .products-grid{grid-template-columns:1fr}.fashion-service .combos-grid{grid-template-columns:1fr}}
