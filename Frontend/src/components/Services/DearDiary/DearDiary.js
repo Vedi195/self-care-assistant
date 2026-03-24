@@ -30,10 +30,6 @@ const load = (key, fallback) => {
 };
 const save = (key, val) => localStorage.setItem(key, JSON.stringify(val));
 
-const formatDate = (iso) => {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-};
 const shortDate = (iso) => new Date(iso).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'2-digit' });
 
 /* ───────────────────────────────────────────────
@@ -126,7 +122,7 @@ const EntryEditor = ({ entry, onSave, onCancel, theme }) => {
   const [title,    setTitle]    = useState(entry?.title    || '');
   const [body,     setBody]     = useState(entry?.body     || '');
   const [mood,     setMood]     = useState(entry?.mood     || '');
-  const [stickers, setStickers] = useState(entry?.stickers || []);
+  const [stickers] = useState(entry?.stickers || []);
   const bodyRef = useRef();
 
   const addSticker = (s) => {

@@ -11,12 +11,6 @@ const SaveButton = ({ category }) => {
     return text;
   };
 
-  // 🔁 Check if saved
-  const checkIfSaved = (btn) => {
-    const stored = JSON.parse(localStorage.getItem(category) || "[]");
-    const tip = getTipText(btn);
-    return stored.includes(tip);
-  };
 
   useEffect(() => {
     const checkSaved = () => {
