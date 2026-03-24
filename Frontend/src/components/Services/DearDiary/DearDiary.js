@@ -141,7 +141,7 @@ const EntryEditor = ({ entry, onSave, onCancel, theme }) => {
     if (!body.trim()) { alert('Write something first 💕'); return; }
     onSave({
       id:      entry?.id || Date.now().toString(),
-      title:   title || 'Untitled Entry',
+      title:   title || 'Untitled Diary',
       body,
       mood,
       stickers,
@@ -155,11 +155,11 @@ const EntryEditor = ({ entry, onSave, onCancel, theme }) => {
       initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:30 }}>
 
       <div className="dd-editor-header">
-        <h3 style={{ color: theme.text }}>✍️ {entry ? 'Edit Entry' : 'New Entry'}</h3>
+        <h3 style={{ color: theme.text }}>✍️ {entry ? 'Edit Entry' : 'New Diary'}</h3>
         <button className="dd-ed-close" onClick={onCancel} style={{ color: theme.accent }}>✕ Cancel</button>
       </div>
 
-      <input className="dd-ed-title" placeholder="Give this entry a title…"
+      <input className="dd-ed-title" placeholder="Give this Diary a title…"
         value={title} onChange={e => setTitle(e.target.value)}
         style={{ borderColor: theme.accent + '55', color: theme.text, background: theme.bg ? 'transparent' : 'white' }} />
 
@@ -193,7 +193,7 @@ const EntryEditor = ({ entry, onSave, onCancel, theme }) => {
       <div className="dd-ed-footer">
         <span className="dd-ed-chars" style={{ color: theme.text + '88' }}>{body.length} chars</span>
         <button className="dd-save-btn" onClick={handleSave}
-          style={{ background: theme.accent }}>💾 Save Entry</button>
+          style={{ background: theme.accent }}>💾 Save Diary</button>
       </div>
     </motion.div>
   );
@@ -354,20 +354,20 @@ const DearDiary = () => {
             <span className="dd-h-icon">📔</span>
             <div>
               <h1 style={{ color: theme.text }}>Dear Diary</h1>
-              <p style={{ color: theme.accent }}>{entries.length} {entries.length===1?'entry':'entries'}</p>
+              <p style={{ color: theme.accent }}>{entries.length} {entries.length===1?'Diary':'Diaries'}</p>
             </div>
           </div>
           <div className="dd-h-actions">
             <button className="dd-h-btn" title="Change theme" style={{ color: theme.accent }}
               onClick={() => setShowThemePicker(true)}>🎨</button>
-            <button className="dd-h-btn" title="Lock diary" style={{ color: theme.accent }}
+            <button className="dd-h-btn" title="Lock Diary" style={{ color: theme.accent }}
               onClick={handleLock}>🔒</button>
           </div>
         </div>
 
         {/* ── NAV ── */}
         <div className="dd-nav">
-          {[['home','📖 Entries'],['write','✍️ Write'],['settings','⚙️ Settings']].map(([v,l]) => (
+          {[['home','📖 Diaries'],['write','✍️ Write'],['settings','⚙️ Settings']].map(([v,l]) => (
             <button key={v} className={`dd-nav-btn${view===v?' active':''}`}
               style={view===v ? { background: theme.accent, borderColor: theme.accent, color:'#fff' }
                               : { borderColor: theme.accent + '66', color: theme.accent }}
@@ -382,7 +382,7 @@ const DearDiary = () => {
             <motion.div key="home" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}>
               {/* Search + filter */}
               <div className="dd-search-row">
-                <input className="dd-search" placeholder="🔍 Search entries…"
+                <input className="dd-search" placeholder="🔍 Search Diaries…"
                   value={search} onChange={e => setSearch(e.target.value)}
                   style={{ borderColor: theme.accent + '55', color: theme.text, background: theme.card }} />
                 <select className="dd-mood-filter"
@@ -397,7 +397,7 @@ const DearDiary = () => {
               <motion.button className="dd-new-btn" onClick={() => setView('write')}
                 style={{ background: theme.accent }}
                 whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}>
-                ✍️ Write a new entry
+                ✍️ Write a new Diary
               </motion.button>
 
               {/* Entries */}
@@ -463,13 +463,13 @@ const DearDiary = () => {
                 <div className="dd-setting-item">
                   <div>
                     <h4 style={{ color: theme.text }}>📊 Stats</h4>
-                    <p style={{ color: theme.text + '88' }}>{entries.length} entries · {entries.filter(e=>e.mood).length} with moods</p>
+                    <p style={{ color: theme.text + '88' }}>{entries.length} diaries · {entries.filter(e=>e.mood).length} with moods</p>
                   </div>
                 </div>
 
                 <div className="dd-setting-item">
                   <div>
-                    <h4 style={{ color: '#e53935' }}>🗑️ Delete All Entries</h4>
+                    <h4 style={{ color: '#e53935' }}>🗑️ Delete All Diaries</h4>
                     <p style={{ color: theme.text + '88' }}>This cannot be undone</p>
                   </div>
                   <button className="dd-setting-btn dd-delete-all-btn"

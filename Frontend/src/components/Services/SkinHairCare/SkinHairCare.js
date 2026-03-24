@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import './SkinHairCare.css';
 
 import Confetti from "react-confetti";
@@ -6,6 +7,8 @@ import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
 import ExpertTalkWidget from '../ExpertTalkWidget';
+import SaveButton from "../../SaveButton";
+
 
 const quizQuestionsMaster = [
   // skin questions
@@ -317,6 +320,386 @@ const organicRemedies = [
     benefits: "Rich in vitamins, deeply moisturizes"
   }
 ];
+
+/* ─────────────────────────────────────────────────────────────
+   PRODUCT CATALOG  (images via Unsplash, links to Amazon/Nykaa)
+───────────────────────────────────────────────────────────── */
+const productCatalog = {
+  skin: {
+    Oily: [
+      {
+        name: "CeraVe Foaming Facial Cleanser",
+        brand: "CeraVe",
+        image: "https://images.unsplash.com/photo-1631390937818-4f9a4a21ee8e?w=400&q=80",
+        description: "Gel-based foaming formula with niacinamide & ceramides that removes excess oil while preserving the skin barrier.",
+        usage: "Massage onto damp skin morning & evening, rinse with lukewarm water.",
+        tag: "Best Seller",
+        tagColor: "#16a34a",
+        link: "https://www.amazon.in/s?k=cerave+foaming+cleanser"
+      },
+      {
+        name: "Paula's Choice BHA Liquid Exfoliant",
+        brand: "Paula's Choice",
+        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80",
+        description: "2% salicylic acid exfoliant that unclogs pores, reduces blackheads, and smooths skin texture without drying.",
+        usage: "Apply with a cotton pad after cleansing, 1–2× daily. Do not rinse.",
+        tag: "Cult Fave",
+        tagColor: "#7c3aed",
+        link: "https://www.nykaa.com/search/result/?q=paulas+choice+bha"
+      },
+      {
+        name: "Neutrogena Hydro Boost Water Gel",
+        brand: "Neutrogena",
+        image: "https://images.unsplash.com/photo-1570194065650-d99fb4b38b53?w=400&q=80",
+        description: "Oil-free, non-comedogenic water-gel moisturizer with hyaluronic acid for all-day hydration without greasiness.",
+        usage: "Apply a pea-sized amount morning & night on clean skin.",
+        tag: "Dermatologist Pick",
+        tagColor: "#0369a1",
+        link: "https://www.amazon.in/s?k=neutrogena+hydro+boost+water+gel"
+      },
+    ],
+    Dry: [
+      {
+        name: "La Roche-Posay Toleriane Hydrating Gentle Cleanser",
+        brand: "La Roche-Posay",
+        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
+        description: "Cream cleanser with ceramides & niacinamide that cleanses without stripping. Perfect for dry, sensitive skin.",
+        usage: "Apply on wet skin, massage gently, rinse. Use twice daily.",
+        tag: "Sensitive Skin",
+        tagColor: "#db2777",
+        link: "https://www.nykaa.com/search/result/?q=la+roche-posay+toleriane"
+      },
+      {
+        name: "The Ordinary Hyaluronic Acid 2% + B5",
+        brand: "The Ordinary",
+        image: "https://images.unsplash.com/photo-1611080541599-8c6dbde94b64?w=400&q=80",
+        description: "Multi-molecular weight hyaluronic acid with vitamin B5 for intense surface hydration and plumping effect.",
+        usage: "Apply 2–3 drops to damp face before moisturizer, morning & evening.",
+        tag: "Best Value",
+        tagColor: "#0891b2",
+        link: "https://www.nykaa.com/search/result/?q=the+ordinary+hyaluronic+acid"
+      },
+      {
+        name: "First Aid Beauty Ultra Repair Cream",
+        brand: "First Aid Beauty",
+        image: "https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=400&q=80",
+        description: "Rich barrier repair cream with colloidal oatmeal, shea butter & ceramides for intense moisture relief.",
+        usage: "Apply liberally to face & body morning and night. Can layer over serums.",
+        tag: "Hydration Hero",
+        tagColor: "#065f46",
+        link: "https://www.amazon.in/s?k=first+aid+beauty+ultra+repair+cream"
+      },
+    ],
+    Combination: [
+      {
+        name: "Cetaphil Gentle Skin Cleanser",
+        brand: "Cetaphil",
+        image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80",
+        description: "pH-balanced, fragrance-free gentle cleanser suited for combination skin — hydrates dry zones without feeding oily areas.",
+        usage: "Use AM & PM, massage gently, rinse or wipe off without water.",
+        tag: "pH Balanced",
+        tagColor: "#b45309",
+        link: "https://www.nykaa.com/search/result/?q=cetaphil+gentle+cleanser"
+      },
+      {
+        name: "The Inkey List Niacinamide Serum",
+        brand: "The Inkey List",
+        image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=400&q=80",
+        description: "10% niacinamide + 1% zinc serum that balances sebum, reduces pore appearance, and evens skin tone.",
+        usage: "Apply a few drops to clean skin before moisturizer, twice daily.",
+        tag: "Zone Balancer",
+        tagColor: "#7c3aed",
+        link: "https://www.amazon.in/s?k=inkey+list+niacinamide"
+      },
+      {
+        name: "Clinique Dramatically Different Moisturizing Gel",
+        brand: "Clinique",
+        image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=400&q=80",
+        description: "Lightweight oil-free gel moisturizer that hydrates without leaving residue — ideal for T-zone management.",
+        usage: "Apply after toner on entire face. Use heavier cream on dry cheeks if needed.",
+        tag: "Dermatologist Tested",
+        tagColor: "#0369a1",
+        link: "https://www.nykaa.com/search/result/?q=clinique+dramatically+different+gel"
+      },
+    ],
+    Sensitive: [
+      {
+        name: "Avène Tolerance Control Soothing Skin Recovery Cream",
+        brand: "Avène",
+        image: "https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=400&q=80",
+        description: "Minimal-ingredient formula with Avène thermal water to instantly calm redness, stinging, and irritation.",
+        usage: "Apply a thin layer over clean face. Can be used as often as needed.",
+        tag: "Anti-Redness",
+        tagColor: "#be123c",
+        link: "https://www.amazon.in/s?k=avene+tolerance+control"
+      },
+      {
+        name: "Dr. Jart+ Cicapair Tiger Grass Serum",
+        brand: "Dr. Jart+",
+        image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=80",
+        description: "Centella asiatica-powered serum that visibly reduces redness and rebuilds the skin barrier over time.",
+        usage: "Apply 3–4 drops on clean skin before moisturizer, morning & night.",
+        tag: "Barrier Repair",
+        tagColor: "#166534",
+        link: "https://www.nykaa.com/search/result/?q=dr+jart+cicapair"
+      },
+      {
+        name: "Vanicream Moisturizing Skin Cream",
+        brand: "Vanicream",
+        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+        description: "Free from dyes, fragrance, parabens, and formaldehyde — the gold standard for reactive skin.",
+        usage: "Apply generously to clean face & body. Safe for twice daily use.",
+        tag: "Fragrance-Free",
+        tagColor: "#6b7280",
+        link: "https://www.amazon.in/s?k=vanicream+moisturizing+cream"
+      },
+    ],
+    Normal: [
+      {
+        name: "Simple Kind to Skin Moisturising Facial Wash",
+        brand: "Simple",
+        image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80",
+        description: "No-nonsense cleanser with pro-vitamin B5 & vitamin E that leaves skin clean, soft, and balanced.",
+        usage: "Use morning & evening. Lather with water, massage, rinse well.",
+        tag: "Daily Essential",
+        tagColor: "#0369a1",
+        link: "https://www.amazon.in/s?k=simple+kind+to+skin+face+wash"
+      },
+      {
+        name: "Innisfree Green Tea Seed Serum",
+        brand: "Innisfree",
+        image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&q=80",
+        description: "Green tea extract serum that keeps normal skin balanced, hydrated, and glowing with antioxidant protection.",
+        usage: "Apply 2–3 pumps on clean skin. Pat gently until absorbed.",
+        tag: "Glow Booster",
+        tagColor: "#166534",
+        link: "https://www.nykaa.com/search/result/?q=innisfree+green+tea+serum"
+      },
+      {
+        name: "SPF 50+ Sunscreen — Bioré UV Aqua Rich",
+        brand: "Bioré",
+        image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80",
+        description: "Watery, ultra-light SPF 50+ PA++++ sunscreen that absorbs instantly with zero white cast.",
+        usage: "Apply generously as the last step of AM skincare. Reapply every 3–4 hrs.",
+        tag: "SPF Must-Have",
+        tagColor: "#92400e",
+        link: "https://www.amazon.in/s?k=biore+uv+aqua+rich+spf50"
+      },
+    ],
+  },
+  hair: {
+    Straight: [
+      {
+        name: "L'Oréal Elvive Extraordinary Oil Shampoo",
+        brand: "L'Oréal Paris",
+        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&q=80",
+        description: "Lightweight oil-infused shampoo that smooths straight hair, adds glossy shine, and prevents frizz.",
+        usage: "Lather on wet hair, focus on roots, rinse thoroughly. Use 3–4× a week.",
+        tag: "Frizz Control",
+        tagColor: "#7c3aed",
+        link: "https://www.nykaa.com/search/result/?q=loreal+elvive+extraordinary+oil+shampoo"
+      },
+      {
+        name: "Tresemmé Keratin Smooth Heat Protect Spray",
+        brand: "Tresemmé",
+        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+        description: "Keratin-infused heat protectant that guards up to 230°C, seals cuticles, and leaves hair sleek.",
+        usage: "Spray on damp hair before blow-drying or heat styling. Do not rinse.",
+        tag: "Heat Shield",
+        tagColor: "#b45309",
+        link: "https://www.amazon.in/s?k=tresemme+keratin+smooth+heat+protect"
+      },
+      {
+        name: "Pantene Pro-V Silky Smooth Conditioner",
+        brand: "Pantene",
+        image: "https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&q=80",
+        description: "Pro-vitamin B5 conditioner that detangles, softens, and adds mirror shine to straight hair.",
+        usage: "Apply from mid-lengths to ends after shampooing. Leave 2 min, rinse.",
+        tag: "Shine Boost",
+        tagColor: "#0369a1",
+        link: "https://www.amazon.in/s?k=pantene+silky+smooth+conditioner"
+      },
+    ],
+    Wavy: [
+      {
+        name: "OGX Moroccan Curling Perfection Defining Cream",
+        brand: "OGX",
+        image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80",
+        description: "Argan oil–infused cream that enhances wave definition and controls frizz without weighing hair down.",
+        usage: "Scrunch into wet hair section by section. Air-dry or diffuse on low heat.",
+        tag: "Wave Enhancer",
+        tagColor: "#0891b2",
+        link: "https://www.nykaa.com/search/result/?q=ogx+moroccan+curling+perfection"
+      },
+      {
+        name: "Cantu Shea Butter Wave Whip Curling Mousse",
+        brand: "Cantu",
+        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80",
+        description: "Shea butter mousse that defines waves, reduces frizz, and locks in moisture for long-lasting hold.",
+        usage: "Apply palm-sized amount to soaking wet hair. Scrunch upward, air-dry.",
+        tag: "Light Hold",
+        tagColor: "#166534",
+        link: "https://www.amazon.in/s?k=cantu+wave+whip+mousse"
+      },
+      {
+        name: "SheaMoisture Manuka Honey & Mafura Oil Masque",
+        brand: "SheaMoisture",
+        image: "https://images.unsplash.com/photo-1632345031435-8727f592d8d9?w=400&q=80",
+        description: "Intensive weekly masque with manuka honey that restores moisture, strengthens waves, and adds softness.",
+        usage: "Apply to clean damp hair weekly, leave 5–10 min under a shower cap, rinse.",
+        tag: "Weekly Treatment",
+        tagColor: "#b45309",
+        link: "https://www.nykaa.com/search/result/?q=shea+moisture+manuka+honey+masque"
+      },
+    ],
+    Curly: [
+      {
+        name: "DevaCurl No-Poo Original Zero Lather Cleanser",
+        brand: "DevaCurl",
+        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&q=80",
+        description: "Sulfate-free co-wash cleanser specifically designed for curly hair — cleanses without disrupting curl pattern.",
+        usage: "Massage into scalp with fingertips on wet hair. Rinse thoroughly.",
+        tag: "CGM Approved",
+        tagColor: "#7c3aed",
+        link: "https://www.amazon.in/s?k=devacurl+no+poo"
+      },
+      {
+        name: "Ouidad Curl Immersion No-Lather Coconut Cream Cleansing Conditioner",
+        brand: "Ouidad",
+        image: "https://images.unsplash.com/photo-1570194065650-d99fb4b38b53?w=400&q=80",
+        description: "Co-wash + conditioner hybrid with coconut oil that hydrates while gently cleansing each curl strand.",
+        usage: "Apply to wet hair, detangle with wide-tooth comb, leave 2–3 min, rinse.",
+        tag: "Deep Hydration",
+        tagColor: "#0369a1",
+        link: "https://www.nykaa.com/search/result/?q=ouidad+curl+immersion"
+      },
+      {
+        name: "Kinky-Curly Knot Today Leave-In Conditioner",
+        brand: "Kinky-Curly",
+        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+        description: "Organic marshmallow root leave-in that detangles, defines curls, and banishes frizz from root to tip.",
+        usage: "Rake through soaking wet hair section by section. Style as usual. Do not rinse.",
+        tag: "Frizz Fighter",
+        tagColor: "#be123c",
+        link: "https://www.amazon.in/s?k=kinky+curly+knot+today"
+      },
+    ],
+    Coily: [
+      {
+        name: "Mielle Organics Rosemary Mint Strengthening Shampoo",
+        brand: "Mielle Organics",
+        image: "https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=400&q=80",
+        description: "Rosemary & mint infused shampoo that strengthens coils, stimulates scalp, and retains moisture.",
+        usage: "Apply to wet sectioned hair. Focus on scalp. Rinse well. Follow with conditioner.",
+        tag: "Growth Boost",
+        tagColor: "#166534",
+        link: "https://www.nykaa.com/search/result/?q=mielle+rosemary+mint+shampoo"
+      },
+      {
+        name: "Shea Moisture 100% Extra Virgin Coconut Oil",
+        brand: "SheaMoisture",
+        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+        description: "Pure coconut oil that acts as a pre-poo treatment, sealant, and hot-oil treatment for coily hair.",
+        usage: "Apply warm oil to dry hair before wash day. Leave 30+ min. Shampoo out.",
+        tag: "Pre-Poo Essential",
+        tagColor: "#92400e",
+        link: "https://www.amazon.in/s?k=shea+moisture+coconut+oil"
+      },
+      {
+        name: "Camille Rose Naturals Curl Maker",
+        brand: "Camille Rose",
+        image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=80",
+        description: "Water-based curl-defining gel with aloe vera that provides flexible hold, definition, and shine for coils.",
+        usage: "Apply generously to soaking wet hair. Smooth and twirl coils. Air dry completely.",
+        tag: "Curl Definer",
+        tagColor: "#0891b2",
+        link: "https://www.amazon.in/s?k=camille+rose+curl+maker"
+        
+      },
+    ],
+    Frizzy: [
+      {
+        name: "Moroccanoil Treatment Original",
+        brand: "Moroccanoil",
+        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80",
+        description: "Iconic argan oil finishing treatment that tames frizz, adds shine, and reduces blow-dry time by 40%.",
+        usage: "Work 1–2 pumps through damp hair before styling or on dry hair as a finisher.",
+        tag: "Iconic Product",
+        tagColor: "#7c3aed",
+        link: "https://www.nykaa.com/search/result/?q=moroccanoil+treatment"
+      },
+      {
+        name: "Garnier Fructis Sleek & Shine Anti-Frizz Serum",
+        brand: "Garnier",
+        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+        description: "Budget-friendly moroccan argan oil serum that controls frizz for 24 hours in high humidity.",
+        usage: "Apply 2–3 drops on dry or damp hair. Focus on mid-lengths and ends.",
+        tag: "Budget Pick",
+        tagColor: "#166534",
+        link: "https://www.amazon.in/s?k=garnier+fructis+sleek+shine+serum"
+      },
+      {
+        name: "Living Proof Perfect Hair Day Dry Shampoo",
+        brand: "Living Proof",
+        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&q=80",
+        description: "Patented OFPMA technology absorbs oil and static, keeping frizzy hair fresh between washes.",
+        usage: "Hold 10cm from roots, spray in sections. Wait 30 sec, brush or massage through.",
+        tag: "Refresh & Go",
+        tagColor: "#0369a1",
+        link: "https://www.nykaa.com/search/result/?q=living+proof+dry+shampoo"
+      },
+    ],
+    Dry: [
+      {
+        name: "Briogeo Don't Despair, Repair! Deep Conditioning Mask",
+        brand: "Briogeo",
+        image: "https://images.unsplash.com/photo-1632345031435-8727f592d8d9?w=400&q=80",
+        description: "Rosehip oil + biotin + algae deep mask that repairs dry, damaged hair and restores softness in one wash.",
+        usage: "Apply to clean damp hair, comb through. Leave 20 min (or overnight). Rinse.",
+        tag: "Repair Expert",
+        tagColor: "#be123c",
+        link: "https://www.nykaa.com/search/result/?q=briogeo+dont+despair+repair"
+      },
+      {
+        name: "WOW Skin Science Apple Cider Vinegar Shampoo",
+        brand: "WOW",
+        image: "https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&q=80",
+        description: "ACV + argan oil blend that restores scalp pH, adds shine, and deeply moisturises dry, brittle hair.",
+        usage: "Wet hair fully, lather shampoo, massage 2 min, rinse well. Use 2–3× per week.",
+        tag: "Scalp Restore",
+        tagColor: "#b45309",
+        link: "https://www.amazon.in/s?k=wow+apple+cider+vinegar+shampoo"
+      },
+      {
+        name: "Schwarzkopf Gliss Kur Ultimate Repair Leave-In Spray",
+        brand: "Schwarzkopf",
+        image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80",
+        description: "Liquid keratin leave-in conditioner that detangles, moisturises, and strengthens every dry strand.",
+        usage: "Spray onto damp or dry hair after washing. Comb through. No rinsing needed.",
+        tag: "Leave-In Rescue",
+        tagColor: "#0891b2",
+        link: "https://www.amazon.in/s?k=schwarzkopf+gliss+ultimate+repair"
+      },
+    ],
+  }
+};
+
+/* helper to get products for a given profile */
+const getProductsForProfile = (profile) => {
+  const result = { skin: [], hair: [] };
+  if (profile.skinType && productCatalog.skin[profile.skinType]) {
+    result.skin = productCatalog.skin[profile.skinType];
+  }
+  const hairKey = profile.hairConcern === 'Frizz' ? 'Frizzy'
+    : profile.hairConcern === 'Dryness' ? 'Dry'
+    : profile.hairType || '';
+  if (hairKey && productCatalog.hair[hairKey]) {
+    result.hair = productCatalog.hair[hairKey];
+  } else if (profile.hairType && productCatalog.hair[profile.hairType]) {
+    result.hair = productCatalog.hair[profile.hairType];
+  }
+  return result;
+};
 
 const SkinHairCare = () => {
   const [currentView, setCurrentView] = useState('main');
@@ -691,12 +1074,7 @@ const SkinHairCare = () => {
                   <div className="tip-icon">🧴</div>
                   <h4>Less is More</h4>
                   <p>Start with a simple routine and gradually add products. Your skin needs time to adjust.</p>
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => saveTipToFavorites("Start with a simple routine and gradually add products. Your skin needs time to adjust.")}>
-                    ❤️ Save
-                  </motion.button>
+                  <SaveButton category="skinCareFavorites" />
                 </motion.div>
               </div>
 
@@ -873,6 +1251,106 @@ const SkinHairCare = () => {
                   </div>
                 ))}
               </div>
+
+              {/* ── PRODUCT RECOMMENDATIONS ── */}
+              {(() => {
+                const products = getProductsForProfile(careProfile);
+                return (
+                  <>
+                    {products.skin.length > 0 && (
+                      <div className="product-section">
+                        <div className="product-section-header">
+                          <span className="product-section-icon">🧴</span>
+                          <div>
+                            <h3>Skincare Products for {careProfile.skinType} Skin</h3>
+                            <p>Handpicked for your skin type · Links open on Amazon / Nykaa</p>
+                          </div>
+                        </div>
+                        <div className="product-grid">
+                          {products.skin.map((p, i) => (
+                            <motion.div
+                              key={i}
+                              className="product-card"
+                              initial={{ opacity: 0, y: 24 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.45, delay: i * 0.1 }}
+                            >
+                              <div className="product-image-wrap">
+                                <img src={p.image} alt={p.name} className="product-img" loading="lazy" />
+                                <span className="product-tag" style={{ background: p.tagColor }}>{p.tag}</span>
+                              </div>
+                              <div className="product-body">
+                                <span className="product-brand">{p.brand}</span>
+                                <h4 className="product-name">{p.name}</h4>
+                                <p className="product-desc">{p.description}</p>
+                                <div className="product-usage">
+                                  <span className="usage-label">How to use</span>
+                                  <p>{p.usage}</p>
+                                </div>
+                                <a
+                                  href={p.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="product-buy-btn"
+                                >
+                                  Shop Now →
+                                </a>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {products.hair.length > 0 && (
+                      <div className="product-section">
+                        <div className="product-section-header">
+                          <span className="product-section-icon">💇‍♀️</span>
+                          <div>
+                            <h3>Haircare Products for {careProfile.hairType || 'Your'} Hair</h3>
+                            <p>Curated for your hair type & concerns · Links open on Amazon / Nykaa</p>
+                          </div>
+                        </div>
+                        <div className="product-grid">
+                          {products.hair.map((p, i) => (
+                            <motion.div
+                              key={i}
+                              className="product-card"
+                              initial={{ opacity: 0, y: 24 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.45, delay: i * 0.1 }}
+                            >
+                              <div className="product-image-wrap">
+                                <img src={p.image} alt={p.name} className="product-img" loading="lazy" />
+                                <span className="product-tag" style={{ background: p.tagColor }}>{p.tag}</span>
+                              </div>
+                              <div className="product-body">
+                                <span className="product-brand">{p.brand}</span>
+                                <h4 className="product-name">{p.name}</h4>
+                                <p className="product-desc">{p.description}</p>
+                                <div className="product-usage">
+                                  <span className="usage-label">How to use</span>
+                                  <p>{p.usage}</p>
+                                </div>
+                                <a
+                                  href={p.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="product-buy-btn"
+                                >
+                                  Shop Now →
+                                </a>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
