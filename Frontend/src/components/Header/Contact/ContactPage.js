@@ -16,28 +16,37 @@ const Contact = () => {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  // Formspree handling
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
     setStatus("sending");
+
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setShowForm(false), 2500);
+      const response = await fetch(
+        "https://formspree.io/f/maqplwzk",
+        {
+          method: "POST",
+          body: data,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        setStatus("✅ Message sent successfully!");
+        form.reset();
+        setFormData({ name: "", email: "", message: "" }); // ✅ reset state also
       } else {
-        setStatus("error");
+        setStatus("❌ Failed to send message. Try again.");
       }
-    } catch {
-      setStatus("error");
+    } catch (error) {
+      setStatus("❌ Server error. Please try again later.");
     }
   };
-
   const containerVariants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.12 } },
@@ -182,21 +191,14 @@ const Contact = () => {
                   </div>
 
                   {status === "success" && (
-                    <motion.p
-                      className="status-msg status-success"
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      ✓ Message sent — I'll be in touch soon!
+                    <motion.p className="status-msg status-success">
+                      ✅ Message sent successfully!
                     </motion.p>
                   )}
+
                   {status === "error" && (
-                    <motion.p
-                      className="status-msg status-error"
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      Something went wrong. Please try again.
+                    <motion.p className="status-msg status-error">
+                      ❌ Failed to send message. Try again.
                     </motion.p>
                   )}
                 </form>

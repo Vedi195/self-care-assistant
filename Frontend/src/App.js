@@ -16,7 +16,6 @@ import ProfilePage from './components/Header/ProfilePage/ProfilePage';
 import Hero from './components/Hero/Hero';
 import ServiceCards from './components/ServiceCards/ServiceCards';
 import QuoteBox from './components/QuoteBox/QuoteBox';
-import FeedbackTable from './components/Admin/FeedbackTable';
 
 import Footer from './components/Footer/Footer';
 import Privacy from "./components/Footer/pages/Privacy";
@@ -76,7 +75,6 @@ function App() {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/admin/feedback" element={<FeedbackTable />} />
               
               {/* Service Routes */}
               <Route path="/fashion-suggestion" element={<FashionSuggestion />} />
