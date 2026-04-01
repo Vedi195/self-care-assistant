@@ -91,94 +91,94 @@ const Header = () => {
                   About
                 </NavLink>
               </li>
-               {/* ── Profile Icon (beside About) ── */}
-                <li className="profile-nav-item" ref={dropdownRef}>
-                  <button
-                    className="profile-icon-btn"
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                    title={profileData?.name || 'Profile'}
-                  >
-                    {profileData?.profileImage ? (
-                      <img
-                        src={profileData.profileImage}
-                        alt="Profile"
-                        className="nav-profile-img"
-                      />
-                    ) : (
-                      <div className="nav-profile-initials">
-                        {getInitials()}
-                      </div>
-                    )}
-                    {/* Online dot */}
-                    <span className="online-dot"></span>
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {dropdownOpen && (
-                    <div className="profile-dropdown">
-                      {/* Dropdown Header */}
-                      <div className="dropdown-header">
-                        <div className="dropdown-avatar">
-                          {profileData?.profileImage ? (
-                            <img src={profileData.profileImage} alt="Profile" />
-                          ) : (
-                            <div className="dropdown-initials">{getInitials()}</div>
-                          )}
-                        </div>
-                        <div className="dropdown-info">
-                          <strong>{profileData?.name || 'Guest User'}</strong>
-                          <span>{profileData?.fashionStyle || 'Complete your profile'}</span>
-                        </div>
-                      </div>
-
-                      <div className="dropdown-divider" />
-
-                      {/* Dropdown Links */}
-                      <button className="dropdown-item" onClick={() => handleDropdownNav('/profile')}>
-                        <span className="dropdown-item-icon">👤</span> My Profile
-                      </button>
-                      <button className="dropdown-item" onClick={() => handleDropdownNav('/favorites')}>
-                        <span className="dropdown-item-icon">❤️</span> My Favorites
-                      </button>
-                      <button className="dropdown-item" onClick={() => handleDropdownNav('/todo-list')}>
-                        <span className="dropdown-item-icon">✅</span> My To-Do List
-                      </button>
-                      <button className="dropdown-item" onClick={() => handleDropdownNav('/reminders')}>
-                        <span className="dropdown-item-icon">⏰</span> My Reminders
-                      </button>
-
-                      <div className="dropdown-divider" />
-
-                      <button className="dropdown-item" onClick={() => handleDropdownNav('/about')}>
-                        <span className="dropdown-item-icon">ℹ️</span> About Us
-                      </button>
-                      <button className="dropdown-item" onClick={() => handleDropdownNav('/contact')}>
-                        <span className="dropdown-item-icon">📩</span> Contact
-                      </button>
-
-                      <div className="dropdown-divider" />
-
-                      {/* Clear Profile */}
-                      <button
-                        className="dropdown-item logout-item"
-                        onClick={() => {
-                          const confirmed = window.confirm(
-                            '⚠️ This will permanently delete ALL your data and reset the app:\n\n' +
-                            '• Profile • Reminders • Favorites • Meals & Water\n' +
-                            '• Period tracking • Contact chats • To-do list\n\n' +
-                            'Are you sure? This cannot be undone.'
-                          );
-                          if (!confirmed) return;
-
-                          localStorage.clear();       // wipe everything
-                          window.location.reload();   // full page reset
-                        }}
-                      >
-                        <span className="dropdown-item-icon">🗑️</span> Clear All Data
-                      </button>
+              {/* ── Profile Icon (beside About) ── */}
+              <li className="profile-nav-item" ref={dropdownRef}>
+                <button
+                  className="profile-icon-btn"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  title={profileData?.name || 'Profile'}
+                >
+                  {profileData?.profileImage ? (
+                    <img
+                      src={profileData.profileImage}
+                      alt="Profile"
+                      className="nav-profile-img"
+                    />
+                  ) : (
+                    <div className="nav-profile-initials">
+                      {getInitials()}
                     </div>
                   )}
-                </li>
+                  {/* Online dot */}
+                  <span className="online-dot"></span>
+                </button>
+
+                {/* Dropdown Menu */}
+                {dropdownOpen && (
+                  <div className="profile-dropdown">
+                    {/* Dropdown Header */}
+                    <div className="dropdown-header">
+                      <div className="dropdown-avatar">
+                        {profileData?.profileImage ? (
+                          <img src={profileData.profileImage} alt="Profile" />
+                        ) : (
+                          <div className="dropdown-initials">{getInitials()}</div>
+                        )}
+                      </div>
+                      <div className="dropdown-info">
+                        <strong>{profileData?.name || 'Guest User'}</strong>
+                        <span>{profileData?.fashionStyle || 'Complete your profile'}</span>
+                      </div>
+                    </div>
+
+                    <div className="dropdown-divider" />
+
+                    {/* Dropdown Links */}
+                    <button className="dropdown-item" onClick={() => handleDropdownNav('/profile')}>
+                      <span className="dropdown-item-icon">👤</span> My Profile
+                    </button>
+                    <button className="dropdown-item" onClick={() => handleDropdownNav('/favorites')}>
+                      <span className="dropdown-item-icon">❤️</span> My Favorites
+                    </button>
+                    <button className="dropdown-item" onClick={() => handleDropdownNav('/todo-list')}>
+                      <span className="dropdown-item-icon">✅</span> My To-Do List
+                    </button>
+                    <button className="dropdown-item" onClick={() => handleDropdownNav('/reminders')}>
+                      <span className="dropdown-item-icon">⏰</span> My Reminders
+                    </button>
+
+                    <div className="dropdown-divider" />
+
+                    <button className="dropdown-item" onClick={() => handleDropdownNav('/about')}>
+                      <span className="dropdown-item-icon">ℹ️</span> About Us
+                    </button>
+                    <button className="dropdown-item" onClick={() => handleDropdownNav('/contact')}>
+                      <span className="dropdown-item-icon">📩</span> Contact
+                    </button>
+
+                    <div className="dropdown-divider" />
+
+                    {/* Clear Profile */}
+                    <button
+                      className="dropdown-item logout-item"
+                      onClick={() => {
+                        const confirmed = window.confirm(
+                          '⚠️ This will permanently delete ALL your data and reset the app:\n\n' +
+                          '• Profile • Reminders • Favorites • Meals & Water\n' +
+                          '• Period tracking • Contact chats • To-do list\n\n' +
+                          'Are you sure? This cannot be undone.'
+                        );
+                        if (!confirmed) return;
+
+                        localStorage.clear();       // wipe everything
+                        window.location.reload();   // full page reset
+                      }}
+                    >
+                      <span className="dropdown-item-icon">🗑️</span> Clear All Data
+                    </button>
+                  </div>
+                )}
+              </li>
                 {/* ── End Profile Icon ── */}
             </ul>
           </nav>

@@ -662,7 +662,7 @@ const FashionSuggestion = () => {
     setChatInput(''); setIsLoading(true);
     setChatMessages(prev => [...prev, { type: 'user', message: msg }]);
     try {
-      const res = await fetch('http://localhost:5000/api/ask-ai', {
+      const res = await fetch('https://self-care-assistant.onrender.com/api/ask-ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: `You are a friendly fashion expert. User: ${msg}` }),

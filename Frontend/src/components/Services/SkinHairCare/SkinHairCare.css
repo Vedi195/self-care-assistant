@@ -1,5 +1,5 @@
 .skin-hair-care {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 20px;
   min-height: 70vh;
@@ -240,7 +240,7 @@
 
 /* Quiz View */
 .skin-hair-care .quiz-view {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -249,6 +249,8 @@
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .skin-hair-care .quiz-progress {
@@ -312,6 +314,9 @@
 }
 
 /* Results View */
+
+/* ⭐ Result wider */
+
 .skin-hair-care .results-container {
   background: white;
   padding: 40px;
@@ -405,6 +410,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   transition: background-color 0.3s ease;
+  margin-top: 40px;
 }
 
 .skin-hair-care .retry-btn:hover {
@@ -415,7 +421,6 @@
 /* Routines View - Main Container */
 .routines-view {
   max-width: 1400px;
-  margin: 0 auto;
   padding: 20px;
   min-height: 70vh;
 }

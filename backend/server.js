@@ -18,7 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "*",   // for now allow all (later you can add your Vercel URL)
+  methods: ["GET", "POST"],
+}));
 app.use(express.json());
 
 
@@ -43,9 +46,13 @@ app.post('/api/ask-ai', async (req, res) => {
   } catch (error) {
     console.error("❌ AI Chatbot Error:", error);
     return res.status(500).json({
-      error: "Failed to get response from Gemini"
+      error: error.message || "Failed to get response from Gemini"
     });
   }
+});
+
+app.get('/', (req, res) => {
+  res.send("Backend is running 🚀");
 });
 
 
@@ -53,5 +60,5 @@ app.post('/api/ask-ai', async (req, res) => {
 //  SERVER START
 // ---------------------------
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

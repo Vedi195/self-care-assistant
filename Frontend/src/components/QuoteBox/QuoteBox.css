@@ -1,16 +1,57 @@
-/* src/components/QuoteBox.css */
-
 .quote-container {
-  background-color: #f0f8ff;
-  padding: 16px;
-  border-radius: 12px;
-  margin: 20px;
+  background: linear-gradient(135deg, #ffe3ec, #fff5f8); /* soft gradient */
+  padding: 30px 25px;
+  border-radius: 20px;
+  margin: 30px auto;
+  max-width: 700px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  position: relative;
+  height: 130px;
 }
 
+/* Title */
+.quote-container h2 {
+  font-size: 1.4rem;
+  color: #e83e8c;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Quote text */
 .quote-text {
   font-style: italic;
-  color: #333;
-  font-size: 18px;
+  color: #444;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  position: relative;
+  padding: 0 10px;
 }
+
+/* Decorative quotes */
+.quote-text::before,
+.quote-text::after {
+  content: "“";
+  font-size: 2rem;
+  color: #e83e8c;
+  opacity: 0.4;
+  position: absolute;
+}
+
+.quote-text::before {
+  left: -10px;
+  top: -10px;
+}
+
+.quote-text::after {
+  content: "”";
+  right: -10px;
+  bottom: -10px;
+}
+
+/* Hover effect */
+.quote-container:hover {
+  transform: translateY(-3px);
+  transition: 0.3s ease;
+}
+

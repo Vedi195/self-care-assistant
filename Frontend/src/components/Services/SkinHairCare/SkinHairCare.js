@@ -895,7 +895,7 @@ const SkinHairCare = () => {
     setChatMessages(prev => [...prev, { type: 'user', message: userMessage }]);
 
     try {
-      const response = await fetch("http://localhost:5000/api/ask-ai", {
+      const response = await fetch('https://self-care-assistant.onrender.com/api/ask-ai', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1212,155 +1212,157 @@ const SkinHairCare = () => {
 
           {/* Results */}
           {careProfile && (
-            <div className="results-container">
-              <Confetti numberOfPieces={180} gravity={0.25} recycle={false} />
-              <motion.h2
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >✨ Your Personalized Beauty Profile</motion.h2>
-              <div className="profile-summary">
-                <div className="profile-item">
-                  <strong>Skin Type:</strong> {careProfile.skinType}
-                </div>
-                <div className="profile-item">
-                  <strong>Hair Type:</strong> {careProfile.hairType} {careProfile.hairTexture}
-                </div>
-                <div className="profile-item">
-                  <strong>Main Concerns:</strong> {careProfile.skinConcern}{careProfile.hairConcern ? `, ${careProfile.hairConcern}` : ''}
-                </div>
-              </div>
-
-              <div className="recommendations">
-                {careProfile.recommendations.map((rec, index) => (
-                  <div key={index} className="recommendation-card">
-                    <h4>{rec.title}</h4>
-                    <p>{rec.description}</p>
-                    <div className="rec-products">
-                      {rec.products && (
-                        <small><strong>Suggested:</strong> {rec.products.join(', ')}</small>
-                      )}
-                    </div>
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites(rec.description)}>
-                      ❤️ Save
-                    </motion.button>
+            <div className="results-wrapper">
+              <div className="results-container">
+                <Confetti numberOfPieces={180} gravity={0.25} recycle={false} />
+                <motion.h2
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >✨ Your Personalized Beauty Profile</motion.h2>
+                <div className="profile-summary">
+                  <div className="profile-item">
+                    <strong>Skin Type:</strong> {careProfile.skinType}
                   </div>
-                ))}
+                  <div className="profile-item">
+                    <strong>Hair Type:</strong> {careProfile.hairType} {careProfile.hairTexture}
+                  </div>
+                  <div className="profile-item">
+                    <strong>Main Concerns:</strong> {careProfile.skinConcern}{careProfile.hairConcern ? `, ${careProfile.hairConcern}` : ''}
+                  </div>
+                </div>
+
+                <div className="recommendations">
+                  {careProfile.recommendations.map((rec, index) => (
+                    <div key={index} className="recommendation-card">
+                      <h4>{rec.title}</h4>
+                      <p>{rec.description}</p>
+                      <div className="rec-products">
+                        {rec.products && (
+                          <small><strong>Suggested:</strong> {rec.products.join(', ')}</small>
+                        )}
+                      </div>
+                      <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => saveTipToFavorites(rec.description)}>
+                        ❤️ Save
+                      </motion.button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* ── PRODUCT RECOMMENDATIONS ── */}
+                {(() => {
+                  const products = getProductsForProfile(careProfile);
+                  return (
+                    <>
+                      {products.skin.length > 0 && (
+                        <div className="product-section">
+                          <div className="product-section-header">
+                            <span className="product-section-icon">🧴</span>
+                            <div>
+                              <h3>Skincare Products for {careProfile.skinType} Skin</h3>
+                              <p>Handpicked for your skin type · Links open on Amazon / Nykaa</p>
+                            </div>
+                          </div>
+                          <div className="product-grid">
+                            {products.skin.map((p, i) => (
+                              <motion.div
+                                key={i}
+                                className="product-card"
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.45, delay: i * 0.1 }}
+                              >
+                                <div className="product-image-wrap">
+                                  <img src={p.image} alt={p.name} className="product-img" loading="lazy" />
+                                  <span className="product-tag" style={{ background: p.tagColor }}>{p.tag}</span>
+                                </div>
+                                <div className="product-body">
+                                  <span className="product-brand">{p.brand}</span>
+                                  <h4 className="product-name">{p.name}</h4>
+                                  <p className="product-desc">{p.description}</p>
+                                  <div className="product-usage">
+                                    <span className="usage-label">How to use</span>
+                                    <p>{p.usage}</p>
+                                  </div>
+                                  <a
+                                    href={p.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="product-buy-btn"
+                                  >
+                                    Shop Now →
+                                  </a>
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {products.hair.length > 0 && (
+                        <div className="product-section">
+                          <div className="product-section-header">
+                            <span className="product-section-icon">💇‍♀️</span>
+                            <div>
+                              <h3>Haircare Products for {careProfile.hairType || 'Your'} Hair</h3>
+                              <p>Curated for your hair type & concerns · Links open on Amazon / Nykaa</p>
+                            </div>
+                          </div>
+                          <div className="product-grid">
+                            {products.hair.map((p, i) => (
+                              <motion.div
+                                key={i}
+                                className="product-card"
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.45, delay: i * 0.1 }}
+                              >
+                                <div className="product-image-wrap">
+                                  <img src={p.image} alt={p.name} className="product-img" loading="lazy" />
+                                  <span className="product-tag" style={{ background: p.tagColor }}>{p.tag}</span>
+                                </div>
+                                <div className="product-body">
+                                  <span className="product-brand">{p.brand}</span>
+                                  <h4 className="product-name">{p.name}</h4>
+                                  <p className="product-desc">{p.description}</p>
+                                  <div className="product-usage">
+                                    <span className="usage-label">How to use</span>
+                                    <p>{p.usage}</p>
+                                  </div>
+                                  <a
+                                    href={p.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="product-buy-btn"
+                                  >
+                                    Shop Now →
+                                  </a>
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="retry-btn" 
+                  onClick={resetQuiz}
+                >
+                  🔄 Retake Quiz
+                </motion.button>
               </div>
-
-              {/* ── PRODUCT RECOMMENDATIONS ── */}
-              {(() => {
-                const products = getProductsForProfile(careProfile);
-                return (
-                  <>
-                    {products.skin.length > 0 && (
-                      <div className="product-section">
-                        <div className="product-section-header">
-                          <span className="product-section-icon">🧴</span>
-                          <div>
-                            <h3>Skincare Products for {careProfile.skinType} Skin</h3>
-                            <p>Handpicked for your skin type · Links open on Amazon / Nykaa</p>
-                          </div>
-                        </div>
-                        <div className="product-grid">
-                          {products.skin.map((p, i) => (
-                            <motion.div
-                              key={i}
-                              className="product-card"
-                              initial={{ opacity: 0, y: 24 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.45, delay: i * 0.1 }}
-                            >
-                              <div className="product-image-wrap">
-                                <img src={p.image} alt={p.name} className="product-img" loading="lazy" />
-                                <span className="product-tag" style={{ background: p.tagColor }}>{p.tag}</span>
-                              </div>
-                              <div className="product-body">
-                                <span className="product-brand">{p.brand}</span>
-                                <h4 className="product-name">{p.name}</h4>
-                                <p className="product-desc">{p.description}</p>
-                                <div className="product-usage">
-                                  <span className="usage-label">How to use</span>
-                                  <p>{p.usage}</p>
-                                </div>
-                                <a
-                                  href={p.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="product-buy-btn"
-                                >
-                                  Shop Now →
-                                </a>
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {products.hair.length > 0 && (
-                      <div className="product-section">
-                        <div className="product-section-header">
-                          <span className="product-section-icon">💇‍♀️</span>
-                          <div>
-                            <h3>Haircare Products for {careProfile.hairType || 'Your'} Hair</h3>
-                            <p>Curated for your hair type & concerns · Links open on Amazon / Nykaa</p>
-                          </div>
-                        </div>
-                        <div className="product-grid">
-                          {products.hair.map((p, i) => (
-                            <motion.div
-                              key={i}
-                              className="product-card"
-                              initial={{ opacity: 0, y: 24 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.45, delay: i * 0.1 }}
-                            >
-                              <div className="product-image-wrap">
-                                <img src={p.image} alt={p.name} className="product-img" loading="lazy" />
-                                <span className="product-tag" style={{ background: p.tagColor }}>{p.tag}</span>
-                              </div>
-                              <div className="product-body">
-                                <span className="product-brand">{p.brand}</span>
-                                <h4 className="product-name">{p.name}</h4>
-                                <p className="product-desc">{p.description}</p>
-                                <div className="product-usage">
-                                  <span className="usage-label">How to use</span>
-                                  <p>{p.usage}</p>
-                                </div>
-                                <a
-                                  href={p.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="product-buy-btn"
-                                >
-                                  Shop Now →
-                                </a>
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                );
-              })()}
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="retry-btn" 
-                onClick={resetQuiz}
-              >
-                🔄 Retake Quiz
-              </motion.button>
             </div>
           )}
         </div>
