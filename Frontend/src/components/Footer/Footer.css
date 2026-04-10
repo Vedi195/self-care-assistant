@@ -77,3 +77,9 @@
     gap: 1rem;
   }
 }
+
+@media (max-width: 580px) {
+  .footer {
+    padding-bottom: 90px;
+  }
+}

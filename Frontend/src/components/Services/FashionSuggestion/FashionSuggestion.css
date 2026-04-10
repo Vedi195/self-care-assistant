@@ -56,10 +56,11 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  align-items: center;
 }
 .fashion-service .feature-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, minmax(280px, 1fr));
   gap: 30px;
 }
 .fashion-service .feature-card {
@@ -78,7 +79,7 @@
 }
 .fashion-service .feature-icon { font-size: 3rem; margin-bottom: 20px; }
 .fashion-service .feature-card h3 { font-size: 1.5rem; color: #333; margin-bottom: 15px; font-weight: 600; }
-.fashion-service .feature-card p  { font-size: 1.1rem; color: #666; line-height: 1.6; }
+.fashion-service .feature-card p  { font-size: 1.1rem; color: #666; line-height: 1.6; text-align: center; }
 
 /* ── Daily Tips ───────────────────────────────────── */
 .fashion-service .daily-tips {
@@ -95,7 +96,7 @@
 }
 .fashion-service .tips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
   gap: 20px;
 }
 .fashion-service .tip-card {
@@ -265,7 +266,7 @@
 /* ── Products header (reused in several views) ─────── */
 .fashion-service .products-view,
 .fashion-service .bodytype-view,
-.fashion-service .colors-view    { max-width: 1100px; margin: 0 auto; }
+.fashion-service .colors-view    { max-width: 1100px; margin: 0 auto; min-height: 80vh; }
 .fashion-service .products-header { text-align: center; margin-bottom: 28px; }
 .fashion-service .products-header h2 { font-size: 2rem; color: #333; margin-bottom: 8px; }
 .fashion-service .products-header p  { color: #666; font-size: 1.05rem; }
@@ -680,4 +681,24 @@
   .fashion-service .gender-btn    { padding: 12px 20px; font-size: 0.95rem; min-width: 110px; }
   .fashion-service .outfit-actions { gap: 8px; }
   .fashion-service .outfit-btn    { padding: 9px 14px; font-size: 0.88rem; }
+}
+
+
+
+/* Quiz Cancel Button (Scoped - no conflict) */
+.fashion-service .quiz-cancel-btn {
+  margin-top: 20px;
+  padding: 10px 22px;
+  border: 2px solid #ff6b35;
+  background: transparent;
+  color: #ff6b35;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.fashion-service .quiz-cancel-btn:hover {
+  background: #ff6b35;
+  color: white;
 }

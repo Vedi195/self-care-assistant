@@ -4,6 +4,8 @@ import './DailyRoutine.css';
 import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
+import SaveButton from "../../SaveButton";
+
 
 const DailyRoutine = () => {
   const [currentView, setCurrentView] = useState('main');
@@ -14,6 +16,50 @@ const DailyRoutine = () => {
   const [newNote, setNewNote] = useState('');
   const [editingNote, setEditingNote] = useState(null);
   const [editText, setEditText] = useState('');
+
+
+  useEffect(() => {
+    // Map hash section → view name
+    const sectionToView = {
+      home:      'main',
+      templates: 'templates',
+    };
+
+    // On mount, switch to the correct view based on the hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sectionToView[hash]) {
+      setCurrentView(sectionToView[hash]);
+    }
+
+    const scrollToSection = () => {
+      const hashStr = window.location.hash;
+      if (hashStr) {
+        // Retry until the view has rendered the target element
+        let attempts = 0;
+        const interval = setInterval(() => {
+          const el = document.querySelector(hashStr);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            clearInterval(interval);
+          }
+          attempts++;
+          if (attempts > 20) clearInterval(interval); // ~2 seconds of retries
+        }, 100);
+      }
+    };
+
+    // Run on first load
+    scrollToSection();
+
+    // Run when hash changes
+    window.addEventListener("hashchange", scrollToSection);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToSection);
+    };
+
+  }, []);
+
 
   const routineTemplates = [
     {
@@ -123,7 +169,7 @@ const DailyRoutine = () => {
     setChatMessages(prev => [...prev, { type: 'user', message: userMessage }]);
 
     try {
-      const response = await fetch('https://self-care-assistant.onrender.com/api/ask-ai', {
+      const response = await fetch("https://self-care-assistant.onrender.com/api/ask-ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -159,16 +205,6 @@ const DailyRoutine = () => {
     }
   };
 
-  const saveTipToFavorites = (tip) => {
-    const favorites = JSON.parse(localStorage.getItem('dailyRoutineFavorites') || '[]');
-    if (!favorites.includes(tip)) {
-      favorites.push(tip);
-      localStorage.setItem('dailyRoutineFavorites', JSON.stringify(favorites));
-      alert('Tip saved to favorites! ❤️');
-    } else {
-      alert('This tip is already in your favorites! 😊');
-    }
-  };
 
   return (
     <div className="daily-routine-service">
@@ -266,8 +302,8 @@ const DailyRoutine = () => {
             </div>
 
             <div className="daily-tips">
-              <h3>💡 Today's Routine Tips</h3>
-              <div className="tips-grid">
+              <h3>✨ Top Picks for You</h3>
+              <div className="tips-grid" id="home">
                 <div className="tip-card">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -278,12 +314,14 @@ const DailyRoutine = () => {
                     <div className="tip-icon">⏰</div>
                     <h4>Time Blocking</h4>
                     <p>Schedule specific time slots for different activities to stay focused and organized.</p>
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Schedule specific time slots for different activities to stay focused and organized.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Schedule specific time slots for different activities to stay focused and organized.",
+                        page: "daily-routine",
+                        section: "home"
+                      }}
+                      category="dailyRoutineFavorites"
+                    />
                   </motion.div>
                 </div>
                 
@@ -297,12 +335,14 @@ const DailyRoutine = () => {
                     <div className="tip-icon">🎯</div>
                     <h4>Priority First</h4>
                     <p>Tackle your most important task when your energy levels are highest.</p>
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Tackle your most important task when your energy levels are highest.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Tackle your most important task when your energy levels are highest.",
+                        page: "daily-routine",
+                        section: "home"
+                      }}
+                      category="dailyRoutineFavorites"
+                    />
                   </motion.div>
                 </div>
                 
@@ -316,12 +356,14 @@ const DailyRoutine = () => {
                     <div className="tip-icon">🔄</div>
                     <h4>Consistent Sleep</h4>
                     <p>Go to bed and wake up at the same time every day to regulate your body clock.</p>
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Go to bed and wake up at the same time every day to regulate your body clock.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Go to bed and wake up at the same time every day to regulate your body clock.",
+                        page: "daily-routine",
+                        section: "home"
+                      }}
+                      category="dailyRoutineFavorites"
+                    />
                   </motion.div>
                 </div>
               </div>
@@ -342,7 +384,7 @@ const DailyRoutine = () => {
               <p>Choose from these proven routine templates to get started</p>
             </motion.div>
 
-            <div className="templates-grid">
+            <div className="templates-grid" id="templates">
               {routineTemplates.map((template, index) => (
                 <div key={index} className="template-card">
                   <motion.div
@@ -366,15 +408,16 @@ const DailyRoutine = () => {
                       ))}
                     </div>
                     
-                    <motion.button 
+                    <SaveButton
+                      tip={{
+                        text: `${template.name} Template: ${template.description} ${template.tasks.map(t => `${t.time} - ${t.task}`).join('; ')}`,
+                        page: "daily-routine",
+                        section: "templates"
+                      }}
+                      category="dailyRoutineFavorites"
                       className="use-template-btn"
-                      onClick={() => saveTipToFavorites(`${template.name} Template: ${template.description}`)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      ❤️ Save Template
-                    </motion.button>
+                      label="Template"
+                    />
                   </motion.div>
                 </div>
               ))}

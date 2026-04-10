@@ -5,7 +5,7 @@
 
 .hero-title {
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #333;
   margin-bottom: 20px;
   line-height: 1.2;
@@ -14,7 +14,7 @@
 .hero-subtitle {
   font-size: 1.25rem;
   color: #666;
-  font-weight: 400;
+  font-weight: 600;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;

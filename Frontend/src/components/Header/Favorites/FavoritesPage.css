@@ -2,7 +2,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
+  min-height: 80vh;
 }
+
 
 .favorites-header {
   text-align: center;
@@ -110,6 +112,34 @@
 
 .remove-btn:hover {
   background-color: rgba(255, 0, 0, 0.1);
+}
+
+.go-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  padding: 7px 16px;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 3px 8px rgba(255, 107, 53, 0.35);
+}
+
+.go-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 107, 53, 0.45);
+  opacity: 0.92;
+}
+
+.go-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 107, 53, 0.3);
 }
 
 @media (max-width: 768px) {

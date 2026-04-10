@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Reminders.css';
 
 import { motion } from "framer-motion";
@@ -13,22 +13,27 @@ const Reminders = () => {
     time: '',
     category: 'general',
     repeat: 'none',
-    repeatIntervalHours: 1,   // user-chosen hour interval for recurring reminders
-    // ── priority fields ─────────────────────────────
-    priority: 'low',          // 'low' | 'high'
-    intervalType: 'default',  // 'default' | 'custom'  (high priority only)
-    customIntervalHours: 2    // used when intervalType === 'custom'
+    repeatIntervalHours: 1,
+    priority: 'low',
+    intervalType: 'default',
+    customIntervalHours: 2
   });
   const [filter, setFilter] = useState('all');
 
+  // ── Alarm state ──────────────────────────────────────────────────────────────
+  const [alarmActive, setAlarmActive] = useState(false);
+  const [alarmReminder, setAlarmReminder] = useState(null);
+  const audioCtxRef = useRef(null);
+  const alarmTimerRef = useRef(null);
+
   const categories = [
-    { value: 'general', label: 'General', icon: '📝', color: '#6c757d' },
-    { value: 'health', label: 'Health', icon: '🏥', color: '#28a745' },
-    { value: 'beauty', label: 'Beauty', icon: '💄', color: '#e83e8c' },
-    { value: 'exercise', label: 'Exercise', icon: '💪', color: '#fd7e14' },
-    { value: 'wellness', label: 'Wellness', icon: '🧘‍♀️', color: '#20c997' },
-    { value: 'medication', label: 'Medication', icon: '💊', color: '#dc3545' },
-    { value: 'selfcare', label: 'Self-Care', icon: '🌸', color: '#6f42c1' }
+    { value: 'general',    label: 'General',   icon: '📝', color: '#6c757d' },
+    { value: 'health',     label: 'Health',    icon: '🏥', color: '#28a745' },
+    { value: 'beauty',     label: 'Beauty',    icon: '💄', color: '#e83e8c' },
+    { value: 'exercise',   label: 'Exercise',  icon: '💪', color: '#fd7e14' },
+    { value: 'wellness',   label: 'Wellness',  icon: '🧘‍♀️', color: '#20c997' },
+    { value: 'medication', label: 'Medication',icon: '💊', color: '#dc3545' },
+    { value: 'selfcare',   label: 'Self-Care', icon: '🌸', color: '#6f42c1' }
   ];
 
   const repeatOptions = [
@@ -39,7 +44,7 @@ const Reminders = () => {
     { value: 'monthly',   label: 'Monthly' }
   ];
 
-  // Load saved reminders + check due reminders
+  // ── Load saved reminders on mount ────────────────────────────────────────────
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('reminders') || '[]');
     setReminders(saved);
@@ -48,20 +53,29 @@ const Reminders = () => {
     checkDueReminders();
 
     return () => clearInterval(interval);
-
     // eslint-disable-next-line
+  }, []);
+
+  // Request browser notification permission on mount
+  useEffect(() => {
+    if (Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
   }, []);
 
   const saveRemindersToStorage = (list) => {
     localStorage.setItem('reminders', JSON.stringify(list));
   };
 
+  // Reads directly from localStorage so it always has the latest data
   const checkDueReminders = () => {
     const now = new Date();
     const currentTime = now.toTimeString().slice(0, 5);
     const currentDate = now.toISOString().slice(0, 10);
 
-    reminders.forEach(reminder => {
+    const saved = JSON.parse(localStorage.getItem('reminders') || '[]');
+
+    saved.forEach(reminder => {
       if (
         reminder.date === currentDate &&
         reminder.time === currentTime &&
@@ -69,46 +83,96 @@ const Reminders = () => {
       ) {
         showNotification(reminder);
 
-        const updated = reminders.map(r =>
+        const updated = saved.map(r =>
           r.id === reminder.id ? { ...r, notified: true } : r
         );
-
+        localStorage.setItem('reminders', JSON.stringify(updated));
         setReminders(updated);
-        saveRemindersToStorage(updated);
       }
     });
   };
 
+  // ── Play a beeping ringtone for 10 seconds via Web Audio API ─────────────────
+  const playAlarmSound = () => {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      audioCtxRef.current = ctx;
+
+      const DURATION  = 10;   // total seconds
+      const beepEvery = 0.6;  // seconds between beep starts
+      const beepLen   = 0.28; // length of each beep
+
+      for (let t = 0; t < DURATION; t += beepEvery) {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        // Alternate between two pitches for a classic alarm feel
+        osc.type = 'sine';
+        osc.frequency.value = (Math.floor(t / beepEvery) % 2 === 0) ? 880 : 1100;
+
+        gain.gain.setValueAtTime(0,    ctx.currentTime + t);
+        gain.gain.linearRampToValueAtTime(0.75, ctx.currentTime + t + 0.02);
+        gain.gain.linearRampToValueAtTime(0,    ctx.currentTime + t + beepLen);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + t);
+        osc.stop(ctx.currentTime + t + beepLen);
+      }
+
+      // Auto-close AudioContext after 10 s + small buffer
+      alarmTimerRef.current = setTimeout(() => {
+        stopAlarmSound();
+      }, (DURATION + 0.5) * 1000);
+
+    } catch (err) {
+      console.warn('Web Audio API not available:', err);
+    }
+  };
+
+  const stopAlarmSound = () => {
+    if (audioCtxRef.current) {
+      audioCtxRef.current.close().catch(() => {});
+      audioCtxRef.current = null;
+    }
+    clearTimeout(alarmTimerRef.current);
+    setAlarmActive(false);
+    setAlarmReminder(null);
+  };
+
+  // ── Show notification: in-app alarm popup + browser notification ─────────────
   const showNotification = (reminder) => {
+    // In-app alarm popup + ringtone (always works)
+    setAlarmReminder(reminder);
+    setAlarmActive(true);
+    playAlarmSound();
+
+    // Browser notification (best-effort)
     if (Notification.permission === 'granted') {
-      new Notification(`Reminder: ${reminder.title}`, {
-        body: reminder.description,
-        icon: '⏰'
+      new Notification(`⏰ Reminder: ${reminder.title}`, {
+        body: reminder.description || 'Time for your reminder!',
       });
     } else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
-          new Notification(`Reminder: ${reminder.title}`, {
-            body: reminder.description,
-            icon: '⏰'
+          new Notification(`⏰ Reminder: ${reminder.title}`, {
+            body: reminder.description || 'Time for your reminder!',
           });
         }
       });
     }
   };
 
-  // ── NEW: Schedule 3 advance notifications for High Priority reminders ───────
+  // ── Schedule 3 advance notifications for High Priority reminders ─────────────
   const scheduleHighPriorityNotifications = (reminder) => {
     const dueTime = new Date(`${reminder.date}T${reminder.time}`);
     const now = new Date();
 
-    // Interval in minutes (default = 60 min, custom = user-specified hours × 60)
     const intervalMin =
       reminder.intervalType === 'custom'
         ? Number(reminder.customIntervalHours) * 60
         : 60;
 
-    // Notify 3×, 2×, and 1× the interval BEFORE due time
     [3, 2, 1].forEach((multiplier) => {
       const notifyAt = new Date(dueTime.getTime() - multiplier * intervalMin * 60000);
       const delay = notifyAt.getTime() - now.getTime();
@@ -123,7 +187,7 @@ const Reminders = () => {
     });
   };
 
-  // Schedule recurring notifications at the user-chosen interval for the whole day
+  // ── Schedule recurring notifications ─────────────────────────────────────────
   const scheduleRecurringReminder = (reminder) => {
     const startTime = new Date(`${reminder.date}T${reminder.time}`);
     const endOfDay  = new Date(`${reminder.date}T23:59`);
@@ -166,12 +230,10 @@ const Reminders = () => {
       setReminders(updated);
       saveRemindersToStorage(updated);
 
-      // ── auto-schedule high-priority advance notifications ────────────
       if (reminder.priority === 'high') {
         scheduleHighPriorityNotifications(reminder);
       }
 
-      // ── auto-schedule recurring interval notifications ────────────────
       if (reminder.repeat === 'recurring') {
         scheduleRecurringReminder(reminder);
       }
@@ -214,16 +276,12 @@ const Reminders = () => {
     switch (filter) {
       case 'today':
         return reminder.date === now.toISOString().slice(0, 10);
-
       case 'upcoming':
         return reminderTime > now && !reminder.completed;
-
       case 'completed':
         return reminder.completed;
-
       case 'overdue':
         return reminderTime < now && !reminder.completed;
-
       default:
         return true;
     }
@@ -241,27 +299,60 @@ const Reminders = () => {
     })}`;
   };
 
-  // Request notification permission on mount
-  useEffect(() => {
-    if (Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
-  }, []);
-
   const stats = {
-    total: reminders.length,
-    today: reminders.filter(r =>
-      r.date === new Date().toISOString().slice(0, 10)
-    ).length,
-    upcoming: reminders.filter(r => {
-      const d = new Date(`${r.date}T${r.time}`);
-      return d > new Date() && !r.completed;
-    }).length,
+    total:     reminders.length,
+    today:     reminders.filter(r => r.date === new Date().toISOString().slice(0, 10)).length,
+    upcoming:  reminders.filter(r => new Date(`${r.date}T${r.time}`) > new Date() && !r.completed).length,
     completed: reminders.filter(r => r.completed).length
   };
 
   return (
     <div className="reminders">
+
+      {/* ── Alarm Popup Overlay ─────────────────────────────────────────────── */}
+      {alarmActive && alarmReminder && (
+        <div style={{
+          position: 'fixed', inset: 0,
+          background: 'rgba(0,0,0,0.65)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999
+        }}>
+          <div style={{
+            background: 'white', borderRadius: 24, padding: '44px 52px',
+            textAlign: 'center', maxWidth: 420, width: '90%',
+            boxShadow: '0 12px 48px rgba(0,0,0,0.35)',
+            animation: 'slideIn 0.3s ease-out'
+          }}>
+            <div style={{ fontSize: '4rem', marginBottom: 14 }}>⏰</div>
+            <h2 style={{ color: '#6f42c1', marginBottom: 8, fontSize: '1.6rem' }}>
+              Time's Up!
+            </h2>
+            <h3 style={{ color: '#333', marginBottom: 12, fontWeight: 700 }}>
+              {alarmReminder.title}
+            </h3>
+            {alarmReminder.description && (
+              <p style={{ color: '#666', marginBottom: 24, lineHeight: 1.6 }}>
+                {alarmReminder.description}
+              </p>
+            )}
+            <button
+              onClick={stopAlarmSound}
+              style={{
+                background: '#6f42c1', color: 'white', border: 'none',
+                padding: '14px 40px', borderRadius: 30, fontSize: '1.1rem',
+                fontWeight: 700, cursor: 'pointer',
+                transition: 'background 0.2s ease'
+              }}
+              onMouseOver={e => e.target.style.background = '#5a2d91'}
+              onMouseOut={e  => e.target.style.background = '#6f42c1'}
+            >
+              ✅ Dismiss
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Header */}
       <div className="reminders-header">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -295,13 +386,12 @@ const Reminders = () => {
 
       {/* Add Button */}
       <div className="add-reminder-section">
-        <motion.button 
-          className="add-reminder-btn" 
+        <motion.button
+          className="add-reminder-btn"
           onClick={() => setShowAddForm(!showAddForm)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300 }}
-
         >
           {showAddForm ? '❌ Cancel' : '➕ Add New Reminder'}
         </motion.button>
@@ -359,9 +449,7 @@ const Reminders = () => {
               <label>Description</label>
               <textarea
                 value={newReminder.description}
-                onChange={(e) =>
-                  setNewReminder({ ...newReminder, description: e.target.value })
-                }
+                onChange={(e) => setNewReminder({ ...newReminder, description: e.target.value })}
                 placeholder="Additional details..."
                 rows="3"
               />
@@ -371,9 +459,7 @@ const Reminders = () => {
               <label>Repeat</label>
               <select
                 value={newReminder.repeat}
-                onChange={(e) =>
-                  setNewReminder({ ...newReminder, repeat: e.target.value })
-                }
+                onChange={(e) => setNewReminder({ ...newReminder, repeat: e.target.value })}
               >
                 {repeatOptions.map(option => (
                   <option key={option.value} value={option.value}>
@@ -383,7 +469,7 @@ const Reminders = () => {
               </select>
             </div>
 
-            {/* ── Interval hours picker – only shown when Recurring is selected ── */}
+            {/* Recurring interval picker */}
             {newReminder.repeat === 'recurring' && (
               <div className="form-group">
                 <label>🕐 Repeat every how many hours?</label>
@@ -406,7 +492,7 @@ const Reminders = () => {
               </div>
             )}
 
-            {/* ── NEW: Priority Selection ──────────────────────────────────── */}
+            {/* Priority Selection */}
             <div className="form-group">
               <label>Priority</label>
               <select
@@ -443,19 +529,20 @@ const Reminders = () => {
                 />
               </div>
             )}
-            {/* ─────────────────────────────────────────────────────────────── */}
+
+          </div>{/* end form-grid */}
 
           <div className="form-actions">
-            <motion.button 
-              onClick={addReminder} 
+            <motion.button
+              onClick={addReminder}
               className="save-btn"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               ✅ Save Reminder
             </motion.button>
-            <motion.button 
-              onClick={() => setShowAddForm(false)} 
+            <motion.button
+              onClick={() => setShowAddForm(false)}
               className="cancel-btn"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -463,47 +550,46 @@ const Reminders = () => {
               ❌ Cancel
             </motion.button>
           </div>
-          </div>
         </div>
       )}
 
       {/* Filters */}
       <div className="filters-section">
         <div className="filter-buttons">
-          <motion.button 
-            className={filter === 'all' ? 'active' : ''} 
+          <motion.button
+            className={filter === 'all' ? 'active' : ''}
             onClick={() => setFilter('all')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             All ({stats.total})
           </motion.button>
-          <motion.button 
-            className={filter === 'today' ? 'active' : ''} 
+          <motion.button
+            className={filter === 'today' ? 'active' : ''}
             onClick={() => setFilter('today')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Today ({stats.today})
           </motion.button>
-          <motion.button 
-            className={filter === 'upcoming' ? 'active' : ''} 
+          <motion.button
+            className={filter === 'upcoming' ? 'active' : ''}
             onClick={() => setFilter('upcoming')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Upcoming ({stats.upcoming})
           </motion.button>
-          <motion.button 
-            className={filter === 'overdue' ? 'active' : ''} 
+          <motion.button
+            className={filter === 'overdue' ? 'active' : ''}
             onClick={() => setFilter('overdue')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Overdue
           </motion.button>
-          <motion.button 
-            className={filter === 'completed' ? 'active' : ''} 
+          <motion.button
+            className={filter === 'completed' ? 'active' : ''}
             onClick={() => setFilter('completed')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -537,9 +623,7 @@ const Reminders = () => {
               return (
                 <div
                   key={reminder.id}
-                  className={`reminder-item ${reminder.completed ? 'completed' : ''} ${
-                    isOverdue ? 'overdue' : ''
-                  }`}
+                  className={`reminder-item ${reminder.completed ? 'completed' : ''} ${isOverdue ? 'overdue' : ''}`}
                 >
                   <div className="reminder-content">
                     <div className="reminder-header">
@@ -551,7 +635,7 @@ const Reminders = () => {
                       </div>
                     </div>
 
-                    {/* ── NEW: Priority badge ─────────────────────────────── */}
+                    {/* Priority badge */}
                     {reminder.priority === 'high' && (
                       <div className="priority-badge high">
                         🔴 High Priority
@@ -584,7 +668,6 @@ const Reminders = () => {
                     >
                       {reminder.completed ? '✅' : '⭕'}
                     </button>
-
                     <button
                       onClick={() => deleteReminder(reminder.id)}
                       className="delete-btn"

@@ -1,47 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const SaveButton = ({ category }) => {
+const SaveButton = ({ tip, category, className = "", label = "" }) => {
   const [saved, setSaved] = useState(false);
 
-  // 🔍 Get tip text from parent card
-  const getTipText = (btn) => {
-    const card = btn.closest(".tip-card");
-    const text = card.querySelector("p").innerText;
-    return text;
-  };
-
-
+  // ✅ Check ONLY this tip
   useEffect(() => {
     const checkSaved = () => {
-        const stored = JSON.parse(localStorage.getItem(category) || "[]");
-
-        const btn = document.querySelector(`.tip-card button`);
-
-        if (btn) {
-        const tip = btn.closest(".tip-card").querySelector("p").innerText;
-        setSaved(stored.includes(tip));
-        }
+      const stored = JSON.parse(localStorage.getItem(category) || "[]");
+      setSaved(stored.some(item => item.text === tip.text)); // 🔥 important
     };
 
-    checkSaved(); // ✅ runs on reload
+    checkSaved();
 
     window.addEventListener("favoritesUpdated", checkSaved);
-
     return () =>
-        window.removeEventListener("favoritesUpdated", checkSaved);
-  }, [category]);
+      window.removeEventListener("favoritesUpdated", checkSaved);
+  }, [tip, category]);
 
-
-  // 💾 Save
-  const handleSave = (e) => {
-    const btn = e.target;
-    const tip = getTipText(btn);
-
+  // ✅ Save ONLY this tip
+  const handleSave = () => {
     const stored = JSON.parse(localStorage.getItem(category) || "[]");
 
-    if (!stored.includes(tip)) {
-      const updated = [...stored, tip];
+    // ✅ check using text
+    if (!stored.some(item => item.text === tip.text)) {
+
+      const updated = [
+        ...stored,
+        {
+          text: tip.text,
+          page: tip.page,
+          section: tip.section
+        }
+      ];
+
       localStorage.setItem(category, JSON.stringify(updated));
       setSaved(true);
 
@@ -51,12 +43,15 @@ const SaveButton = ({ category }) => {
 
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      className={`outfit-btn ${className}`}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       onClick={handleSave}
       disabled={saved}
     >
-      {saved ? "💖 Saved" : "❤️ Save"}
+      {saved
+        ? `💖 Saved ${label}`
+        : `❤️ Save ${label}`}
     </motion.button>
   );
 };

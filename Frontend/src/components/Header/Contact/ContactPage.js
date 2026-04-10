@@ -37,16 +37,22 @@ const Contact = () => {
       );
 
       if (response.ok) {
-        setStatus("✅ Message sent successfully!");
+        setStatus("success");
+
+        setTimeout(() => {
+          setStatus("");
+        }, 10000);
+
         form.reset();
         setFormData({ name: "", email: "", message: "" }); // ✅ reset state also
       } else {
-        setStatus("❌ Failed to send message. Try again.");
+        setStatus("error");
       }
     } catch (error) {
-      setStatus("❌ Server error. Please try again later.");
+      setStatus("error");
     }
   };
+
   const containerVariants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.12 } },

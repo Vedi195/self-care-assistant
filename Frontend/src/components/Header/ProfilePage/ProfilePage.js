@@ -223,7 +223,7 @@ const ProfilePage = () => {
             <h2>📝 Personal Information</h2>
             <div className="form-grid">
               <div className="form-group"><label>Full Name *</label><input type="text" name="name" value={profile.name} onChange={handleInputChange} placeholder="Enter your name" /></div>
-              <div className="form-group"><label>Age *</label><input type="number" name="age" value={profile.age} onChange={handleInputChange} placeholder="Your age" /></div>
+              <div className="form-group"><label>Age *</label><input type="number" name="age" value={profile.age} min="1" max="120" onChange={handleInputChange} placeholder="Your age" /></div>
               <div className="form-group"><label>Gender *</label>
                 <select name="gender" value={profile.gender} onChange={handleInputChange}>
                   <option value="">Select Gender</option>

@@ -292,6 +292,13 @@ const hairCareRoutines = {
 
 const organicRemedies = [
   {
+    name: "Saffron & Milk Glow Elixir",
+    purpose: "For instant glow and brightening",
+    ingredients: ["4–5 saffron strands", "2 tbsp raw milk", "1 tsp honey"],
+    instructions: "Soak saffron in milk for 10 minutes, add honey, apply on face for 15–20 minutes, then rinse with cool water",
+    benefits: "Gives instant glow, evens skin tone, improves skin radiance naturally"
+  },
+  {
     name: "Honey & Oatmeal Face Mask",
     purpose: "For sensitive or dry skin",
     ingredients: ["2 tbsp oatmeal", "1 tbsp honey", "1 tsp water"],
@@ -318,7 +325,14 @@ const organicRemedies = [
     ingredients: ["1 ripe avocado", "2 tbsp olive oil", "1 tbsp honey"],
     instructions: "Mash avocado, mix with oil and honey, apply for 20 minutes",
     benefits: "Rich in vitamins, deeply moisturizes"
-  }
+  },
+  {
+  name: "Aloe Vera & Rose Water Gel",
+  purpose: "For hydration and soothing skin",
+  ingredients: ["2 tbsp fresh aloe vera gel", "1 tbsp rose water"],
+  instructions: "Mix well, apply on face, leave for 20 minutes or overnight, rinse if needed",
+  benefits: "Hydrates skin, reduces redness, gives cooling effect"
+}
 ];
 
 /* ─────────────────────────────────────────────────────────────
@@ -330,7 +344,7 @@ const productCatalog = {
       {
         name: "CeraVe Foaming Facial Cleanser",
         brand: "CeraVe",
-        image: "https://images.unsplash.com/photo-1631390937818-4f9a4a21ee8e?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/61wnTty2EBL._SL1500_.jpg",
         description: "Gel-based foaming formula with niacinamide & ceramides that removes excess oil while preserving the skin barrier.",
         usage: "Massage onto damp skin morning & evening, rinse with lukewarm water.",
         tag: "Best Seller",
@@ -340,7 +354,7 @@ const productCatalog = {
       {
         name: "Paula's Choice BHA Liquid Exfoliant",
         brand: "Paula's Choice",
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/0/c/0cf373fPAULA00000011_1a.jpg",
         description: "2% salicylic acid exfoliant that unclogs pores, reduces blackheads, and smooths skin texture without drying.",
         usage: "Apply with a cotton pad after cleansing, 1–2× daily. Do not rinse.",
         tag: "Cult Fave",
@@ -350,7 +364,7 @@ const productCatalog = {
       {
         name: "Neutrogena Hydro Boost Water Gel",
         brand: "Neutrogena",
-        image: "https://images.unsplash.com/photo-1570194065650-d99fb4b38b53?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/41h29E8mjqL._SL1001_.jpg",
         description: "Oil-free, non-comedogenic water-gel moisturizer with hyaluronic acid for all-day hydration without greasiness.",
         usage: "Apply a pea-sized amount morning & night on clean skin.",
         tag: "Dermatologist Pick",
@@ -362,7 +376,7 @@ const productCatalog = {
       {
         name: "La Roche-Posay Toleriane Hydrating Gentle Cleanser",
         brand: "La Roche-Posay",
-        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/0/e/0e3730dLAROC00000014_r1.jpg",
         description: "Cream cleanser with ceramides & niacinamide that cleanses without stripping. Perfect for dry, sensitive skin.",
         usage: "Apply on wet skin, massage gently, rinse. Use twice daily.",
         tag: "Sensitive Skin",
@@ -372,7 +386,7 @@ const productCatalog = {
       {
         name: "The Ordinary Hyaluronic Acid 2% + B5",
         brand: "The Ordinary",
-        image: "https://images.unsplash.com/photo-1611080541599-8c6dbde94b64?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/8/8/88a48a1THECI00000093_1.jpg",
         description: "Multi-molecular weight hyaluronic acid with vitamin B5 for intense surface hydration and plumping effect.",
         usage: "Apply 2–3 drops to damp face before moisturizer, morning & evening.",
         tag: "Best Value",
@@ -382,7 +396,7 @@ const productCatalog = {
       {
         name: "First Aid Beauty Ultra Repair Cream",
         brand: "First Aid Beauty",
-        image: "https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/61pMgv8M6TL._SL1500_.jpg",
         description: "Rich barrier repair cream with colloidal oatmeal, shea butter & ceramides for intense moisture relief.",
         usage: "Apply liberally to face & body morning and night. Can layer over serums.",
         tag: "Hydration Hero",
@@ -394,7 +408,7 @@ const productCatalog = {
       {
         name: "Cetaphil Gentle Skin Cleanser",
         brand: "Cetaphil",
-        image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/4/3/4334092NYCETA0000010_n1.jpg",
         description: "pH-balanced, fragrance-free gentle cleanser suited for combination skin — hydrates dry zones without feeding oily areas.",
         usage: "Use AM & PM, massage gently, rinse or wipe off without water.",
         tag: "pH Balanced",
@@ -404,7 +418,7 @@ const productCatalog = {
       {
         name: "The Inkey List Niacinamide Serum",
         brand: "The Inkey List",
-        image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51QH6jVkB-S._SL1500_.jpg",
         description: "10% niacinamide + 1% zinc serum that balances sebum, reduces pore appearance, and evens skin tone.",
         usage: "Apply a few drops to clean skin before moisturizer, twice daily.",
         tag: "Zone Balancer",
@@ -414,7 +428,7 @@ const productCatalog = {
       {
         name: "Clinique Dramatically Different Moisturizing Gel",
         brand: "Clinique",
-        image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/tr:h-800,w-800,cm-pad_resize/9/7/97aa6b720714222857_1.jpg",
         description: "Lightweight oil-free gel moisturizer that hydrates without leaving residue — ideal for T-zone management.",
         usage: "Apply after toner on entire face. Use heavier cream on dry cheeks if needed.",
         tag: "Dermatologist Tested",
@@ -426,7 +440,7 @@ const productCatalog = {
       {
         name: "Avène Tolerance Control Soothing Skin Recovery Cream",
         brand: "Avène",
-        image: "https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51Je8miccTL._SL1489_.jpg",
         description: "Minimal-ingredient formula with Avène thermal water to instantly calm redness, stinging, and irritation.",
         usage: "Apply a thin layer over clean face. Can be used as often as needed.",
         tag: "Anti-Redness",
@@ -436,7 +450,7 @@ const productCatalog = {
       {
         name: "Dr. Jart+ Cicapair Tiger Grass Serum",
         brand: "Dr. Jart+",
-        image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/0/d/0dc11d08809844996638_1.jpg",
         description: "Centella asiatica-powered serum that visibly reduces redness and rebuilds the skin barrier over time.",
         usage: "Apply 3–4 drops on clean skin before moisturizer, morning & night.",
         tag: "Barrier Repair",
@@ -446,7 +460,7 @@ const productCatalog = {
       {
         name: "Vanicream Moisturizing Skin Cream",
         brand: "Vanicream",
-        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/71yrgoLBn1L._SL1500_.jpg",
         description: "Free from dyes, fragrance, parabens, and formaldehyde — the gold standard for reactive skin.",
         usage: "Apply generously to clean face & body. Safe for twice daily use.",
         tag: "Fragrance-Free",
@@ -458,7 +472,7 @@ const productCatalog = {
       {
         name: "Simple Kind to Skin Moisturising Facial Wash",
         brand: "Simple",
-        image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51YkVlhP-WL._SL1000_.jpg",
         description: "No-nonsense cleanser with pro-vitamin B5 & vitamin E that leaves skin clean, soft, and balanced.",
         usage: "Use morning & evening. Lather with water, massage, rinse well.",
         tag: "Daily Essential",
@@ -468,7 +482,7 @@ const productCatalog = {
       {
         name: "Innisfree Green Tea Seed Serum",
         brand: "Innisfree",
-        image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/c/4/c4fc066INNIS00000213_v1.jpg",
         description: "Green tea extract serum that keeps normal skin balanced, hydrated, and glowing with antioxidant protection.",
         usage: "Apply 2–3 pumps on clean skin. Pat gently until absorbed.",
         tag: "Glow Booster",
@@ -478,7 +492,7 @@ const productCatalog = {
       {
         name: "SPF 50+ Sunscreen — Bioré UV Aqua Rich",
         brand: "Bioré",
-        image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/61dUvuOYeVL._SL1500_.jpg",
         description: "Watery, ultra-light SPF 50+ PA++++ sunscreen that absorbs instantly with zero white cast.",
         usage: "Apply generously as the last step of AM skincare. Reapply every 3–4 hrs.",
         tag: "SPF Must-Have",
@@ -492,7 +506,7 @@ const productCatalog = {
       {
         name: "L'Oréal Elvive Extraordinary Oil Shampoo",
         brand: "L'Oréal Paris",
-        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&q=80",
+        image: "https://images-static.nykaa.com/media/catalog/product/a/c/ace06428901526588978_1.jpg",
         description: "Lightweight oil-infused shampoo that smooths straight hair, adds glossy shine, and prevents frizz.",
         usage: "Lather on wet hair, focus on roots, rinse thoroughly. Use 3–4× a week.",
         tag: "Frizz Control",
@@ -502,7 +516,7 @@ const productCatalog = {
       {
         name: "Tresemmé Keratin Smooth Heat Protect Spray",
         brand: "Tresemmé",
-        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51MSDY+FGYL._SL1000_.jpg",
         description: "Keratin-infused heat protectant that guards up to 230°C, seals cuticles, and leaves hair sleek.",
         usage: "Spray on damp hair before blow-drying or heat styling. Do not rinse.",
         tag: "Heat Shield",
@@ -512,7 +526,7 @@ const productCatalog = {
       {
         name: "Pantene Pro-V Silky Smooth Conditioner",
         brand: "Pantene",
-        image: "https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/718mJqeWkSL._SL1500_.jpg",
         description: "Pro-vitamin B5 conditioner that detangles, softens, and adds mirror shine to straight hair.",
         usage: "Apply from mid-lengths to ends after shampooing. Leave 2 min, rinse.",
         tag: "Shine Boost",
@@ -524,17 +538,17 @@ const productCatalog = {
       {
         name: "OGX Moroccan Curling Perfection Defining Cream",
         brand: "OGX",
-        image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/71jn6Nur2xL._SL1500_.jpg",
         description: "Argan oil–infused cream that enhances wave definition and controls frizz without weighing hair down.",
         usage: "Scrunch into wet hair section by section. Air-dry or diffuse on low heat.",
         tag: "Wave Enhancer",
         tagColor: "#0891b2",
-        link: "https://www.nykaa.com/search/result/?q=ogx+moroccan+curling+perfection"
+        link: "https://www.amazon.in/s?k=ogx+moroccan+curling+perfection+defining+cream"
       },
       {
         name: "Cantu Shea Butter Wave Whip Curling Mousse",
         brand: "Cantu",
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/81PmgD9wjOL._SL1500_.jpg",
         description: "Shea butter mousse that defines waves, reduces frizz, and locks in moisture for long-lasting hold.",
         usage: "Apply palm-sized amount to soaking wet hair. Scrunch upward, air-dry.",
         tag: "Light Hold",
@@ -544,19 +558,19 @@ const productCatalog = {
       {
         name: "SheaMoisture Manuka Honey & Mafura Oil Masque",
         brand: "SheaMoisture",
-        image: "https://images.unsplash.com/photo-1632345031435-8727f592d8d9?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/81G4pC70w0L._SL1500_.jpg",
         description: "Intensive weekly masque with manuka honey that restores moisture, strengthens waves, and adds softness.",
         usage: "Apply to clean damp hair weekly, leave 5–10 min under a shower cap, rinse.",
         tag: "Weekly Treatment",
         tagColor: "#b45309",
-        link: "https://www.nykaa.com/search/result/?q=shea+moisture+manuka+honey+masque"
+        link: "https://www.amazon.in/s?k=shea+moisture+manuka+honey+masque"
       },
     ],
     Curly: [
       {
         name: "DevaCurl No-Poo Original Zero Lather Cleanser",
         brand: "DevaCurl",
-        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/614hio6eIqL._SL1500_.jpg",
         description: "Sulfate-free co-wash cleanser specifically designed for curly hair — cleanses without disrupting curl pattern.",
         usage: "Massage into scalp with fingertips on wet hair. Rinse thoroughly.",
         tag: "CGM Approved",
@@ -566,17 +580,17 @@ const productCatalog = {
       {
         name: "Ouidad Curl Immersion No-Lather Coconut Cream Cleansing Conditioner",
         brand: "Ouidad",
-        image: "https://images.unsplash.com/photo-1570194065650-d99fb4b38b53?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/71Hmt82fn8L._SL1500_.jpg",
         description: "Co-wash + conditioner hybrid with coconut oil that hydrates while gently cleansing each curl strand.",
         usage: "Apply to wet hair, detangle with wide-tooth comb, leave 2–3 min, rinse.",
         tag: "Deep Hydration",
         tagColor: "#0369a1",
-        link: "https://www.nykaa.com/search/result/?q=ouidad+curl+immersion"
+        link: "https://www.amazon.in/s?k=ouidad+curl+immersion"
       },
       {
         name: "Kinky-Curly Knot Today Leave-In Conditioner",
         brand: "Kinky-Curly",
-        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51jvgg50C4L._SL1500_.jpg",
         description: "Organic marshmallow root leave-in that detangles, defines curls, and banishes frizz from root to tip.",
         usage: "Rake through soaking wet hair section by section. Style as usual. Do not rinse.",
         tag: "Frizz Fighter",
@@ -588,17 +602,17 @@ const productCatalog = {
       {
         name: "Mielle Organics Rosemary Mint Strengthening Shampoo",
         brand: "Mielle Organics",
-        image: "https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51ts9XZCtPL._SL1500_.jpg",
         description: "Rosemary & mint infused shampoo that strengthens coils, stimulates scalp, and retains moisture.",
         usage: "Apply to wet sectioned hair. Focus on scalp. Rinse well. Follow with conditioner.",
         tag: "Growth Boost",
         tagColor: "#166534",
-        link: "https://www.nykaa.com/search/result/?q=mielle+rosemary+mint+shampoo"
+        link: "https://www.amazon.in/s?k=mielle+rosemary+mint+shampoo"
       },
       {
         name: "Shea Moisture 100% Extra Virgin Coconut Oil",
         brand: "SheaMoisture",
-        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/71iJEYV3wPL._SL1500_.jpg",
         description: "Pure coconut oil that acts as a pre-poo treatment, sealant, and hot-oil treatment for coily hair.",
         usage: "Apply warm oil to dry hair before wash day. Leave 30+ min. Shampoo out.",
         tag: "Pre-Poo Essential",
@@ -608,7 +622,7 @@ const productCatalog = {
       {
         name: "Camille Rose Naturals Curl Maker",
         brand: "Camille Rose",
-        image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/61RMF2JvHdL._SL1500_.jpg",
         description: "Water-based curl-defining gel with aloe vera that provides flexible hold, definition, and shine for coils.",
         usage: "Apply generously to soaking wet hair. Smooth and twirl coils. Air dry completely.",
         tag: "Curl Definer",
@@ -621,7 +635,7 @@ const productCatalog = {
       {
         name: "Moroccanoil Treatment Original",
         brand: "Moroccanoil",
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80",
+        image: "https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/resize-w:2200/1162340/lZWKmdk-n-1162340_1.jpg",
         description: "Iconic argan oil finishing treatment that tames frizz, adds shine, and reduces blow-dry time by 40%.",
         usage: "Work 1–2 pumps through damp hair before styling or on dry hair as a finisher.",
         tag: "Iconic Product",
@@ -631,7 +645,7 @@ const productCatalog = {
       {
         name: "Garnier Fructis Sleek & Shine Anti-Frizz Serum",
         brand: "Garnier",
-        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/71Shlmxqn9L._SL1500_.jpg",
         description: "Budget-friendly moroccan argan oil serum that controls frizz for 24 hours in high humidity.",
         usage: "Apply 2–3 drops on dry or damp hair. Focus on mid-lengths and ends.",
         tag: "Budget Pick",
@@ -641,29 +655,29 @@ const productCatalog = {
       {
         name: "Living Proof Perfect Hair Day Dry Shampoo",
         brand: "Living Proof",
-        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/41hp3Jth4wL._SL1500_.jpg",
         description: "Patented OFPMA technology absorbs oil and static, keeping frizzy hair fresh between washes.",
         usage: "Hold 10cm from roots, spray in sections. Wait 30 sec, brush or massage through.",
         tag: "Refresh & Go",
         tagColor: "#0369a1",
-        link: "https://www.nykaa.com/search/result/?q=living+proof+dry+shampoo"
+        link: "https://www.amazon.in/s?k=living+proof+dry+shampoo"
       },
     ],
     Dry: [
       {
         name: "Briogeo Don't Despair, Repair! Deep Conditioning Mask",
         brand: "Briogeo",
-        image: "https://images.unsplash.com/photo-1632345031435-8727f592d8d9?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/51gXklsDtmL._SL1000_.jpg",
         description: "Rosehip oil + biotin + algae deep mask that repairs dry, damaged hair and restores softness in one wash.",
         usage: "Apply to clean damp hair, comb through. Leave 20 min (or overnight). Rinse.",
         tag: "Repair Expert",
         tagColor: "#be123c",
-        link: "https://www.nykaa.com/search/result/?q=briogeo+dont+despair+repair"
+        link: "https://www.amazon.in/s?k=briogeo+dont+despair+repair"
       },
       {
         name: "WOW Skin Science Apple Cider Vinegar Shampoo",
         brand: "WOW",
-        image: "https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/61Yygs5045L._SL1500_.jpg",
         description: "ACV + argan oil blend that restores scalp pH, adds shine, and deeply moisturises dry, brittle hair.",
         usage: "Wet hair fully, lather shampoo, massage 2 min, rinse well. Use 2–3× per week.",
         tag: "Scalp Restore",
@@ -673,7 +687,7 @@ const productCatalog = {
       {
         name: "Schwarzkopf Gliss Kur Ultimate Repair Leave-In Spray",
         brand: "Schwarzkopf",
-        image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80",
+        image: "https://m.media-amazon.com/images/I/61ldN8xbvpL._SL1500_.jpg",
         description: "Liquid keratin leave-in conditioner that detangles, moisturises, and strengthens every dry strand.",
         usage: "Spray onto damp or dry hair after washing. Comb through. No rinsing needed.",
         tag: "Leave-In Rescue",
@@ -723,6 +737,54 @@ const SkinHairCare = () => {
   const [selectedSkinType, setSelectedSkinType] = useState('oily');
   const [selectedHairType, setSelectedHairType] = useState('straight');
 
+
+  useEffect(() => {
+    // Map hash section → view name
+    const sectionToView = {
+      home:     'main',
+      quiz:     'quiz',
+      routines: 'routines',
+      remedies: 'organic',
+      chat:     'chat',
+    };
+
+    // On mount, switch to the correct view based on the hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sectionToView[hash]) {
+      setCurrentView(sectionToView[hash]);
+    }
+
+    const scrollToSection = () => {
+      const hashStr = window.location.hash;
+      if (hashStr) {
+        // Try multiple times until the view has rendered the element
+        let attempts = 0;
+        const interval = setInterval(() => {
+          const el = document.querySelector(hashStr);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            clearInterval(interval);
+          }
+          attempts++;
+          if (attempts > 20) clearInterval(interval); // ~2 seconds of retries
+        }, 100);
+      }
+    };
+
+    // Run on load
+    scrollToSection();
+
+    // Run on hash change
+    window.addEventListener("hashchange", scrollToSection);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToSection);
+    };
+
+  }, []);
+
+
+
   useEffect(() => {
     // Load saved profile
     const savedProfile = localStorage.getItem('skinHairProfile');
@@ -762,6 +824,12 @@ const SkinHairCare = () => {
     setQuizMode(mode);
     setQuizStarted(true);
     // currentView stays 'quiz'
+  };
+
+  const handleCancelQuiz = () => {
+    setQuizStep(0);
+    setQuizAnswers({});
+    setCurrentView('main'); // optional (go back to home)
   };
 
   const handleQuizAnswer = (answer) => {
@@ -930,16 +998,6 @@ const SkinHairCare = () => {
     }
   };
 
-  const saveTipToFavorites = (tip) => {
-    const favorites = JSON.parse(localStorage.getItem('skinCareFavorites') || '[]');
-    if (!favorites.includes(tip)) {
-      favorites.push(tip);
-      localStorage.setItem('skinCareFavorites', JSON.stringify(favorites));
-      alert('Tip saved to favorites! ❤️');
-    } else {
-      alert('This tip is already in your favorites! 😊');
-    }
-  };
 
   // UI helpers
   const goToQuizScreen = () => {
@@ -951,12 +1009,6 @@ const SkinHairCare = () => {
     setQuizStep(0);
   };
 
-  const cancelPreQuiz = () => {
-    setQuizMode(null);
-    setQuizStarted(false);
-    setQuizQuestions([]);
-    setQuizStep(0);
-  };
 
   return (
     <div className="skin-hair-care">
@@ -1062,60 +1114,73 @@ const SkinHairCare = () => {
           </div>
 
           <div className="daily-tips">
-            <h3>💡 Today's Beauty Tips</h3>
-            <div className="tips-grid">
-              <div className="tip-card">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <div className="tip-icon">🧴</div>
-                  <h4>Less is More</h4>
-                  <p>Start with a simple routine and gradually add products. Your skin needs time to adjust.</p>
-                  <SaveButton category="skinCareFavorites" />
-                </motion.div>
-              </div>
+            <h3>✨ Top Picks for You</h3>
+            <section id="home">
+              <div className="tips-grid">
+                <div className="tip-card">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
+                  >
+                    <div className="tip-icon">🧴</div>
+                    <h4>Less is More</h4>
+                    <p>Start with a simple routine and gradually add products. Your skin needs time to adjust.</p>
+                    <SaveButton 
+                      tip={{
+                        text: "Start with a simple routine and gradually add products. Your skin needs time to adjust.",
+                        page: "skin-hair-care",
+                        section: "home"
+                      }} 
+                      category="skinCareFavorites" 
+                    />
+                  </motion.div>
+                </div>
 
-              <div className="tip-card">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <div className="tip-icon">☀️</div>
-                  <h4>SPF Every Day</h4>
-                  <p>Sunscreen is your best anti-aging product. Apply daily, even when staying indoors.</p>
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => saveTipToFavorites("Sunscreen is your best anti-aging product. Apply daily, even when staying indoors.")}>
-                    ❤️ Save
-                  </motion.button>
-                </motion.div>
-              </div>
+                <div className="tip-card">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
+                  >
+                    <div className="tip-icon">☀️</div>
+                    <h4>SPF Every Day</h4>
+                    <p>Sunscreen is your best anti-aging product. Apply daily, even when staying indoors.</p>
+                    <SaveButton
+                      tip={{
+                        text: "Sunscreen is your best anti-aging product. Apply daily, even when staying indoors.",
+                        page: "skin-hair-care",
+                        section: "home"
+                      }}
+                      category="skinCareFavorites"
+                    />
+                  </motion.div>
+                </div>
 
-              <div className="tip-card">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <div className="tip-icon">💧</div>
-                  <h4>Hydrate Inside Out</h4>
-                  <p>Drink plenty of water and use hydrating products for healthy, glowing skin.</p>
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => saveTipToFavorites("Drink plenty of water and use hydrating products for healthy, glowing skin.")}>
-                    ❤️ Save
-                  </motion.button>
-                </motion.div>
+                <div className="tip-card">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
+                  >
+                    <div className="tip-icon">💧</div>
+                    <h4>Hydrate Inside Out</h4>
+                    <p>Drink plenty of water and use hydrating products for healthy, glowing skin.</p>
+                    <SaveButton
+                      tip={{
+                        text: "Drink plenty of water and use hydrating products for healthy, glowing skin.",
+                        page: "skin-hair-care",
+                        section: "home"
+                      }}
+                      category="skinCareFavorites"
+                    />
+                  </motion.div>
+                </div>
               </div>
-            </div>
+            </section>  
           </div>
         </div>
       )}
@@ -1205,7 +1270,9 @@ const SkinHairCare = () => {
               </div>
 
               <div className="quiz-actions">
-                <button className="cancel-quiz" onClick={cancelPreQuiz}>Cancel</button>
+                <button className="quiz-cancel-btn" onClick={handleCancelQuiz}>
+                  Cancel
+                </button>
               </div>
             </div>
           )}
@@ -1213,7 +1280,7 @@ const SkinHairCare = () => {
           {/* Results */}
           {careProfile && (
             <div className="results-wrapper">
-              <div className="results-container">
+              <div className="results-container" id="quiz">
                 <Confetti numberOfPieces={180} gravity={0.25} recycle={false} />
                 <motion.h2
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -1233,25 +1300,29 @@ const SkinHairCare = () => {
                   </div>
                 </div>
 
-                <div className="recommendations">
-                  {careProfile.recommendations.map((rec, index) => (
-                    <div key={index} className="recommendation-card">
-                      <h4>{rec.title}</h4>
-                      <p>{rec.description}</p>
-                      <div className="rec-products">
-                        {rec.products && (
-                          <small><strong>Suggested:</strong> {rec.products.join(', ')}</small>
-                        )}
+                <section id="quiz">
+                  <div className="recommendations">
+                    {careProfile.recommendations.map((rec, index) => (
+                      <div key={index} className="recommendation-card">
+                        <h4>{rec.title}</h4>
+                        <p>{rec.description}</p>
+                        <div className="rec-products">
+                          {rec.products && (
+                            <small><strong>Suggested:</strong> {rec.products.join(', ')}</small>
+                          )}
+                        </div>
+                        <SaveButton
+                          tip={{
+                            text: rec.description,
+                            page: "skin-hair-care",
+                            section: "quiz"
+                          }}
+                          category="skinCareFavorites"
+                        />
                       </div>
-                      <motion.button
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => saveTipToFavorites(rec.description)}>
-                        ❤️ Save
-                      </motion.button>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </section>  
 
                 {/* ── PRODUCT RECOMMENDATIONS ── */}
                 {(() => {
@@ -1723,49 +1794,52 @@ const SkinHairCare = () => {
             transition={{ duration: 0.6 }}
           >🌿 Natural Beauty Remedies</motion.h2>
 
-          <div className="remedies-grid">
-            {organicRemedies.map((remedy, index) => (
-              <div key={index} className="remedy-card">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <h3>{remedy.name}</h3>
-                  <p className="remedy-purpose">{remedy.purpose}</p>
-                  <div className="remedy-details">
-                    <div className="ingredients">
-                      <strong>Ingredients:</strong>
-                      <ul>
-                        {remedy.ingredients.map((ingredient, i) => (
-                          <li key={i}>{ingredient}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="instructions">
-                      <strong>Instructions:</strong>
-                      <p>{remedy.instructions}</p>
-                    </div>
-                    <div className="benefits">
-                      <strong>Benefits:</strong>
-                      <p>{remedy.benefits}</p>
-                    </div>
-                  </div>
-                  
-                  <motion.button 
-                    className="use-template-btn"
-                    onClick={() => saveTipToFavorites(`${remedy.name}: ${remedy.instructions}`)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+          <section id="remedies">
+            <div className="remedies-grid">
+              {organicRemedies.map((remedy, index) => (
+                <div key={index} className="remedy-card">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
                   >
-                    ❤️ Save Recipe
-                  </motion.button>
-                </motion.div>
-              </div>
-            ))}
-          </div>
+                    <h3>{remedy.name}</h3>
+                    <p className="remedy-purpose">{remedy.purpose}</p>
+                    <div className="remedy-details">
+                      <div className="ingredients">
+                        <strong>Ingredients:</strong>
+                        <ul>
+                          {remedy.ingredients.map((ingredient, i) => (
+                            <li key={i}>{ingredient}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="instructions">
+                        <strong>Instructions:</strong>
+                        <p>{remedy.instructions}</p>
+                      </div>
+                      <div className="benefits">
+                        <strong>Benefits:</strong>
+                        <p>{remedy.benefits}</p>
+                      </div>
+                    </div>
+                    
+                    <SaveButton
+                      tip={{
+                        text: `${remedy.name}: ${remedy.instructions}`,
+                        page: "skin-hair-care",
+                        section: "remedies"
+                      }}
+                      category="skinCareFavorites"
+                      className="use-template-btn"
+                      label="Recipe"
+                    />
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </section>  
         </div>
       )}
 

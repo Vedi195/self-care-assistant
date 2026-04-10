@@ -4,6 +4,15 @@ import Confetti from "react-confetti";
 
 import { motion } from "framer-motion";
 import ExpertTalkWidget from '../ExpertTalkWidget';
+import SaveButton from "../../SaveButton";
+
+import Pose1 from '../../../assets/pose1.png';
+import Pose2 from '../../../assets/pose2.png';
+import Pose3 from '../../../assets/pose3.png';
+import Pose4 from '../../../assets/pose4.png';
+import Pose5 from '../../../assets/pose5.png';
+import Pose6 from '../../../assets/pose6.jpeg';
+
 
 const HealthTips = () => {
   const [currentView, setCurrentView] = useState('main');
@@ -11,6 +20,53 @@ const HealthTips = () => {
   const [quizStep, setQuizStep] = useState(0);
   const [healthProfile, setHealthProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    // Map hash section → view name
+    const sectionToView = {
+      home:  'main',
+      quiz:  'quiz',
+      yoga1: 'yoga',
+      yoga2: 'yoga',
+    };
+
+    // On mount, switch to the correct view based on the hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sectionToView[hash]) {
+      setCurrentView(sectionToView[hash]);
+    }
+
+    const scrollToSection = () => {
+      const hashStr = window.location.hash;
+      if (hashStr) {
+        // Retry until the view has rendered the target element
+        let attempts = 0;
+        const interval = setInterval(() => {
+          const el = document.querySelector(hashStr);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            clearInterval(interval);
+          }
+          attempts++;
+          if (attempts > 20) clearInterval(interval); // ~2 seconds of retries
+        }, 100);
+      }
+    };
+
+    // Run on first load
+    scrollToSection();
+
+    // Run when hash changes
+    window.addEventListener("hashchange", scrollToSection);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToSection);
+    };
+
+  }, []);
+
+
 
   const quizQuestions = [
     {
@@ -72,18 +128,21 @@ const HealthTips = () => {
     beginner: [
       {
         name: "Child's Pose (Balasana)",
+        image: Pose1,
         description: "Great for relaxation and stress relief",
         benefits: "Relieves back pain, calms the mind",
         duration: "Hold for 1-3 minutes"
       },
       {
         name: "Cat-Cow Pose",
+        image: Pose2,
         description: "Gentle spinal movement for flexibility",
         benefits: "Improves spinal flexibility, relieves tension",
         duration: "10-15 repetitions"
       },
       {
         name: "Downward Facing Dog",
+        image: Pose3,
         description: "Full body stretch and strengthening pose",
         benefits: "Strengthens arms and legs, stretches spine",
         duration: "Hold for 30-60 seconds"
@@ -92,18 +151,21 @@ const HealthTips = () => {
     intermediate: [
       {
         name: "Warrior II (Virabhadrasana II)",
+        image: Pose4,
         description: "Standing pose for strength and focus",
         benefits: "Strengthens legs, improves concentration",
         duration: "Hold for 30-60 seconds each side"
       },
       {
         name: "Triangle Pose (Trikonasana)",
+        image: Pose5,
         description: "Standing side stretch pose",
         benefits: "Stretches side body, improves balance",
         duration: "Hold for 30-45 seconds each side"
       },
       {
         name: "Bridge Pose (Setu Bandhasana)",
+        image: Pose6,
         description: "Back strengthening and heart opening pose",
         benefits: "Strengthens back, opens chest and hips",
         duration: "Hold for 30-60 seconds"
@@ -118,6 +180,12 @@ const HealthTips = () => {
       setHealthProfile(JSON.parse(savedProfile));
     }
   }, []);
+
+  const handleCancelQuiz = () => {
+    setQuizStep(0);
+    setQuizAnswers({});
+    setCurrentView('main'); // optional (go back to home)
+  };
 
   const handleQuizAnswer = (answer) => {
     const newAnswers = { ...quizAnswers, [quizStep]: answer };
@@ -223,17 +291,6 @@ const HealthTips = () => {
     localStorage.removeItem('healthRecommendations');
   };
 
-  const saveTipToFavorites = (tip) => {
-    const favorites = JSON.parse(localStorage.getItem('healthFavorites') || '[]');
-    if (!favorites.includes(tip)) {
-      favorites.push(tip);
-      localStorage.setItem('healthFavorites', JSON.stringify(favorites));
-      alert('Health tip saved to favorites! ❤️');
-    } else {
-      alert('This tip is already in your favorites! 😊');
-    }
-  };
-
   const currentQuestion = quizQuestions[quizStep];
 
   return (
@@ -326,9 +383,9 @@ const HealthTips = () => {
               </motion.div>
             </div>
 
-            <div className="daily-tips">
-              <h3>💡 Today's Health Tips</h3>
-              <div className="tips-grid">
+            <div className="daily-tips" >
+              <h3>✨ Top Picks for You</h3>
+              <div className="tips-grid" id="home">
                 <div className="tip-card">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -339,12 +396,14 @@ const HealthTips = () => {
                     <div className="tip-icon">💧</div>
                     <h4>Stay Hydrated</h4>
                     <p>Drink at least 8 glasses of water daily to maintain optimal body function and energy levels.</p>
-                    <motion.button 
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Drink at least 8 glasses of water daily to maintain optimal body function and energy levels.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Drink at least 8 glasses of water daily to maintain optimal body function and energy levels.",
+                        page: "health-tips",
+                        section: "home"
+                      }}
+                      category="healthFavorites"
+                    />
                   </motion.div>
                 </div>
                 
@@ -358,12 +417,14 @@ const HealthTips = () => {
                     <div className="tip-icon">🚶‍♀️</div>
                     <h4>Move More</h4>
                     <p>Take a 10-minute walk every 2 hours to boost circulation and reduce stress.</p>
-                    <motion.button 
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Take a 10-minute walk every 2 hours to boost circulation and reduce stress.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Take a 10-minute walk every 2 hours to boost circulation and reduce stress.",
+                        page: "health-tips",
+                        section: "home"
+                      }}
+                      category="healthFavorites"
+                    />
                   </motion.div>
                 </div>
                 
@@ -377,12 +438,14 @@ const HealthTips = () => {
                     <div className="tip-icon">😴</div>
                     <h4>Quality Sleep</h4>
                     <p>Maintain a consistent sleep schedule and aim for 7-9 hours of quality sleep nightly.</p>
-                    <motion.button 
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Maintain a consistent sleep schedule and aim for 7-9 hours of quality sleep nightly.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Maintain a consistent sleep schedule and aim for 7-9 hours of quality sleep nightly.",
+                        page: "health-tips",
+                        section: "home"
+                      }}
+                      category="healthFavorites"
+                    />
                   </motion.div>
                 </div>
                 
@@ -396,12 +459,14 @@ const HealthTips = () => {
                     <div className="tip-icon">🥗</div>
                     <h4>Balanced Nutrition</h4>
                     <p>Include colorful fruits and vegetables in every meal for essential vitamins and minerals.</p>
-                    <motion.button 
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites("Include colorful fruits and vegetables in every meal for essential vitamins and minerals.")}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: "Include colorful fruits and vegetables in every meal for essential vitamins and minerals.",
+                        page: "health-tips",
+                        section: "home"
+                      }}
+                      category="healthFavorites"
+                    />
                   </motion.div>
                 </div>
               </div>
@@ -443,17 +508,20 @@ const HealthTips = () => {
                       <input
                         type="text"
                         placeholder={currentQuestion.placeholder}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={(e) => {
-                          if (e.key === 'Enter' && e.target.value.trim()) {
-                            handleQuizAnswer(e.target.value.trim());
+                          if (e.key === 'Enter' && inputValue.trim()) {
+                            handleQuizAnswer(inputValue.trim());
+                            setInputValue(''); // ✅ clear after answer
                           }
                         }}
                       />
                       <button 
-                        onClick={(e) => {
-                          const input = e.target.previousElementSibling;
-                          if (input.value.trim()) {
-                            handleQuizAnswer(input.value.trim());
+                        onClick={() => {
+                          if (inputValue.trim()) {
+                            handleQuizAnswer(inputValue.trim());
+                            setInputValue(''); // ✅ clear here also
                           }
                         }}
                       >
@@ -461,6 +529,11 @@ const HealthTips = () => {
                       </button>
                     </div>
                   )}
+                </div>
+                <div className="quiz-actions">
+                  <button className="quiz-cancel-btn" onClick={handleCancelQuiz}>
+                    Cancel
+                  </button>
                 </div>
               </div>
             ) : (
@@ -479,24 +552,26 @@ const HealthTips = () => {
 
                 <div className="recommendations-grid">
                   {recommendations.map((rec, index) => (
-                    <div key={index} className="recommendation-card">
+                    <div key={index} className="recommendation-card" id="quiz">
                       <motion.div
-                          initial={{ opacity: 0, y: 30 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.7 }}
-                        >
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7 }}
+                      >
                         <div className="rec-icon">{rec.icon}</div>
                         <div className="rec-content">
                           <span className="rec-category">{rec.category}</span>
                           <h4>{rec.title}</h4>
                           <p>{rec.description}</p>
-                          <motion.button 
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => saveTipToFavorites(rec.description)}>
-                            ❤️ Save
-                          </motion.button>
+                          <SaveButton
+                            tip={{
+                              text: `${rec.title}: ${rec.description}`,
+                              page: "health-tips",
+                              section: "quiz"
+                            }}
+                            category="healthFavorites"
+                          />
                         </div>
                       </motion.div>
                     </div>
@@ -528,9 +603,10 @@ const HealthTips = () => {
             >
               <h2>🧘‍♀️ Beginner Yoga Poses</h2>
               <p>Perfect for those new to yoga or looking for gentle movements</p>
-              <div className="poses-grid">
+              <div className="poses-grid" id="yoga1">
                 {yogaPoses.beginner.map((pose, index) => (
                   <div key={index} className="pose-card">
+                    <img src={pose.image} alt={pose.name} />
                     <h4>{pose.name}</h4>
                     <p className="pose-description">{pose.description}</p>
                     <div className="pose-benefits">
@@ -539,12 +615,14 @@ const HealthTips = () => {
                     <div className="pose-duration">
                       <strong>Duration:</strong> {pose.duration}
                     </div>
-                    <motion.button  
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites(`${pose.name}: ${pose.description}`)}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: `${pose.name}: ${pose.description} Benefits: ${pose.benefits}. Duration: ${pose.duration}`,
+                        page: "health-tips",
+                        section: "yoga1"
+                      }}
+                      category="healthFavorites"
+                    />
                   </div>
                 ))}
               </div>
@@ -559,9 +637,10 @@ const HealthTips = () => {
             >
               <h2>🌟 Intermediate Yoga Poses</h2>
               <p>For those ready to challenge themselves with more advanced poses</p>
-              <div className="poses-grid">
+              <div className="poses-grid" id="yoga2">
                 {yogaPoses.intermediate.map((pose, index) => (
                   <div key={index} className="pose-card">
+                    <img src={pose.image} alt={pose.name} />
                     <h4>{pose.name}</h4>
                     <p className="pose-description">{pose.description}</p>
                     <div className="pose-benefits">
@@ -570,12 +649,14 @@ const HealthTips = () => {
                     <div className="pose-duration">
                       <strong>Duration:</strong> {pose.duration}
                     </div>
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => saveTipToFavorites(`${pose.name}: ${pose.description}`)}>
-                      ❤️ Save
-                    </motion.button>
+                    <SaveButton
+                      tip={{
+                        text: `${pose.name}: ${pose.description} Benefits: ${pose.benefits}. Duration: ${pose.duration}`,
+                        page: "health-tips",
+                        section: "yoga2"
+                      }}
+                      category="healthFavorites"
+                    />
                   </div>
                 ))}
               </div>

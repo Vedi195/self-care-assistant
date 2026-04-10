@@ -95,6 +95,7 @@ export default function PeriodTracker() {
   const [logForm, setLogForm]       = useState({ date: '', symptoms: [], mood: '', notes: '' });
   const [reminder, setReminder]     = useState('');
   const [toast, setToast]           = useState('');
+  const [editingLogId, setEditingLogId] = useState(null);
 
   /* Persist to localStorage */
   useEffect(() => {
@@ -104,7 +105,6 @@ export default function PeriodTracker() {
         const d = JSON.parse(saved);
         const calc = calcCycle(d.lastPeriod, parseInt(d.cycleLength));
         setTrackerData({ ...d, ...calc });
-        setView('tracker');
       }
       const logs = JSON.parse(localStorage.getItem('pt_logs') || '[]');
       setSavedLogs(logs);
@@ -115,6 +115,8 @@ export default function PeriodTracker() {
     setToast(msg);
     setTimeout(() => setToast(''), 3200);
   };
+
+  const todayStr = new Date().toISOString().split('T')[0];
 
   /* ── SETUP ── */
   const handleSetup = () => {
@@ -134,6 +136,8 @@ export default function PeriodTracker() {
     try { localStorage.removeItem('pt_data'); localStorage.removeItem('pt_logs'); } catch (_) {}
     setTrackerData(null);
     setSavedLogs([]);
+    setEditingLogId(null);
+    setLogForm({ date: '', symptoms: [], mood: '', notes: '' });
     setForm({ lastPeriod: '', cycleLength: '28', periodLength: '5' });
     setView('home');
     showToast('🔄 Data reset.');
@@ -145,12 +149,40 @@ export default function PeriodTracker() {
 
   const saveLog = () => {
     if (!logForm.date) { showToast('⚠️ Please select a date!'); return; }
-    const newLog = { ...logForm, id: Date.now() };
-    const updated = [newLog, ...savedLogs].slice(0, 30);
+    let updated;
+    if (editingLogId) {
+      // Update existing log
+      updated = savedLogs.map(l => l.id === editingLogId ? { ...logForm, id: editingLogId } : l);
+      setEditingLogId(null);
+      showToast('✏️ Log updated!');
+    } else {
+      const newLog = { ...logForm, id: Date.now() };
+      updated = [newLog, ...savedLogs].slice(0, 30);
+      showToast('💖 Log saved successfully!');
+    }
     setSavedLogs(updated);
     try { localStorage.setItem('pt_logs', JSON.stringify(updated)); } catch (_) {}
     setLogForm({ date: '', symptoms: [], mood: '', notes: '' });
-    showToast('💖 Log saved successfully!');
+  };
+
+  const deleteLog = (id) => {
+    if (!window.confirm('Delete this log entry?')) return;
+    const updated = savedLogs.filter(l => l.id !== id);
+    setSavedLogs(updated);
+    if (editingLogId === id) { setEditingLogId(null); setLogForm({ date: '', symptoms: [], mood: '', notes: '' }); }
+    try { localStorage.setItem('pt_logs', JSON.stringify(updated)); } catch (_) {}
+    showToast('🗑️ Log deleted.');
+  };
+
+  const startEditLog = (log) => {
+    setEditingLogId(log.id);
+    setLogForm({ date: log.date, symptoms: log.symptoms, mood: log.mood, notes: log.notes });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const cancelEdit = () => {
+    setEditingLogId(null);
+    setLogForm({ date: '', symptoms: [], mood: '', notes: '' });
   };
 
   /* ── REMINDER ── */
@@ -375,38 +407,56 @@ export default function PeriodTracker() {
         {view === 'log' && (
           <div>
             <div className="pt-log-section">
-              <h2>📝 Log Today's Symptoms</h2>
-              <div className="pt-log-form">
-                <div className="pt-form-group">
-                  <label>📅 Date *</label>
-                  <input type="date" value={logForm.date} max={new Date().toISOString().split('T')[0]}
-                    onChange={e => setLogForm(p => ({ ...p, date: e.target.value }))} />
+              {/* If today's log exists and not in edit mode, show locked message */}
+              {!editingLogId && savedLogs.some(l => l.date === todayStr) ? (
+                <div className="pt-today-logged">
+                  <span className="pt-today-logged-icon">✅</span>
+                  <h3>Today's symptoms are logged!</h3>
+                  <p>You've already saved a log for today. Come back tomorrow to log a new entry, or edit today's log from Recent Logs below.</p>
                 </div>
-                <div className="pt-form-group">
-                  <label>🩺 Symptoms (select all that apply)</label>
-                  <div className="pt-symptom-picker">
-                    {SYMPTOMS_LIST.map(s => (
-                      <button key={s} className={`pt-symptom-pick${logForm.symptoms.includes(s) ? ' selected' : ''}`} onClick={() => toggleSymptom(s)}>{s}</button>
-                    ))}
+              ) : (
+                <>
+                  <h2>{editingLogId ? '✏️ Edit Log Entry' : "📝 Log Today's Symptoms"}</h2>
+                  {editingLogId && (
+                    <div className="pt-edit-banner">
+                      You're editing a past entry. <button className="pt-cancel-edit-btn" onClick={cancelEdit}>✕ Cancel Edit</button>
+                    </div>
+                  )}
+                  <div className="pt-log-form">
+                    <div className="pt-form-group">
+                      <label>📅 Date *</label>
+                      <input type="date" value={logForm.date} max={new Date().toISOString().split('T')[0]}
+                        onChange={e => setLogForm(p => ({ ...p, date: e.target.value }))} />
+                    </div>
+                    <div className="pt-form-group">
+                      <label>🩺 Symptoms (select all that apply)</label>
+                      <div className="pt-symptom-picker">
+                        {SYMPTOMS_LIST.map(s => (
+                          <button key={s} className={`pt-symptom-pick${logForm.symptoms.includes(s) ? ' selected' : ''}`} onClick={() => toggleSymptom(s)}>{s}</button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="pt-form-group">
+                      <label>😊 How are you feeling today?</label>
+                      <div className="pt-mood-picker">
+                        {MOODS_LIST.map(m => (
+                          <button key={m} className={`pt-mood-pick${logForm.mood === m ? ' selected' : ''}`} onClick={() => setLogForm(p => ({ ...p, mood: m }))}>{m}</button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="pt-form-group">
+                      <label>📔 Personal Notes</label>
+                      <textarea value={logForm.notes} placeholder="How are you feeling? Any observations..." rows="3"
+                        onChange={e => setLogForm(p => ({ ...p, notes: e.target.value }))} />
+                    </div>
+                    <div>
+                      <button className="pt-primary-btn" onClick={saveLog}>
+                        {editingLogId ? '✅ Update Log' : '💾 Save Log'}
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="pt-form-group">
-                  <label>😊 How are you feeling today?</label>
-                  <div className="pt-mood-picker">
-                    {MOODS_LIST.map(m => (
-                      <button key={m} className={`pt-mood-pick${logForm.mood === m ? ' selected' : ''}`} onClick={() => setLogForm(p => ({ ...p, mood: m }))}>{m}</button>
-                    ))}
-                  </div>
-                </div>
-                <div className="pt-form-group">
-                  <label>📔 Personal Notes</label>
-                  <textarea value={logForm.notes} placeholder="How are you feeling? Any observations..." rows="3"
-                    onChange={e => setLogForm(p => ({ ...p, notes: e.target.value }))} />
-                </div>
-                <div>
-                  <button className="pt-primary-btn" onClick={saveLog}>💾 Save Log</button>
-                </div>
-              </div>
+                </>
+              )}
             </div>
 
             {savedLogs.length > 0 && (
@@ -414,8 +464,14 @@ export default function PeriodTracker() {
                 <h3>📜 Recent Logs</h3>
                 <div className="pt-logs-list">
                   {savedLogs.slice(0, 6).map(log => (
-                    <div key={log.id} className="pt-log-card">
-                      <div className="pt-log-date">{fmt(log.date)}</div>
+                    <div key={log.id} className={`pt-log-card${editingLogId === log.id ? ' pt-log-card-editing' : ''}`}>
+                      <div className="pt-log-card-header">
+                        <div className="pt-log-date">{fmt(log.date)}{log.date === todayStr && <span className="pt-today-badge">Today</span>}</div>
+                        <div className="pt-log-actions">
+                          <button className="pt-log-action-btn pt-edit-btn" onClick={() => startEditLog(log)} title="Edit this log">✏️</button>
+                          <button className="pt-log-action-btn pt-delete-btn" onClick={() => deleteLog(log.id)} title="Delete this log">🗑️</button>
+                        </div>
+                      </div>
                       {log.mood && <div className="pt-log-mood">{log.mood}</div>}
                       {log.symptoms.length > 0 && (
                         <div className="pt-log-symptoms">

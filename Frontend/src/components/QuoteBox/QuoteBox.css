@@ -15,7 +15,7 @@
   font-size: 1.4rem;
   color: #e83e8c;
   margin-bottom: 15px;
-  font-weight: 600;
+  font-weight: 750;
 }
 
 /* Quote text */
@@ -26,6 +26,7 @@
   line-height: 1.6;
   position: relative;
   padding: 0 10px;
+  font-weight: 500;
 }
 
 /* Decorative quotes */
@@ -55,3 +56,25 @@
   transition: 0.3s ease;
 }
 
+
+.quote-header {
+  display: flex;
+  align-items: center;   /* aligns vertically */
+  justify-content: center;
+  gap: 8px;              /* better spacing */
+}
+
+/* REMOVE extra margin from h2 */
+.quote-header h2 {
+  margin: 0;             /* 🔥 IMPORTANT */
+  font-size: 1.4rem;
+  color: #e83e8c;
+  font-weight: 750;
+}
+
+/* Fix SVG alignment */
+.quote-header svg {
+  width: 28px;
+  height: 28px;
+  display: block;        /* removes inline spacing issue */
+}

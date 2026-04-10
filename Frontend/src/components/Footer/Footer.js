@@ -15,7 +15,7 @@ const Footer = () => {
       >
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <p>© {new Date().getFullYear()} Vedika' Self-Care Assistant. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Vedika's Self-Care Assistant. All rights reserved.</p>
             <div className="footer-bottom-links">
               <Link to="/privacy">Privacy</Link>
               <Link to="/terms">Terms</Link>

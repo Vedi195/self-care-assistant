@@ -1853,3 +1853,23 @@
     gap: 0.5rem;
   }
 }
+
+
+
+/* Quiz Cancel Button (Scoped - no conflict) */
+.skin-hair-care .quiz-cancel-btn {
+  margin-top: 20px;
+  padding: 10px 22px;
+  border: 2px solid #e83e8c;
+  background: transparent;
+  color: #e83e8c;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.skin-hair-care .quiz-cancel-btn:hover {
+  background: #dc3277;
+  color: white;
+}

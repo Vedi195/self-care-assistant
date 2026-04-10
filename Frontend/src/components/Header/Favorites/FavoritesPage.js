@@ -36,6 +36,9 @@ const FavoritesPage = () => {
   };
 
   const totalFavorites = Object.values(favorites).reduce((sum, arr) => sum + arr.length, 0);
+  const handleRedirect = (item) => {
+  window.location.href = `/${item.page}#${item.section}`;
+};
 
   return (
     <div className="favorites-page">
@@ -75,12 +78,18 @@ const FavoritesPage = () => {
               <div className="favorites-grid">
                 {favorites.fashionTips.map((tip, index) => (
                   <div key={index} className="favorite-item">
-                    <p>{tip}</p>
+                    <p>{typeof tip === "string" ? tip : tip.text}</p>
                     <button 
                       className="remove-btn"
                       onClick={() => removeFavorite('fashionTips', index)}
                     >
                       ❌
+                    </button>
+                    <button
+                      className="go-btn"
+                      onClick={() => handleRedirect(tip)}
+                    >
+                      🔗 Go
                     </button>
                   </div>
                 ))}
@@ -106,12 +115,18 @@ const FavoritesPage = () => {
               <div className="favorites-grid">
                 {favorites.healthTips.map((tip, index) => (
                   <div key={index} className="favorite-item">
-                    <p>{tip}</p>
+                    <p>{typeof tip === "string" ? tip : tip.text}</p>
                     <button 
                       className="remove-btn"
                       onClick={() => removeFavorite('healthTips', index)}
                     >
                       ❌
+                    </button>
+                    <button
+                      className="go-btn"
+                      onClick={() => handleRedirect(tip)}
+                    >
+                      🔗 Go
                     </button>
                   </div>
                 ))}
@@ -137,12 +152,18 @@ const FavoritesPage = () => {
               <div className="favorites-grid">
                 {favorites.skinCareTips.map((tip, index) => (
                   <div key={index} className="favorite-item">
-                    <p>{tip}</p>
+                    <p>{typeof tip === "string" ? tip : tip.text}</p>
                     <button 
                       className="remove-btn"
                       onClick={() => removeFavorite('skinCareTips', index)}
                     >
                       ❌
+                    </button>
+                    <button
+                      className="go-btn"
+                      onClick={() => handleRedirect(tip)}
+                    >
+                      🔗 Go
                     </button>
                   </div>
                 ))}
@@ -168,12 +189,18 @@ const FavoritesPage = () => {
               <div className="favorites-grid">
                 {favorites.dailyRoutineTips.map((tip, index) => (
                   <div key={index} className="favorite-item">
-                    <p>{tip}</p>
+                    <p>{typeof tip === "string" ? tip : tip.text}</p>
                     <button 
                       className="remove-btn"
                       onClick={() => removeFavorite('dailyRoutineTips', index)}
                     >
                       ❌
+                    </button>
+                    <button
+                      className="go-btn"
+                      onClick={() => handleRedirect(tip)}
+                    >
+                      🔗 Go
                     </button>
                   </div>
                 ))}
@@ -184,6 +211,7 @@ const FavoritesPage = () => {
       )}
     </div>
   );
+  
 };
 
 export default FavoritesPage;

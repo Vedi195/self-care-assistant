@@ -30,7 +30,6 @@ const load = (key, fallback) => {
 };
 const save = (key, val) => localStorage.setItem(key, JSON.stringify(val));
 
-
 const shortDate = (iso) => new Date(iso).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'2-digit' });
 
 /* ───────────────────────────────────────────────

@@ -5,6 +5,9 @@ import { FaRegCopy } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import ExpertTalkWidget from '../ExpertTalkWidget';
+import SaveButton from "../../SaveButton";
+
+
 
 // ═══════════════════════════════════════════════════════════════
 //  DATA: SKIN TONES
@@ -247,6 +250,290 @@ const OUTFITS = [
     occasion: '🌙 Party · Night Out · Events',
     tip: 'Add a silver watch or chain for a touch of contrast.',
   },
+
+  // ── FEMALE – NEW ADDITIONS ────────────────────────────────────
+  {
+    id: 23, gender: 'female',
+    skinTones: ['fair', 'light'],
+    topHex: '#D8B4E2', topName: 'Lavender',
+    bottomHex: '#F7CAD0', bottomName: 'Dusty Rose',
+    name: 'Lavender Blouse + Dusty Rose Skirt',
+    vibe: 'Romantic · Dreamy · Pastel-Perfect',
+    occasion: '💐 Date · Brunch · Garden Party',
+    tip: 'White platform shoes and pearl earrings keep this look ethereal.',
+  },
+  {
+    id: 24, gender: 'female',
+    skinTones: ['fair', 'light'],
+    topHex: '#AED6F1', topName: 'Powder Blue',
+    bottomHex: '#FDFEFE', bottomName: 'Soft White',
+    name: 'Powder Blue Top + White Wide-Leg Pants',
+    vibe: 'Airy · Fresh · Summery',
+    occasion: '🌊 Beach · Travel · Casual',
+    tip: 'Straw bag and white slip-ons give off perfect vacation energy.',
+  },
+  {
+    id: 25, gender: 'female',
+    skinTones: ['fair', 'light', 'medium'],
+    topHex: '#E8C9B0', topName: 'Champagne',
+    bottomHex: '#F4A8B8', bottomName: 'Blush Pink',
+    name: 'Champagne Top + Blush Midi Skirt',
+    vibe: 'Glam · Elegant · Feminine',
+    occasion: '✨ Events · Wedding Guest · Date',
+    tip: 'Rose gold heels and a clutch complete this head-turning look.',
+  },
+  {
+    id: 26, gender: 'female',
+    skinTones: ['fair', 'light'],
+    topHex: '#B2D8B2', topName: 'Sage Green',
+    bottomHex: '#F5E6CA', bottomName: 'Warm Cream',
+    name: 'Sage Green Shirt + Cream Trousers',
+    vibe: 'Nature-Inspired · Calm · Chic',
+    occasion: '🌿 Brunch · College · Weekend',
+    tip: 'Tan sandals and a wicker bag complete the earthy aesthetic.',
+  },
+  {
+    id: 27, gender: 'female',
+    skinTones: ['medium', 'olive'],
+    topHex: '#C1603B', topName: 'Terracotta',
+    bottomHex: '#F5E6CA', bottomName: 'Cream',
+    name: 'Terracotta Kurti + Cream Palazzo',
+    vibe: 'Earthy · Boho · Warm',
+    occasion: '🍂 Casual · Festival · Outing',
+    tip: 'Layer wooden bangles and tan kolhapuris for a full boho vibe.',
+  },
+  {
+    id: 28, gender: 'female',
+    skinTones: ['medium', 'olive', 'tan'],
+    topHex: '#117A65', topName: 'Deep Teal',
+    bottomHex: '#D4AC0D', bottomName: 'Gold',
+    name: 'Teal Blouse + Gold Skirt',
+    vibe: 'Luxe · Regal · Statement',
+    occasion: '🎊 Festival · Party · Diwali',
+    tip: 'Antique gold jewellery makes this combination look absolutely royal.',
+  },
+  {
+    id: 29, gender: 'female',
+    skinTones: ['medium', 'olive'],
+    topHex: '#A0522D', topName: 'Burnt Sienna',
+    bottomHex: '#4E6B3A', bottomName: 'Olive Green',
+    name: 'Burnt Sienna Top + Olive Pants',
+    vibe: 'Artistic · Earthy · Unique',
+    occasion: '🎨 College · Casual · Outing',
+    tip: 'Brown leather sneakers and a tote bag perfect this look.',
+  },
+  {
+    id: 30, gender: 'female',
+    skinTones: ['medium', 'olive', 'tan'],
+    topHex: '#B7950B', topName: 'Dark Gold',
+    bottomHex: '#2E4057', bottomName: 'Slate Blue',
+    name: 'Dark Gold Top + Slate Blue Jeans',
+    vibe: 'Rich · Contrast · Eye-catching',
+    occasion: '🎶 Outing · College · Events',
+    tip: 'Nude block heels balance this bold dual-tone combo.',
+  },
+  {
+    id: 31, gender: 'female',
+    skinTones: ['tan', 'dark', 'deep'],
+    topHex: '#C2185B', topName: 'Fuchsia',
+    bottomHex: '#1C1C1E', bottomName: 'Black',
+    name: 'Fuchsia Top + Black Pants',
+    vibe: 'Bold · Glam · Fierce',
+    occasion: '💃 Party · Night Out · Events',
+    tip: 'Gold hoops and black heeled sandals make this irresistible.',
+  },
+  {
+    id: 32, gender: 'female',
+    skinTones: ['tan', 'dark', 'deep'],
+    topHex: '#1565C0', topName: 'Electric Blue',
+    bottomHex: '#FFFFFF', bottomName: 'White',
+    name: 'Electric Blue Blouse + White Trousers',
+    vibe: 'Vibrant · Confident · Chic',
+    occasion: '💼 Office · Events · College',
+    tip: 'White mules and silver stud earrings keep it sleek.',
+  },
+  {
+    id: 33, gender: 'female',
+    skinTones: ['dark', 'deep'],
+    topHex: '#E91E8C', topName: 'Hot Pink',
+    bottomHex: '#D4AC0D', bottomName: 'Gold',
+    name: 'Hot Pink Blouse + Gold Skirt',
+    vibe: 'Festive · Radiant · Showstopper',
+    occasion: '🎉 Festival · Party · Sangeet',
+    tip: 'Keep makeup to bold lips and minimal accessories — you are already stunning.',
+  },
+  {
+    id: 34, gender: 'female',
+    skinTones: ['tan', 'dark', 'deep'],
+    topHex: '#1A6B3C', topName: 'Emerald Green',
+    bottomHex: '#1C1C1E', bottomName: 'Black',
+    name: 'Emerald Green Top + Black Skirt',
+    vibe: 'Powerful · Sophisticated · Rich',
+    occasion: '🌙 Evening · Party · Date',
+    tip: 'Gold earrings and black heels make this look complete and flawless.',
+  },
+  {
+    id: 35, gender: 'female',
+    skinTones: ['all'],
+    topHex: '#7B2D8B', topName: 'Violet',
+    bottomHex: '#D2B48C', bottomName: 'Camel',
+    name: 'Violet Blouse + Camel Trousers',
+    vibe: 'Classic · Refined · Unexpected',
+    occasion: '💼 Work · Semi-formal · Brunch',
+    tip: 'Brown loafers and a structured bag polish the entire look.',
+  },
+  {
+    id: 36, gender: 'female',
+    skinTones: ['all'],
+    topHex: '#9E6B8A', topName: 'Dusty Mauve',
+    bottomHex: '#808080', bottomName: 'Warm Grey',
+    name: 'Dusty Mauve Top + Grey Pants',
+    vibe: 'Muted · Chic · Effortlessly Cool',
+    occasion: '☕ Brunch · Casual · Day Out',
+    tip: 'Nude sneakers and minimal gold jewellery keep this understated yet stylish.',
+  },
+  {
+    id: 37, gender: 'female',
+    skinTones: ['all'],
+    topHex: '#2D6A4F', topName: 'Forest Green',
+    bottomHex: '#FFFFFF', bottomName: 'White',
+    name: 'Forest Green Kurta + White Palazzo',
+    vibe: 'Fresh · Timeless · Earthy',
+    occasion: '🌸 Casual · Travel · Any Occasion',
+    tip: 'Gold jhumkas and kolhapuris complete this elegant everyday look.',
+  },
+  {
+    id: 38, gender: 'female',
+    skinTones: ['fair', 'light', 'medium'],
+    topHex: '#E2B4BD', topName: 'Rose Pink',
+    bottomHex: '#5C6BC0', bottomName: 'Periwinkle Blue',
+    name: 'Rose Pink Top + Periwinkle Skirt',
+    vibe: 'Bold Pastels · Playful · Creative',
+    occasion: '🎨 College · Outing · Brunch',
+    tip: 'White sneakers keep this colour-blocked look youthful and fun.',
+  },
+
+  // ── MALE – NEW ADDITIONS ────────────────────────────────────
+  {
+    id: 39, gender: 'male',
+    skinTones: ['fair', 'light'],
+    topHex: '#AED6F1', topName: 'Pastel Blue',
+    bottomHex: '#F5E6CA', bottomName: 'Cream',
+    name: 'Pastel Blue Shirt + Cream Chinos',
+    vibe: 'Fresh · Summery · Light',
+    occasion: '🏖️ Beach · Brunch · Travel',
+    tip: 'White sneakers and aviator shades nail the vacation look.',
+  },
+  {
+    id: 40, gender: 'male',
+    skinTones: ['fair', 'light'],
+    topHex: '#C8A2C8', topName: 'Lilac',
+    bottomHex: '#808080', bottomName: 'Medium Grey',
+    name: 'Lilac Shirt + Grey Pants',
+    vibe: 'Soft · Trendy · Fashion-Forward',
+    occasion: '🎓 College · Casual · Events',
+    tip: 'White low-top sneakers and a minimal watch complete the modern look.',
+  },
+  {
+    id: 41, gender: 'male',
+    skinTones: ['fair', 'light', 'medium'],
+    topHex: '#B2D8B2', topName: 'Mint Green',
+    bottomHex: '#FFFFFF', bottomName: 'White',
+    name: 'Mint Green Tee + White Joggers',
+    vibe: 'Clean · Breezy · Sporty-Chic',
+    occasion: '🏃 Day Out · Casual · Gym-to-Street',
+    tip: 'White or grey sneakers keep the look crisp and coordinated.',
+  },
+  {
+    id: 42, gender: 'male',
+    skinTones: ['medium', 'olive'],
+    topHex: '#C1603B', topName: 'Terracotta',
+    bottomHex: '#1B3A6B', bottomName: 'Navy Blue',
+    name: 'Terracotta Shirt + Navy Jeans',
+    vibe: 'Earthy · Bold · Striking',
+    occasion: '☕ Casual · College · Brunch',
+    tip: 'Tan leather boots or white sneakers both work well here.',
+  },
+  {
+    id: 43, gender: 'male',
+    skinTones: ['medium', 'olive', 'tan'],
+    topHex: '#A0522D', topName: 'Rust Brown',
+    bottomHex: '#1C1C1E', bottomName: 'Black',
+    name: 'Rust Shirt + Black Jeans',
+    vibe: 'Rugged · Warm · Trendy',
+    occasion: '🌆 Casual · Night Out · Events',
+    tip: 'Black sneakers or brown boots both elevate this combo.',
+  },
+  {
+    id: 44, gender: 'male',
+    skinTones: ['medium', 'olive', 'tan'],
+    topHex: '#2D6A4F', topName: 'Forest Green',
+    bottomHex: '#D2B48C', bottomName: 'Beige',
+    name: 'Forest Green Shirt + Beige Chinos',
+    vibe: 'Natural · Refined · Outdoor-Ready',
+    occasion: '🌿 Outdoor · Travel · Casual',
+    tip: 'Brown leather boots and a canvas bag make this look complete.',
+  },
+  {
+    id: 45, gender: 'male',
+    skinTones: ['tan', 'dark', 'deep'],
+    topHex: '#1565C0', topName: 'Cobalt Blue',
+    bottomHex: '#FFFFFF', bottomName: 'White',
+    name: 'Cobalt Blue Shirt + White Pants',
+    vibe: 'Crisp · Striking · Fresh',
+    occasion: '🏖️ Beach · Casual · Day Out',
+    tip: 'White sneakers and dark sunglasses nail the coastal style.',
+  },
+  {
+    id: 46, gender: 'male',
+    skinTones: ['tan', 'dark', 'deep'],
+    topHex: '#6A1B9A', topName: 'Deep Purple',
+    bottomHex: '#1C1C1E', bottomName: 'Black',
+    name: 'Deep Purple Shirt + Black Jeans',
+    vibe: 'Bold · Edgy · Night-Ready',
+    occasion: '🎉 Party · Night Out · Events',
+    tip: 'Black Chelsea boots and a silver bracelet add refined edge.',
+  },
+  {
+    id: 47, gender: 'male',
+    skinTones: ['dark', 'deep'],
+    topHex: '#117A65', topName: 'Teal',
+    bottomHex: '#D2B48C', bottomName: 'Camel',
+    name: 'Teal Shirt + Camel Trousers',
+    vibe: 'Vibrant · Unique · Standout',
+    occasion: '✨ Events · Semi-formal · Outing',
+    tip: 'Brown leather shoes and a watch tie this distinctive look together.',
+  },
+  {
+    id: 48, gender: 'male',
+    skinTones: ['dark', 'deep'],
+    topHex: '#FFFFFF', topName: 'White',
+    bottomHex: '#1A6B3C', bottomName: 'Emerald Green',
+    name: 'White Shirt + Emerald Green Trousers',
+    vibe: 'Bold · Striking · Regal',
+    occasion: '🎊 Festival · Party · Celebration',
+    tip: 'Gold accessories and white sneakers make the emerald pop royally.',
+  },
+  {
+    id: 49, gender: 'male',
+    skinTones: ['all'],
+    topHex: '#800020', topName: 'Burgundy',
+    bottomHex: '#808080', bottomName: 'Grey',
+    name: 'Burgundy Shirt + Grey Trousers',
+    vibe: 'Classic · Refined · Polished',
+    occasion: '💼 Work · Formal · Semi-formal',
+    tip: 'Black oxford shoes and a minimal watch complete this refined look.',
+  },
+  {
+    id: 50, gender: 'male',
+    skinTones: ['all'],
+    topHex: '#1A6B3C', topName: 'Emerald Green',
+    bottomHex: '#FFFFFF', bottomName: 'White',
+    name: 'Emerald Green Kurta + White Pyjama',
+    vibe: 'Fresh · Festive · Timeless',
+    occasion: '🌸 Festival · Casual · Any Occasion',
+    tip: 'Brown mojaris and a subtle watch keep the ethnic look elegant.',
+  },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -472,17 +759,21 @@ function ColorCombinationView({ saveTip }) {
   // Reject: add to rejected set, move to next
   const handleReject = () => {
     if (!currentOutfit) return;
-    const newRejected = new Set(rejectedIds);
-    newRejected.add(currentOutfit.id);
-    const remaining = matchingOutfits.filter(o => !newRejected.has(o.id));
-    if (remaining.length === 0) {
-      // All rejected → reset and start fresh
-      setRejectedIds(new Set());
-      setOutfitIdx(0);
-    } else {
-      setRejectedIds(newRejected);
-      setOutfitIdx(0);
-    }
+
+    setRejectedIds(prev => {
+      const updated = new Set(prev);
+      updated.add(currentOutfit.id);
+
+      const remaining = matchingOutfits.filter(o => !updated.has(o.id));
+
+      if (remaining.length === 0) {
+        setOutfitIdx(0);
+        return new Set(); // reset
+      } else {
+        setOutfitIdx(0);
+        return updated;
+      }
+    });
   };
 
   // Next: just advance the index
@@ -588,7 +879,7 @@ function ColorCombinationView({ saveTip }) {
               </div>
 
               {/* ── Right: Outfit info */}
-              <div className="outfit-info-col">
+              <div className="outfit-info-col" id="colors">
                 <h3 className="outfit-name">{currentOutfit.name}</h3>
                 <p className="outfit-vibe">{currentOutfit.vibe}</p>
                 <span className="outfit-occasion">{currentOutfit.occasion}</span>
@@ -607,9 +898,15 @@ function ColorCombinationView({ saveTip }) {
                       → Next
                     </button>
                   )}
-                  <button className="outfit-btn btn-save" onClick={() => saveTip(`${currentOutfit.name} — ${currentOutfit.tip}`)}>
-                    ❤️ Save
-                  </button>
+                  <SaveButton
+                    tip={{
+                      text: `${currentOutfit.name} — ${currentOutfit.tip}`,
+                      page: "fashion-suggestion",
+                      section: "colors"
+                    }}
+                    category="fashionFavorites"
+                    className='btn-save'
+                  />
                 </div>
               </div>
             </div>
@@ -641,12 +938,65 @@ const FashionSuggestion = () => {
   const [isLoading, setIsLoading]     = useState(false);
   const [selectedBodyType, setSelectedBodyType] = useState(null);
 
+  
+  useEffect(() => {
+    // Map hash section → view name
+    const sectionToView = {
+      home:   'main',
+      colors: 'colors',
+      quiz:   'quiz',
+    };
+
+    // On mount, switch to the correct view based on the hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sectionToView[hash]) {
+      setCurrentView(sectionToView[hash]);
+    }
+
+    const scrollToSection = () => {
+      const hashStr = window.location.hash;
+      if (hashStr) {
+        // Retry until the view has rendered the target element
+        let attempts = 0;
+        const interval = setInterval(() => {
+          const el = document.querySelector(hashStr);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            clearInterval(interval);
+          }
+          attempts++;
+          if (attempts > 20) clearInterval(interval); // ~2 seconds of retries
+        }, 100);
+      }
+    };
+
+    // Run on first load
+    scrollToSection();
+
+    // Run when hash changes
+    window.addEventListener("hashchange", scrollToSection);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToSection);
+    };
+
+  }, []);
+
+
+
   useEffect(() => {
     setChatMessages([{
       type: 'bot',
       message: "👋 Hi! I'm your fashion assistant! Ask me anything about style, outfit ideas, or fashion trends. How can I help you look amazing today?",
     }]);
   }, []);
+
+  const handleCancelQuiz = () => {
+    setQuizStep(0);
+    setQuizAnswers({});
+    setStyleResult(null);
+    setCurrentView('main'); // optional (go back to home)
+  };
 
   const handleQuizAnswer = (answer) => {
     const a = { ...quizAnswers, [quizStep]: answer };
@@ -716,8 +1066,8 @@ const FashionSuggestion = () => {
                 </motion.div>
               ))}
             </div>
-            <div className="daily-tips">
-              <h3>💡 Today's Fashion Tips</h3>
+            <div className="daily-tips" id="home">
+              <h3>✨ Top Picks for You</h3>
               <div className="tips-grid">
                 {[
                   'Mix textures for visual interest — try pairing a silk blouse with denim or leather.',
@@ -727,7 +1077,14 @@ const FashionSuggestion = () => {
                   <div key={i} className="tip-card">
                     <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.5 }}>
                       <p>"{tip}"</p>
-                      <motion.button whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }} onClick={() => saveTip(tip)}>❤️ Save</motion.button>
+                      <SaveButton
+                        tip={{
+                          text: tip,
+                          page: "fashion-suggestion",
+                          section: "home"
+                        }}
+                        category="fashionFavorites"
+                      />
                     </motion.div>
                   </div>
                 ))}
@@ -758,7 +1115,6 @@ const FashionSuggestion = () => {
                   <div className="bt-section avoid"><h4>❌ What to Avoid</h4><ul>{bodyTypeData[selectedBodyType].avoid.map((item,i) => <li key={i}>{item}</li>)}</ul></div>
                 </div>
                 <div className="bt-colors-tip"><h4>🎨 Color & Pattern Tips</h4><div className="bt-color-list">{bodyTypeData[selectedBodyType].colors.map((c,i) => <span key={i} className="bt-color-tag">{c}</span>)}</div></div>
-                <motion.button className="save-tip-btn" onClick={() => saveTip(`${bodyTypeData[selectedBodyType].title}: ${bodyTypeData[selectedBodyType].doWear[0]}`)} whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}>❤️ Save These Tips</motion.button>
               </motion.div>
             )}
           </motion.div>
@@ -782,6 +1138,12 @@ const FashionSuggestion = () => {
                     {quizQuestions[quizStep].options.map((opt,i) => <button key={i} className="option-btn" onClick={() => handleQuizAnswer(opt)}>{opt}</button>)}
                   </div>
                 </div>
+                <button 
+                  className="quiz-cancel-btn"
+                  onClick={handleCancelQuiz}
+                >
+                  Cancel
+                </button>
               </div>
             ) : (
               // ── Result: outfit ideas + colour palette (no products)
@@ -793,14 +1155,21 @@ const FashionSuggestion = () => {
                 </div>
 
                 {/* Style tips */}
-                <div className="style-tips">
+                <div className="style-tips" id="quiz">
                   <h3>✨ Your Personal Style Tips</h3>
                   <div className="tips-list">
                     {styleResult.tips.map((tip,i) => (
                       <div key={i} className="tip-item">
                         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.5 }}>
                           <p>{tip}</p>
-                          <motion.button whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }} onClick={() => saveTip(tip)}>❤️ Save</motion.button>
+                          <SaveButton
+                            tip={{
+                              text: tip,
+                              page: "fashion-suggestion",
+                              section: "quiz"
+                            }}
+                            category="fashionFavorites"
+                          />
                         </motion.div>
                       </div>
                     ))}
@@ -814,7 +1183,14 @@ const FashionSuggestion = () => {
                     {styleResult.outfitIdeas.map((idea,i) => (
                       <motion.div key={i} className="quiz-outfit-item" initial={{ opacity:0, x:-20 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }} transition={{ duration:0.4, delay:i*0.1 }}>
                         <p>{idea}</p>
-                        <button onClick={() => saveTip(idea)}>❤️ Save</button>
+                        <SaveButton
+                          tip={{
+                            text: idea,
+                            page: "fashion-suggestion",
+                            section: "quiz"
+                          }}
+                          category="fashionFavorites"
+                        />
                       </motion.div>
                     ))}
                   </div>
