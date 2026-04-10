@@ -113,12 +113,39 @@
 .form-group input,
 .form-group select,
 .form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
   padding: 12px 15px;
   border: 2px solid #e9ecef;
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s ease;
+  /* Remove native mobile styling (fixes iOS blue tint & Android date picker shrink) */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #ffffff;
+  color: #333;
+  font-family: inherit;
+}
+
+/* Re-add dropdown arrow for select since we removed native appearance */
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236f42c1' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+
+/* Date & time — force full width and consistent height */
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 12px 15px;
+  cursor: pointer;
 }
 
 .form-group input:focus,
@@ -151,14 +178,14 @@
 
 
 .form-actions,
-.cancel-btn {
+.cancel-btn{
+  border-color: #dc3545 !important;
   color: #dc3545 !important;
-  border: #dc3545 !important;
   padding: 12px 25px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: 0.3s ease;
 }
 
 
@@ -393,21 +420,43 @@
   }
 
   .add-form {
-    padding: 20px;
+    padding: 16px;
   }
 
+  /* Force single column on all screens ≤ 768px */
   .form-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+
+  /* Ensure every input/select fills the column */
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .form-group input[type="date"],
+  .form-group input[type="time"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
+    min-height: 50px;
+  }
+
+  .form-group textarea {
+    min-height: 80px;
   }
 
   .form-actions {
     flex-direction: column;
+    gap: 10px;
   }
 
   .filter-buttons {
     flex-direction: column;
     gap: 8px;
+  }
+
+  .filter-buttons button {
+    width: 100%;
   }
 
   .reminder-item {
