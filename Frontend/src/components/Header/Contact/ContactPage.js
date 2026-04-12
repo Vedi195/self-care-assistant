@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { HiOutlineMail, HiOutlinePhone, HiArrowRight } from "react-icons/hi";
 import "./ContactPage.css";
 
@@ -68,8 +68,7 @@ const Contact = () => {
   };
 
   const socials = [
-    { Icon: FaLinkedin, label: "LinkedIn", href: "https://linkedin.com", color: "#0A66C2" },
-    { Icon: FaGithub, label: "GitHub", href: "https://github.com", color: "#24292f" },
+    { Icon: FaFacebook, label: "Facebook", href: "https://facebook.com", color: "#1877F2" },
     { Icon: FaInstagram, label: "Instagram", href: "https://instagram.com", color: "#E1306C" },
   ];
 
@@ -261,7 +260,7 @@ const Contact = () => {
               <span className="card-label">03</span>
               <h2 className="card-title">Follow along</h2>
             </div>
-
+ 
             <ul className="social-list">
               {socials.map(({ Icon, label, href, color }) => (
                 <li key={label}>
