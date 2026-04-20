@@ -3,9 +3,9 @@ import './App.css';
 import "./Background.css";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion";
+
 import ScrollToTop from "./components/ScrollToTop";
 import BottomNav from "./components/Header/BottomNav";
-
 
 import Header from './components/Header/Header';
 import ContactPage from './components/Header/Contact/ContactPage';
@@ -17,6 +17,7 @@ import Hero from './components/Hero/Hero';
 import ServiceCards from './components/ServiceCards/ServiceCards';
 import QuoteBox from './components/QuoteBox/QuoteBox';
 
+// Footer Pages
 import Footer from './components/Footer/Footer';
 import Privacy from "./components/Footer/pages/Privacy";
 import Terms from "./components/Footer/pages/Terms";
