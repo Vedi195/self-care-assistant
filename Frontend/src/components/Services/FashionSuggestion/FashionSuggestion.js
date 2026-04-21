@@ -1012,13 +1012,13 @@ const FashionSuggestion = () => {
     setChatInput(''); setIsLoading(true);
     setChatMessages(prev => [...prev, { type: 'user', message: msg }]);
     try {
-      const res = await fetch('https://self-care-assistant.onrender.com/api/ask-ai', {
+      const res = await fetch('https://self-care-assistant-backend-p3u2.onrender.com/api/ask-ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: `You are a friendly fashion expert. User: ${msg}` }),
       });
       const data = await res.json();
-      setChatMessages(prev => [...prev, { type: 'bot', message: data.reply || "Sorry, I couldn't generate a response." }]);
+      setChatMessages(prev => [...prev, { type: 'bot', message: data.reply || "network error" }]);
     } catch {
       setChatMessages(prev => [...prev, { type: 'bot', message: '⚠️ Something went wrong. Please try again later.' }]);
     } finally {

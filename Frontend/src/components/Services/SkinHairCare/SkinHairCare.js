@@ -963,7 +963,7 @@ const SkinHairCare = () => {
     setChatMessages(prev => [...prev, { type: 'user', message: userMessage }]);
 
     try {
-      const response = await fetch('https://self-care-assistant.onrender.com/api/ask-ai', {
+      const response = await fetch('https://self-care-assistant-backend-p3u2.onrender.com/api/ask-ai', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -984,7 +984,7 @@ const SkinHairCare = () => {
 
       const data = await response.json();
 
-      const botResponse = data.reply || "Sorry, I couldn't generate a response right now.";
+      const botResponse = data.reply || "network error";
 
       setChatMessages(prev => [...prev, { type: 'bot', message: botResponse }]);
     } catch (error) {
